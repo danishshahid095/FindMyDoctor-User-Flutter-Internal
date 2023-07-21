@@ -1,0 +1,97 @@
+name: find_my_doctor
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.6 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  # for state management
+  stacked: ^3.0.1
+  # for page animations
+  page_transition: ^2.0.9
+  # service locator
+  get_it: ^7.2.0
+  # for svg images:
+  flutter_svg: ^2.0.6
+  # for providing stack services
+  stacked_services: ^0.9.8
+  # for json serialization:
+  json_annotation: ^4.8.1
+  # code generator for get_it:
+  injectable: ^2.1.0
+  # for storing local data:
+  shared_preferences: ^2.0.15
+  # for network images and caching:
+  cached_network_image: ^3.2.3
+  # for restarting and losing states:
+  flutter_phoenix: ^1.1.0
+  #image picker
+  image_picker: ^0.8.6
+  #phone country code picker
+  intl_phone_field: ^3.1.0
+  #for date picking
+  intl: ^0.17.0
+  #for pin code
+  pin_code_text_field: ^1.8.0
+  #for path provider
+  path_provider: ^2.0.11
+  #url launcher
+  url_launcher:
+  # for increasing tap area
+  expand_tap_area: ^1.1.1
+  # dio
+  dio: ^5.0.3
+  # for loading
+  flutter_spinkit: ^5.1.0
+  # Firebase Integration
+  firebase_core: ^2.14.0
+  firebase_messaging: ^14.6.4
+
+
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  json_serializable: ^6.6.1
+  build_runner: ^2.3.3
+
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: PoppinsBold
+      fonts:
+        - asset: assets/fonts/Poppins-Bold.ttf
+
+    - family: PoppinsSemiBold
+      fonts:
+        - asset: assets/fonts/Poppins-SemiBold.ttf
+
+    - family: InterSemiBold
+      fonts:
+        - asset: assets/fonts/Inter-SemiBold.ttf
+
+    - family: InterMedium
+      fonts:
+        - asset: assets/fonts/Inter-Medium.ttf
+
+    - family: InterRegular
+      fonts:
+        - asset: assets/fonts/Inter-Regular.ttf
+
+    - family: InterBold
+      fonts:
+        - asset: assets/fonts/Inter-Bold.ttf
