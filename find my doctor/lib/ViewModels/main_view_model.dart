@@ -42,11 +42,13 @@ import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
 import '../services/post/post_add_beneficiary.dart';
+import '../services/post/post_add_email.dart';
+import '../services/post/post_add_fullname.dart';
+import '../services/post/post_add_phone_number.dart';
 import '../services/post/post_login.dart';
 import '../services/post/post_signup.dart';
 
 class MainViewModel extends BaseViewModel {
-
   var navigationService = my_nav_service.NavigationService();
   bool loadingWidget = false;
   var prefService = locator<PreferencesViewModel>();
@@ -303,10 +305,12 @@ class MainViewModel extends BaseViewModel {
       loadingWidget = true;
       notifyListeners();
       var signupResponse = await userSignup.signup(
-          signupNameController.text.toString(),
-          signupEmailController.text.toString(),
-          signupPasswordController.text.toString(),
-          signupPhoneController.text.toString());
+        signupNameController.text.toString(),
+        signupEmailController.text.toString(),
+        signupPasswordController.text.toString(),
+        signupPhoneController.text.toString(),
+      );
+      
       loadingWidget = false;
       notifyListeners();
       Navigator.push(context,
@@ -518,7 +522,6 @@ class MainViewModel extends BaseViewModel {
       "description": "Connect with the best doctors from all over the country",
     },
   ];
-
 
   List selectCitySindh = [
     "Karachi",
@@ -819,25 +822,26 @@ class MainViewModel extends BaseViewModel {
 //######################################################################## Bookings ###############################################################################//
 /////////////////////////////////////////////////////////////////////////    End    ///////////////////////////////////////////////////////////////////////////////////
 
-
 //######################################################################## Doctor Specialist Category ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
-  GetDoctorSpecilistCategory getDoctorSpecilistCategory = GetDoctorSpecilistCategory();
-  List<SpecialistCategoryModel>? specialistCategoryModel = SpecialistCategoryCompleteModel().data;
+  GetDoctorSpecilistCategory getDoctorSpecilistCategory =
+      GetDoctorSpecilistCategory();
+  List<SpecialistCategoryModel>? specialistCategoryModel =
+      SpecialistCategoryCompleteModel().data;
   bool specialistCatLoader = false;
 
-  Future getSpecialistCategory(BuildContext context) async{
-
+  Future getSpecialistCategory(BuildContext context) async {
     specialistCatLoader = true;
 
-    var specialistCategoryResponse = await getDoctorSpecilistCategory.getDoctorSpecialist();
-    if (specialistCategoryResponse != null && specialistCategoryResponse is List<SpecialistCategoryModel>) {
+    var specialistCategoryResponse =
+        await getDoctorSpecilistCategory.getDoctorSpecialist();
+    if (specialistCategoryResponse != null &&
+        specialistCategoryResponse is List<SpecialistCategoryModel>) {
       specialistCategoryModel = specialistCategoryResponse;
       specialistCatLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       specialistCatLoader = false;
       notifyListeners();
     }
@@ -854,17 +858,16 @@ class MainViewModel extends BaseViewModel {
   List<DoctorTypeModel>? doctorTypeModel = DoctorTypeCompleteModel().data;
   bool doctorTypeCatLoader = false;
 
-  Future gettingDoctorTypes(BuildContext context) async{
-
+  Future gettingDoctorTypes(BuildContext context) async {
     doctorTypeCatLoader = true;
 
     var doctorTypeResponse = await getDoctorTypes.getDoctorTypes();
-    if (doctorTypeResponse != null && doctorTypeResponse is List<DoctorTypeModel>) {
+    if (doctorTypeResponse != null &&
+        doctorTypeResponse is List<DoctorTypeModel>) {
       doctorTypeModel = doctorTypeResponse;
       doctorTypeCatLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       doctorTypeCatLoader = false;
       notifyListeners();
     }
@@ -874,7 +877,6 @@ class MainViewModel extends BaseViewModel {
 //######################################################################## Doctor Types ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
-
   //######################################################################## Online Doctor Names ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
@@ -882,17 +884,17 @@ class MainViewModel extends BaseViewModel {
   List<OnlineDoctorModel>? onlineDoctorModel = OnlineDoctorCompleteModel().data;
   bool onlineDoctorLoader = false;
 
-  Future getOnlineDoctorDetails(BuildContext context, int categoryId) async{
-
+  Future getOnlineDoctorDetails(BuildContext context, int categoryId) async {
     onlineDoctorLoader = true;
 
-    var onlineDoctorResponse = await getOnlineDoctor.getOnlineDoctor(categoryId);
-    if (onlineDoctorResponse != null && onlineDoctorResponse is List<OnlineDoctorModel>) {
+    var onlineDoctorResponse =
+        await getOnlineDoctor.getOnlineDoctor(categoryId);
+    if (onlineDoctorResponse != null &&
+        onlineDoctorResponse is List<OnlineDoctorModel>) {
       onlineDoctorModel = onlineDoctorResponse;
       onlineDoctorLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       onlineDoctorLoader = false;
       notifyListeners();
     }
@@ -902,25 +904,24 @@ class MainViewModel extends BaseViewModel {
 //######################################################################## Doctor Specialist Category ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
-
   //######################################################################## Pharmacy Brands ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetPharmacyBrands getPharmacyBrands = GetPharmacyBrands();
-  List<PharmacyBrandsModel>? pharmacyBrandsModel = PharmacyBrandsCompleteModel().data;
+  List<PharmacyBrandsModel>? pharmacyBrandsModel =
+      PharmacyBrandsCompleteModel().data;
   bool pharmacyBrandsLoader = false;
 
-  Future gettingPharmacyBrands(BuildContext context) async{
-
+  Future gettingPharmacyBrands(BuildContext context) async {
     pharmacyBrandsLoader = true;
 
     var pharmacyBrandsResponse = await getPharmacyBrands.getpharmacyBrands();
-    if (pharmacyBrandsResponse != null && pharmacyBrandsResponse is List<PharmacyBrandsModel>) {
+    if (pharmacyBrandsResponse != null &&
+        pharmacyBrandsResponse is List<PharmacyBrandsModel>) {
       pharmacyBrandsModel = pharmacyBrandsResponse;
       pharmacyBrandsLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       pharmacyBrandsLoader = false;
       notifyListeners();
     }
@@ -930,26 +931,25 @@ class MainViewModel extends BaseViewModel {
 //######################################################################## Pharmacy Brands ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
-
-
   //######################################################################## Pharmacy Categories ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetPharmacyCategory getPharmacyCategory = GetPharmacyCategory();
-  List<PharmacyCategoryModel>? pharmacyCategoryModel = PharmacyCategoryCompleteModel().data;
+  List<PharmacyCategoryModel>? pharmacyCategoryModel =
+      PharmacyCategoryCompleteModel().data;
   bool pharmacyCategoryLoader = false;
 
-  Future gettingPharmacyCategory(BuildContext context) async{
-
+  Future gettingPharmacyCategory(BuildContext context) async {
     pharmacyCategoryLoader = true;
 
-    var pharmacyCategoryResponse = await getPharmacyCategory.getpharmacyCategory();
-    if (pharmacyCategoryResponse != null && pharmacyCategoryResponse is List<PharmacyCategoryModel>) {
+    var pharmacyCategoryResponse =
+        await getPharmacyCategory.getpharmacyCategory();
+    if (pharmacyCategoryResponse != null &&
+        pharmacyCategoryResponse is List<PharmacyCategoryModel>) {
       pharmacyCategoryModel = pharmacyCategoryResponse;
       pharmacyCategoryLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       pharmacyCategoryLoader = false;
       notifyListeners();
     }
@@ -963,20 +963,21 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetPharmacyBestSellers getPharmacyBestSeller = GetPharmacyBestSellers();
-  List<PharmacyProductModel>? pharmacyBestSellerModel = PharmacyProductCompleteModel().data;
+  List<PharmacyProductModel>? pharmacyBestSellerModel =
+      PharmacyProductCompleteModel().data;
   bool pharmacyBestSellerLoader = false;
 
-  Future gettingPharmacyBestSellers(BuildContext context) async{
-
+  Future gettingPharmacyBestSellers(BuildContext context) async {
     pharmacyBestSellerLoader = true;
 
-    var pharmacyProductResponse = await getPharmacyBestSeller.getpharmacyBestSellers();
-    if (pharmacyProductResponse != null && pharmacyProductResponse is List<PharmacyProductModel>) {
+    var pharmacyProductResponse =
+        await getPharmacyBestSeller.getpharmacyBestSellers();
+    if (pharmacyProductResponse != null &&
+        pharmacyProductResponse is List<PharmacyProductModel>) {
       pharmacyBestSellerModel = pharmacyProductResponse;
       pharmacyBestSellerLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       pharmacyBestSellerLoader = false;
       notifyListeners();
     }
@@ -989,21 +990,24 @@ class MainViewModel extends BaseViewModel {
   //######################################################################## Pharmacy Product By Category ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
-  GetPharmacyProductByCategory getPharmacyProductByCategory = GetPharmacyProductByCategory();
-  List<PharmacyProductModel>? pharmacyProductByCategoryModel = PharmacyProductCompleteModel().data;
+  GetPharmacyProductByCategory getPharmacyProductByCategory =
+      GetPharmacyProductByCategory();
+  List<PharmacyProductModel>? pharmacyProductByCategoryModel =
+      PharmacyProductCompleteModel().data;
   bool pharmacyProductByCategoryLoader = false;
 
-  Future gettingPharmacyProductByCategory(BuildContext context, int categoryId) async{
-
+  Future gettingPharmacyProductByCategory(
+      BuildContext context, int categoryId) async {
     pharmacyProductByCategoryLoader = true;
 
-    var pharmacyProductResponse = await getPharmacyProductByCategory.getpharmacyProductByCategory( categoryId);
-    if (pharmacyProductResponse != null && pharmacyProductResponse is List<PharmacyProductModel>) {
+    var pharmacyProductResponse = await getPharmacyProductByCategory
+        .getpharmacyProductByCategory(categoryId);
+    if (pharmacyProductResponse != null &&
+        pharmacyProductResponse is List<PharmacyProductModel>) {
       pharmacyProductByCategoryModel = pharmacyProductResponse;
       pharmacyProductByCategoryLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       pharmacyProductByCategoryLoader = false;
       notifyListeners();
     }
@@ -1020,17 +1024,16 @@ class MainViewModel extends BaseViewModel {
   List<PharmacyCityModel>? pharmacyCityModel = PharmacyCityCompleteModel().data;
   bool pharmacyCityLoader = false;
 
-  Future gettingPharmacyCity(BuildContext context) async{
-
+  Future gettingPharmacyCity(BuildContext context) async {
     pharmacyCityLoader = true;
 
     var pharmacyCityResponse = await getPharmacyCity.getpharmacyCity();
-    if (pharmacyCityResponse != null && pharmacyCityResponse is List<PharmacyCityModel>) {
+    if (pharmacyCityResponse != null &&
+        pharmacyCityResponse is List<PharmacyCityModel>) {
       pharmacyCityModel = pharmacyCityResponse;
       pharmacyCityLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       pharmacyCityLoader = false;
       notifyListeners();
     }
@@ -1047,8 +1050,7 @@ class MainViewModel extends BaseViewModel {
   List<LabsModel>? labsModel = LabsCompleteModel().data;
   bool labsLoader = false;
 
-  Future gettingLabs(BuildContext context, int cityId) async{
-
+  Future gettingLabs(BuildContext context, int cityId) async {
     labsLoader = true;
 
     var labsResponse = await getLabs.getLabs(cityId);
@@ -1056,8 +1058,7 @@ class MainViewModel extends BaseViewModel {
       labsModel = labsResponse;
       labsLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       labsLoader = false;
       notifyListeners();
     }
@@ -1074,8 +1075,7 @@ class MainViewModel extends BaseViewModel {
   List<TestsModel>? testsModel = TestsCompleteModel().data;
   bool testsLoader = false;
 
-  Future gettingTests(BuildContext context, int labId) async{
-
+  Future gettingTests(BuildContext context, int labId) async {
     testsLoader = true;
 
     var testsResponse = await getTests.getTests(labId);
@@ -1083,8 +1083,7 @@ class MainViewModel extends BaseViewModel {
       testsModel = testsResponse;
       testsLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       testsLoader = false;
       notifyListeners();
     }
@@ -1098,20 +1097,21 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetLabActiveBooking getLabActiveBooking = GetLabActiveBooking();
-  List<ActiveLabBookingModel>? activeLabBookingModel = ActiveLabBookingCompleteModel().data;
+  List<ActiveLabBookingModel>? activeLabBookingModel =
+      ActiveLabBookingCompleteModel().data;
   bool activeLabBookingLoader = false;
 
-  Future gettingActiveLabBooking(BuildContext context, String token) async{
-
+  Future gettingActiveLabBooking(BuildContext context, String token) async {
     activeLabBookingLoader = true;
 
-    var activeLabBookingResponse = await getLabActiveBooking.getlabActiveBooking(token);
-    if (activeLabBookingResponse != null && activeLabBookingResponse is List<ActiveLabBookingModel>) {
+    var activeLabBookingResponse =
+        await getLabActiveBooking.getlabActiveBooking(token);
+    if (activeLabBookingResponse != null &&
+        activeLabBookingResponse is List<ActiveLabBookingModel>) {
       activeLabBookingModel = activeLabBookingResponse;
       activeLabBookingLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       activeLabBookingLoader = false;
       notifyListeners();
     }
@@ -1125,20 +1125,21 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetLabHistoryBooking getLabHistoryBooking = GetLabHistoryBooking();
-  List<HistoryLabBookingModel>? historyLabBookingModel = HistoryLabBookingCompleteModel().data;
+  List<HistoryLabBookingModel>? historyLabBookingModel =
+      HistoryLabBookingCompleteModel().data;
   bool historyLabBookingLoader = false;
 
-  Future gettingHistoryLabBooking(BuildContext context , String token) async{
-
+  Future gettingHistoryLabBooking(BuildContext context, String token) async {
     historyLabBookingLoader = true;
 
-    var historyLabBookingResponse = await getLabHistoryBooking.getlabHistoryBooking(token);
-    if (historyLabBookingResponse != null && historyLabBookingResponse is List<HistoryLabBookingModel>) {
+    var historyLabBookingResponse =
+        await getLabHistoryBooking.getlabHistoryBooking(token);
+    if (historyLabBookingResponse != null &&
+        historyLabBookingResponse is List<HistoryLabBookingModel>) {
       historyLabBookingModel = historyLabBookingResponse;
       historyLabBookingLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       historyLabBookingLoader = false;
       notifyListeners();
     }
@@ -1152,20 +1153,22 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetLabOrderDetail getLabOrderDetail = GetLabOrderDetail();
-  LabBookingDetailModel? labBookingDetailModel = LabBookingDetailCompleteModel().data;
+  LabBookingDetailModel? labBookingDetailModel =
+      LabBookingDetailCompleteModel().data;
   bool labBookingDetailLoader = false;
 
-  Future gettingLabBookingDetail(BuildContext context , String token, int orderID) async{
-
+  Future gettingLabBookingDetail(
+      BuildContext context, String token, int orderID) async {
     labBookingDetailLoader = true;
 
-    var labBookingDetailResponse = await getLabOrderDetail.getLabOrderDetail(token,orderID);
-    if (labBookingDetailResponse != null && labBookingDetailResponse is LabBookingDetailModel) {
+    var labBookingDetailResponse =
+        await getLabOrderDetail.getLabOrderDetail(token, orderID);
+    if (labBookingDetailResponse != null &&
+        labBookingDetailResponse is LabBookingDetailModel) {
       labBookingDetailModel = labBookingDetailResponse;
       labBookingDetailLoader = false;
       notifyListeners();
-    }
-    else{
+    } else {
       labBookingDetailLoader = false;
       notifyListeners();
     }
@@ -1175,20 +1178,56 @@ class MainViewModel extends BaseViewModel {
 //######################################################################## Lab History Booking  ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
-
   //######################################################################## Upload FCM Token ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
-  
+
   var addFCM = AddFcmToken();
 
   Future uploadFCM(
       BuildContext context, String token, String fcmToken, int userId) async {
-      loadingWidget = true;
-      notifyListeners();
-      var response = await addFCM.addFcmToken(token,fcmToken,userId);
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addFCM.addFcmToken(token, fcmToken, userId);
     loadingWidget = false;
     notifyListeners();
   }
+
+  /// Add FullName
+  var addFN = AddFullName();
+  Future uploadFName(
+      BuildContext context, String token, String Fullname, int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addFN.addFullName(token, Fullname, userId);
+    loadingWidget = false;
+    notifyListeners();
+  }
+
+  // Add Email
+  var addemail = AddEmail();
+  Future uploadEmail(
+      BuildContext context, String token, String Email, int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addemail.addEmail(token, Email, userId);
+    loadingWidget = false;
+    notifyListeners();
+  }
+
+// Add Phone Number
+  var addPNo = AddPhoneNumber();
+
+  Future uploadPhno(BuildContext context, String token, String phoneNumber,
+      int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addPNo.addPhoneNumber(token, phoneNumber, userId);
+    loadingWidget = false;
+    notifyListeners();
+  }
+// await uploadFName(context, token.toString(), signupNameController.text.toString(),2);
+//       await uploadEmail(context, token.toString(), signupEmailController.text.toString(),2);
+//       await uploadPhno(context, token.toString(), signupPhoneController.text.toString(),2);
 
   //######################################################################## Upload FCM Token ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
