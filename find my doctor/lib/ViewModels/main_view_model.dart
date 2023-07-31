@@ -24,6 +24,7 @@ import 'package:find_my_doctor/services/get/get_pharmacy_cities.dart';
 import 'package:find_my_doctor/services/get/get_pharmacy_productsbycategory.dart';
 import 'package:find_my_doctor/services/get/get_tests.dart';
 import 'package:find_my_doctor/services/post/post_add_fcmToken.dart';
+import 'package:find_my_doctor/services/post/post_add_lab_booking.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -32,6 +33,7 @@ import 'package:find_my_doctor/modules/navigation_service.dart'
     as my_nav_service;
 
 import '../App/locator.dart';
+import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
 import '../model/Lab/historyLabBookingModel.dart';
@@ -1195,6 +1197,34 @@ class MainViewModel extends BaseViewModel {
   }
 
   //######################################################################## Upload FCM Token ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+  //######################################################################## Add Lab Booking ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
+
+  var addLabBooking = AddLabBooking();
+
+  Future addingLabBooking(
+      BuildContext context, String token, int test_for, int recepient,int lab_id,String date_time,int promo,String beneficiary,List tests) async {
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addLabBooking.addLabBooking(token,test_for,recepient,lab_id,date_time,promo,beneficiary,tests);
+    if (response != null && response == 1) {
+      Navigator.push(context,
+          PageTransition(
+              type: PageTransitionType.fade,
+              child:  PaymentSuccess(
+                fromInsurance: false,
+                fromPharmacy: false,
+                fromLabTest: true,
+              )
+          ));
+    }
+    loadingWidget = false;
+    notifyListeners();
+  }
+
+  //########################################################################  Add Lab Booking ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
   // Show Error Message

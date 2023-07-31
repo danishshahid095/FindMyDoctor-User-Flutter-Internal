@@ -13,11 +13,15 @@ import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 class LabTestConfirmDetails extends StatefulWidget {
-  const LabTestConfirmDetails({Key? key}) : super(key: key);
+  final List<Map<String, int>> selectedTests;
+  int labId;
+  String dateTime;
+  LabTestConfirmDetails({required this.selectedTests,required this.labId,required this.dateTime, Key? key}) : super(key: key);
 
   @override
   State<LabTestConfirmDetails> createState() => _LabTestConfirmDetailsState();
@@ -87,7 +91,7 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                     ),
                                     SizedBox(height: 1.h,),
                                     TextWidget(
-                                      textValue: "5th June 2022 • 03:45 PM",
+                                      textValue: widget.dateTime,
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
@@ -511,15 +515,7 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                               buttonTextColor: ColorUtils.white,
                               buttonColor:  model.labPaySelected == true ? ColorUtils.red : ColorUtils.white1,
                               onButtonPressed: (){
-                                Navigator.push(context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child:  PaymentSuccess(
-                                          fromInsurance: false,
-                                          fromPharmacy: false,
-                                          fromLabTest: true,
-                                        )
-                                    ));
+                                model.addingLabBooking(context, model.token!, model.userID!, model.userID!, widget.labId, widget.dateTime, 1, "no", widget.selectedTests);
                               },
                             ),
                             SizedBox(height: 2.h,),

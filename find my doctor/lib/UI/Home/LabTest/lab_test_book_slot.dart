@@ -21,6 +21,7 @@ import 'package:intl/intl.dart';
 class LabTestBookSlot extends StatefulWidget {
   final List<Map<String, int>> selectedTests;
   int labId;
+  
   LabTestBookSlot({required this.selectedTests,required this.labId,  Key? key}) : super(key: key);
   
   @override
@@ -31,6 +32,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
 
   bool pmTapped = true;
   bool amTapped = false;
+  bool doneTapped = false;
   DateTime selectedDate = DateTime.now();
   TimeOfDay selectedTime = TimeOfDay.now();
 
@@ -123,15 +125,15 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectDate(context),
-                                    hint: "00",
-                                    unit: "HH",
+                                    hint: doneTapped == false ? "00" : selectedDate.toString().substring(8,10),
+                                    unit: "DD",
                                   ),
                                 ),
                                 SvgPicture.asset(ImageUtils.dateSlash),
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectDate(context),
-                                    hint: "00",
+                                    hint: doneTapped == false ? "00" : selectedDate.toString().substring(5,7),
                                     unit: "MM",
                                   ),
                                 ),
@@ -139,7 +141,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectDate(context),
-                                    hint: "2022",
+                                    hint: doneTapped == false ? "0000" : selectedDate.toString().substring(0,4),
                                     unit: "YYYY",
                                   ),
                                 ),
@@ -166,7 +168,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectTime(context),
-                                    hint: "00",
+                                    hint: doneTapped == false ? "00" : selectedTime.hourOfPeriod.toString(),
                                     unit: "HH",
                                   ),
                                 ),
@@ -174,7 +176,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectTime(context),
-                                    hint: "00",
+                                    hint: doneTapped == false ? "00" : selectedTime.minute.toString(),
                                     unit: "MM",
                                   ),
                                 ),
@@ -245,8 +247,19 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                             RedButton(
                               textValue: "Next",
                               onButtonPressed: (){
+                                // Format the selectedDate
+                                String formattedDate = DateFormat("yyyy-MM-dd").format(selectedDate);
+
+                                // Format the selectedTime
+                                String formattedTime = selectedTime.format(context).substring(0, 4);
+
+                                // Combine the formatted date and time
+                                String combinedDateTime = "$formattedDate $formattedTime:00";
+
+                                print("Selected Date and Time: $combinedDateTime");
+
                                 Navigator.push(context,
-                                    PageTransition(type: PageTransitionType.fade, child:  LabTestConfirmDetails()));
+                                    PageTransition(type: PageTransitionType.fade, child:  LabTestConfirmDetails(selectedTests: widget.selectedTests,labId: widget.labId,dateTime: combinedDateTime)));
                               },
                             ),
                             SizedBox(height: 2.h,),
@@ -263,21 +276,37 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
       },
     );
   }
+
   void _selectDate(BuildContext context) async {
-    final DateTime? pickedDate = await showCupertinoModalPopup(
+    final DateTime? pickedDate = await showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return Container(
-          height: 200,
-          child: CupertinoDatePicker(
-            initialDateTime: selectedDate,
-            onDateTimeChanged: (DateTime newDate) {
-              setState(() {
-                selectedDate = newDate;
-              });
-            },
-            mode: CupertinoDatePickerMode.date,
-          ),
+      builder: (BuildContext builder) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 200,
+              child: CupertinoDatePicker(
+                initialDateTime: selectedDate,
+                onDateTimeChanged: (DateTime newDate) {
+                  setState(() {
+                    selectedDate = newDate;
+                  });
+                },
+                mode: CupertinoDatePickerMode.date,
+              ),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                print(selectedDate);
+                setState(() {
+                  doneTapped = true;
+                });
+                Navigator.pop(context, selectedDate);
+              },
+              child: Text('Done'),
+            ),
+          ],
         );
       },
     );
@@ -290,30 +319,48 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
   }
 
   void _selectTime(BuildContext context) async {
-    final TimeOfDay? pickedTime = await showCupertinoModalPopup(
+    final TimeOfDay? pickedTime = await showModalBottomSheet(
       context: context,
-      builder: (context) {
-        return Container(
-          height: 200,
-          child: CupertinoTimerPicker(
-            initialTimerDuration: Duration(
-              hours: selectedTime.hour,
-              minutes: selectedTime.minute,
+      builder: (BuildContext builder) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 200,
+              child: CupertinoDatePicker(
+                initialDateTime: DateTime(
+                  selectedDate.year,
+                  selectedDate.month,
+                  selectedDate.day,
+                  selectedTime.hour,
+                  selectedTime.minute,
+                ),
+                onDateTimeChanged: (DateTime newDateTime) {
+                  setState(() {
+                    selectedTime = TimeOfDay.fromDateTime(newDateTime);
+                  });
+                },
+                mode: CupertinoDatePickerMode.time,
+              ),
             ),
-            onTimerDurationChanged: (Duration newDuration) {
-              setState(() {
-                selectedTime = TimeOfDay.fromDateTime(
-                  DateTime(
-                    selectedDate.year,
-                    selectedDate.month,
-                    selectedDate.day,
-                    newDuration.inHours,
-                    newDuration.inMinutes % 60,
-                  ),
-                );
-              });
-            },
-          ),
+            CupertinoButton(
+              onPressed: () {
+                print(selectedTime);
+                setState(() {
+                  doneTapped = true;
+                  if(selectedTime.hour > 12) {
+                    pmTapped = true;
+                    amTapped = false;
+                  } else {
+                    pmTapped = false;
+                    amTapped = true;
+                  }
+                });
+                Navigator.pop(context, selectedTime);
+              },
+              child: Text('Done'),
+            ),
+          ],
         );
       },
     );
@@ -324,6 +371,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
       });
     }
   }
+
 }
 
 
