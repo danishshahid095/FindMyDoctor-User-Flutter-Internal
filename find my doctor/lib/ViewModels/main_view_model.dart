@@ -36,11 +36,13 @@ import '../App/locator.dart';
 import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
+import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
 import '../model/login/userLoginModel.dart';
 import '../services/get/get_lab_history_booking.dart';
+import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
 import '../services/post/post_add_beneficiary.dart';
@@ -1226,6 +1228,27 @@ class MainViewModel extends BaseViewModel {
 
   //########################################################################  Add Lab Booking ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+// ############   lab booking details api  Start ################
+
+  var labdetails = LabBookingDetails();
+  var labmodel = LabModel();
+  Future LabBookDetials(BuildContext context, token) async {
+    loadingWidget = true;
+    var labResponse = await labdetails.labbookingdetails(token!);
+    loadingWidget = false;
+    if (labResponse != null && labResponse is LabModel) {
+      // Name = labResponse.data!.name;
+      // print(Name);
+      labmodel = labResponse;
+      notifyListeners();
+    } else {
+      notifyListeners();
+    }
+  }
+  // ############   lab booking details api  end ################
 
   // Show Error Message
   void showErrorMessage(BuildContext context, String error) async {
