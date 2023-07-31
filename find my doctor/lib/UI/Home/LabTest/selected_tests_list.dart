@@ -235,8 +235,8 @@ class SelectedTestsList extends StatelessWidget {
                   widget: RedButton(
                     textValue: "Select Date & Time",
                     onButtonPressed: (){
-                      Navigator.push(context,
-                          PageTransition(type: PageTransitionType.fade, child: LabTestBookSlot()));
+                      // Navigator.push(context,
+                      //     PageTransition(type: PageTransitionType.fade, child: LabTestBookSlot()));
                     },
                   ),
                 ),

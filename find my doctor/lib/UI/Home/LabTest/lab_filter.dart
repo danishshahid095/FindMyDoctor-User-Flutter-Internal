@@ -51,7 +51,7 @@ class _AllLabFilterState extends State<AllLabFilter> {
     },
   ];
 
-  List<int> labIds = [];
+  List<Map<String, int>> selectedTests = [];
   List<bool>? _isChecked;
   bool labSelected = false;
 
@@ -236,23 +236,19 @@ class _AllLabFilterState extends State<AllLabFilter> {
                                           ),
                                           value: _isChecked![index],
                                           onChanged: (val) {
-                                            setState(
-                                                  () {
-                                                    if (val == true) {
-                                                      labSelected = true;
-                                                      // setState(() {
-                                                      labIds?.add(model
-                                                          .testsModel?[index]
-                                                          .test_id ?? 0);
-                                                      //  });
-                                                      _isChecked![index] = val!;
-                                                    } else {
-                                                      labIds.removeAt(index);
-                                                      _isChecked![index] = val!;
-                                                    }
-                                              },
-                                            );
+                                            setState(() {
+                                              if (val == true) {
+                                                labSelected = true;
+                                                selectedTests.add({"id": model.testsModel![index].test_id ?? 0});
+                                                _isChecked![index] = val!;
+                                              } else {
+                                                selectedTests.removeWhere(
+                                                        (element) => element["id"] == model.testsModel![index].test_id);
+                                                _isChecked![index] = val!;
+                                              }
+                                            });
                                           },
+
                                         );
                                       },
                                       separatorBuilder: (context, index) {
@@ -290,9 +286,10 @@ class _AllLabFilterState extends State<AllLabFilter> {
                         padding: EdgeInsets.zero,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                         onPressed: (){
-                          print(labIds);
+
+                          print(selectedTests);
                           Navigator.push(context,
-                              PageTransition(type: PageTransitionType.fade, child: LabTestBookSlot()));
+                              PageTransition(type: PageTransitionType.fade, child: LabTestBookSlot(selectedTests: selectedTests,labId: widget.labId,)));
                             //  PageTransition(type: PageTransitionType.fade, child: SelectedTestsList()));
                         },
                         child: Text(

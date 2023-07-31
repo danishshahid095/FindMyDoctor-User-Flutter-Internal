@@ -20,8 +20,7 @@ dependencies:
   # service locator
   get_it: ^7.2.0
   # for svg images:
-  flutter_svg: ^1.1.6
-  #flutter_svg: ^2.0.6
+  flutter_svg: ^2.0.6
   # for providing stack services
   stacked_services: ^0.9.8
   # for json serialization:
@@ -55,6 +54,7 @@ dependencies:
   # Firebase Integration
   firebase_core: ^2.14.0
   firebase_messaging: ^14.6.4
+  cupertino_date_textbox: ^1.0.1
 
 
 

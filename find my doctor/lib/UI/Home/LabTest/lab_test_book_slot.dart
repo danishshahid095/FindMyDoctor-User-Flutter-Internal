@@ -15,10 +15,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 
 class LabTestBookSlot extends StatefulWidget {
-  const LabTestBookSlot({Key? key}) : super(key: key);
-
+  final List<Map<String, int>> selectedTests;
+  int labId;
+  LabTestBookSlot({required this.selectedTests,required this.labId,  Key? key}) : super(key: key);
+  
   @override
   State<LabTestBookSlot> createState() => _LabTestBookSlotState();
 }
@@ -27,6 +31,8 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
 
   bool pmTapped = true;
   bool amTapped = false;
+  DateTime selectedDate = DateTime.now();
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +82,6 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                           ),
                         ),
                       ),
-                      SizedBox(height: 1.h,),
                     ],
                   ),
                   Expanded(
@@ -84,20 +89,20 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                       child: PageHorizontalMargin(
                         widget: Column(
                           children: [
+                            SizedBox(height: 2.h,),
                             TextWidget(
                               textValue: "Select preffered date & time, to get the service at your convinence.",
                               fontFamily: FontUtils.interRegular,
                               fontSize: 1.6.t,
                               textColor: ColorUtils.silver2,
                             ),
-                            SizedBox(height: 5.h,),
+                            SizedBox(height: 2.h,),
                             SizedBox(
                               width: 60.i,
                                 height: 60.i,
                                 child: Image.asset(ImageUtils.labTestFemaleDoctor,
                                 )),
-                            SizedBox(height: 4.h,),
-
+                            SizedBox(height: 2.h,),
                             // visit Date
                             Row(
                               children: [
@@ -111,12 +116,13 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 3.h,),
+                            SizedBox(height: 2.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: SquareDateTextField(
+                                    onTap: () => _selectDate(context),
                                     hint: "00",
                                     unit: "HH",
                                   ),
@@ -124,6 +130,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 SvgPicture.asset(ImageUtils.dateSlash),
                                 Expanded(
                                   child: SquareDateTextField(
+                                    onTap: () => _selectDate(context),
                                     hint: "00",
                                     unit: "MM",
                                   ),
@@ -131,14 +138,14 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 SvgPicture.asset(ImageUtils.dateSlash),
                                 Expanded(
                                   child: SquareDateTextField(
+                                    onTap: () => _selectDate(context),
                                     hint: "2022",
                                     unit: "YYYY",
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 3.h,),
-
+                            SizedBox(height: 2.h,),
                             // visit Time
                             Row(
                               children: [
@@ -152,12 +159,13 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 3.h,),
+                            SizedBox(height: 2.h,),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: SquareDateTextField(
+                                    onTap: () => _selectTime(context),
                                     hint: "00",
                                     unit: "HH",
                                   ),
@@ -165,6 +173,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 SvgPicture.asset(ImageUtils.clockColon),
                                 Expanded(
                                   child: SquareDateTextField(
+                                    onTap: () => _selectTime(context),
                                     hint: "00",
                                     unit: "MM",
                                   ),
@@ -232,7 +241,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 SizedBox(height: 2.h,),
                               ],
                             ),
-                            SizedBox(height: 5.h,),
+                            SizedBox(height: 4.h,),
                             RedButton(
                               textValue: "Next",
                               onButtonPressed: (){
@@ -254,4 +263,68 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
       },
     );
   }
+  void _selectDate(BuildContext context) async {
+    final DateTime? pickedDate = await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 200,
+          child: CupertinoDatePicker(
+            initialDateTime: selectedDate,
+            onDateTimeChanged: (DateTime newDate) {
+              setState(() {
+                selectedDate = newDate;
+              });
+            },
+            mode: CupertinoDatePickerMode.date,
+          ),
+        );
+      },
+    );
+
+    if (pickedDate != null && pickedDate != selectedDate) {
+      setState(() {
+        selectedDate = pickedDate;
+      });
+    }
+  }
+
+  void _selectTime(BuildContext context) async {
+    final TimeOfDay? pickedTime = await showCupertinoModalPopup(
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 200,
+          child: CupertinoTimerPicker(
+            initialTimerDuration: Duration(
+              hours: selectedTime.hour,
+              minutes: selectedTime.minute,
+            ),
+            onTimerDurationChanged: (Duration newDuration) {
+              setState(() {
+                selectedTime = TimeOfDay.fromDateTime(
+                  DateTime(
+                    selectedDate.year,
+                    selectedDate.month,
+                    selectedDate.day,
+                    newDuration.inHours,
+                    newDuration.inMinutes % 60,
+                  ),
+                );
+              });
+            },
+          ),
+        );
+      },
+    );
+
+    if (pickedTime != null && pickedTime != selectedTime) {
+      setState(() {
+        selectedTime = pickedTime;
+      });
+    }
+  }
 }
+
+
+
