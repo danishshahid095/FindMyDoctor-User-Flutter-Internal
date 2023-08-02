@@ -36,6 +36,7 @@ import '../App/locator.dart';
 import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
+import '../model/Doctor/doc_slots_model.dart';
 import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
@@ -46,6 +47,7 @@ import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
 import '../services/post/post_add_beneficiary.dart';
+import '../services/post/post_add_booking_doctor.dart';
 import '../services/post/post_add_email.dart';
 import '../services/post/post_add_fullname.dart';
 import '../services/post/post_add_phone_number.dart';
@@ -453,13 +455,35 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
   var slot = availableSlot();
-
-  Future doAvailableSlot(BuildContext context, int? userId, String? date, ) async {
+  List<SlotsModel>? DocslotModel = DocSlotCompleteModel().data;
+  Future doAvailableSlot(
+    BuildContext context,
+    int? userId,
+    String? date,
+  ) async {
     loadingWidget = true;
+
     notifyListeners();
-    var responseslot = slot.AvailableSlot( userId, date,);
-    loadingWidget = false;
-    notifyListeners();
+    var responseslot = slot.AvailableSlot(
+      251,
+      date,
+    );
+    if (responseslot is List<SlotsModel>) {
+      DocslotModel = responseslot as List<SlotsModel>?;
+
+      print(DocslotModel);
+      print('respone');
+      print(responseslot);
+
+      notifyListeners();
+    } else {
+      notifyListeners();
+    }
+    // if (responseslot != null && responseslot is SlotsModel) {
+    //   print(" this is response data : ${responseslot}");
+    // }
+    // loadingWidget = false;
+    // notifyListeners();
   }
 
   //######################################################################## Home Screen ###############################################################################//
@@ -1208,6 +1232,50 @@ class MainViewModel extends BaseViewModel {
 
   //######################################################################## Upload FCM Token ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+//  Add Booking Doc Creat api start
+  var addBookingDoc = AddBookingDoctor();
+
+  Future addingBookingDoc(
+    BuildContext context,
+    String token,
+    int foruser,
+    int recepient,
+   String is_beneficiary,
+    int type,
+    String date_time,
+    int promo,
+    int payment_method,
+    String consultation_type,
+    String booked_doctor,
+  ) async {
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addBookingDoc.addBookingDoc(
+        token,
+        foruser,
+        recepient,
+        is_beneficiary,
+        type,
+        date_time,
+        promo,
+        payment_method,
+        consultation_type,
+        booked_doctor);
+
+    if (response != null && response == 1) ;
+    Navigator.push(
+        context,
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: PaymentSuccess(
+              fromInsurance: false,
+              fromPharmacy: false,
+              fromLabTest: true,
+              fromPhysicalVisit: true,
+            )));
+    loadingWidget = false;
+    notifyListeners();
+  }
 
   //######################################################################## Add Lab Booking ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////

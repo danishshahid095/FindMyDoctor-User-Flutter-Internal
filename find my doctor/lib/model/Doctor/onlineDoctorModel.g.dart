@@ -24,8 +24,8 @@ OnlineDoctorModel _$OnlineDoctorModelFromJson(Map<String, dynamic> json) =>
       speciality: json['speciality'] as String?,
       doctorType: json['doctorType'] as String?,
       consultation: json['consultation'] as String?,
-      startTime: json['startTime'] as String?,
-      endTime: json['endTime'] as String?,
+      start_time: json['start_time'] as String?,
+      end_time: json['end_time'] as String?,
     );
 
 Map<String, dynamic> _$OnlineDoctorModelToJson(OnlineDoctorModel instance) =>
@@ -46,8 +46,8 @@ Map<String, dynamic> _$OnlineDoctorModelToJson(OnlineDoctorModel instance) =>
       'speciality': instance.speciality,
       'doctorType': instance.doctorType,
       'consultation': instance.consultation,
-      'startTime': instance.startTime,
-      'endTime': instance.endTime,
+      'start_time': instance.start_time,
+      'end_time': instance.end_time,
     };
 
 OnlineDoctorCompleteModel _$OnlineDoctorCompleteModelFromJson(

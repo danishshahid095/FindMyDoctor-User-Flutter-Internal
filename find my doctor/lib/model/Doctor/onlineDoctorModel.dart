@@ -20,8 +20,8 @@ class OnlineDoctorModel {
   String? speciality;
   String? doctorType;
   String? consultation;
-  String? startTime;
-  String? endTime;
+  String? start_time;
+  String? end_time;
 
   OnlineDoctorModel({
     this.id,
@@ -40,8 +40,8 @@ class OnlineDoctorModel {
     this.speciality,
     this.doctorType,
     this.consultation,
-    this.startTime,
-    this.endTime,
+    this.start_time,
+    this.end_time,
   });
 
   factory OnlineDoctorModel.fromJson(Map<String, dynamic> json) =>
@@ -51,7 +51,7 @@ class OnlineDoctorModel {
 
   @override
   String toString() {
-    return 'OnlineDoctorModel{id: $id, fullname: $fullName, email: $email, phone: $phone, type: $type, image: $image, qualification: $qualification, experience: $experience, specialistCategory: $specialistCategory, PMDA_ID: $PMDA_ID, CNIC: $CNIC, availability: $availability, fee: $fee, speciality: $speciality, doctorType: $doctorType, consultation: $consultation, startTime: $startTime, endTime: $endTime}';
+    return 'OnlineDoctorModel{id: $id, fullname: $fullName, email: $email, phone: $phone, type: $type, image: $image, qualification: $qualification, experience: $experience, specialistCategory: $specialistCategory, PMDA_ID: $PMDA_ID, CNIC: $CNIC, availability: $availability, fee: $fee, speciality: $speciality, doctorType: $doctorType, consultation: $consultation, start_time: $start_time, end_time: $end_time}';
   }
 }
 

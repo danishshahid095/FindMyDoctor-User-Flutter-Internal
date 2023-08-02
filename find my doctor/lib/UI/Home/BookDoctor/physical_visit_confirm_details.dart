@@ -17,14 +17,19 @@ import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 class PhysicalVisitConfirmDetails extends StatefulWidget {
-  const PhysicalVisitConfirmDetails({Key? key}) : super(key: key);
+  String? date;
+  String? time;
+  int? consultationId;
+  PhysicalVisitConfirmDetails({Key? key, this.date, this.consultationId, this.time})
+      : super(key: key);
 
   @override
-  State<PhysicalVisitConfirmDetails> createState() => _PhysicalVisitConfirmDetailsState();
+  State<PhysicalVisitConfirmDetails> createState() =>
+      _PhysicalVisitConfirmDetailsState();
 }
 
-class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetails> {
-
+class _PhysicalVisitConfirmDetailsState
+    extends State<PhysicalVisitConfirmDetails> {
   bool switchValue = true;
 
   @override
@@ -32,8 +37,7 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -53,7 +57,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                       BackSingleText(
                         backText: "Confirm Details",
                       ),
-                      SizedBox(height: 1.h,),
+                      SizedBox(
+                        height: 1.h,
+                      ),
                     ],
                   ),
                   Expanded(
@@ -69,7 +75,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
 
                             // Date & Time
                             Row(
@@ -84,7 +92,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
                                       textValue: "5th June 2022 • 03:45 PM",
                                       textColor: ColorUtils.blackShade,
@@ -102,7 +112,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                             ),
 
                             //Recipient
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -115,7 +127,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
                                       textValue: "Self",
                                       textColor: ColorUtils.blackShade,
@@ -133,7 +147,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                             ),
 
                             //Address
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -146,9 +162,12 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
-                                      textValue: "F18, 5th Floor, XYZ Towers, St II, Block A, Kha...",
+                                      textValue:
+                                          "F18, 5th Floor, XYZ Towers, St II, Block A, Kha...",
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
@@ -164,13 +183,16 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                             ),
 
                             //Reminder
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         textValue: "Reminder",
@@ -178,19 +200,22 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                         fontFamily: FontUtils.interSemiBold,
                                         fontSize: 1.6.t,
                                       ),
-                                      SizedBox(height: 1.h,),
-                                      Text("10 mins befor time",
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
+                                      Text(
+                                        "10 mins befor time",
                                         style: TextStyle(
                                             fontFamily: FontUtils.interRegular,
                                             fontSize: 1.8.t,
-                                            color: ColorUtils.blackShade
-                                        ),
+                                            color: ColorUtils.blackShade),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Switch(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   activeColor: ColorUtils.red,
                                   value: switchValue,
                                   onChanged: (value) {
@@ -207,26 +232,29 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                             ),
 
                             //Promo Code / Policy Number
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             TextWidget(
                               textValue: "Promo Code / Policy Number",
                               fontFamily: FontUtils.poppinsSemiBold,
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 4.w, vertical: 2.h),
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                      color: ColorUtils.red,
-                                      width: 1
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                      color: ColorUtils.red, width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextWidget(
                                     textValue: "EFU12345-07",
@@ -234,7 +262,8 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                     fontSize: 1.8.t,
                                     textColor: ColorUtils.blackShade,
                                   ),
-                                  Icon(Icons.check_circle,
+                                  Icon(
+                                    Icons.check_circle,
                                     color: ColorUtils.red,
                                   )
                                 ],
@@ -242,14 +271,18 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                             ),
 
                             //Payment Details
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             TextWidget(
                               textValue: "Payment Details",
                               fontFamily: FontUtils.poppinsSemiBold,
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -259,7 +292,9 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                   fontSize: 1.6.t,
                                   textColor: ColorUtils.blackShade,
                                 ),
-                                SizedBox(height: 1.h,),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
                                 TextWidget(
                                   textValue: "Rs. 1,500",
                                   fontFamily: FontUtils.interSemiBold,
@@ -268,11 +303,15 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                 ),
                               ],
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
                             Divider(
                               color: ColorUtils.silver,
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
 
                             // Payment Method
                             TextWidget(
@@ -281,9 +320,11 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                               fontSize: 1.6.t,
                               textColor: ColorUtils.blackShade,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   shape: RoundedRectangleBorder(
@@ -292,108 +333,150 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                                       topRight: Radius.circular(24.0),
                                     ),
                                   ),
-                                  backgroundColor: Colors.white, context: context, builder: (BuildContext context) {
-                                  return PageHorizontalMargin(
-                                    widget: Container(
-                                      height: MediaQuery.of(context).size.height/1.5,
-                                      child: Column(
-                                        children: [
-                                          SizedBox(height: 2.h,),
-                                          SvgPicture.asset(ImageUtils.greyHandle),
-                                          SizedBox(height: 1.h,),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: TextWidget(
-                                              textValue: "Select Payment Method",
-                                              fontFamily: FontUtils.poppinsBold,
-                                              fontSize: 2.4.t,
-                                              textColor: ColorUtils.red,
+                                  backgroundColor: Colors.white,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return PageHorizontalMargin(
+                                      widget: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                1.5,
+                                        child: Column(
+                                          children: [
+                                            SizedBox(
+                                              height: 2.h,
                                             ),
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          PhysicalVisitPayment(),
-                                          Divider(
-                                            color: ColorUtils.silver,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Image.asset(ImageUtils.bankTransfer,
-                                                width: 30.i,
+                                            SvgPicture.asset(
+                                                ImageUtils.greyHandle),
+                                            SizedBox(
+                                              height: 1.h,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: TextWidget(
+                                                textValue:
+                                                    "Select Payment Method",
+                                                fontFamily:
+                                                    FontUtils.poppinsBold,
+                                                fontSize: 2.4.t,
+                                                textColor: ColorUtils.red,
                                               ),
-                                              Padding(
-                                                padding: EdgeInsets.only(right: 9.w),
-                                                child: ForwardButtonBlack(),
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            PhysicalVisitPayment(),
+                                            Divider(
+                                              color: ColorUtils.silver,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtils.bankTransfer,
+                                                  width: 30.i,
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 9.w),
+                                                  child: ForwardButtonBlack(),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Divider(
+                                              color: ColorUtils.silver,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: TextWidget(
+                                                textValue:
+                                                    "+ Add new card Members",
+                                                fontFamily:
+                                                    FontUtils.interSemiBold,
+                                                fontSize: 1.8.t,
+                                                textColor: ColorUtils.red,
                                               ),
-                                            ],
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Divider(
-                                            color: ColorUtils.silver,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: TextWidget(
-                                              textValue: "+ Add new card Members",
-                                              fontFamily: FontUtils.interSemiBold,
-                                              fontSize: 1.8.t,
-                                              textColor: ColorUtils.red,
                                             ),
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Divider(
-                                            color: ColorUtils.silver,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: TextWidget(
-                                              textValue: "+ Add Pay Pro Account",
-                                              fontFamily: FontUtils.interSemiBold,
-                                              fontSize: 1.8.t,
-                                              textColor: ColorUtils.red,
+                                            SizedBox(
+                                              height: 2.h,
                                             ),
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                        ],
+                                            Divider(
+                                              color: ColorUtils.silver,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: TextWidget(
+                                                textValue:
+                                                    "+ Add Pay Pro Account",
+                                                fontFamily:
+                                                    FontUtils.interSemiBold,
+                                                fontSize: 1.8.t,
+                                                textColor: ColorUtils.red,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
                                 );
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 4.w, vertical: 2.h),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
-                                        color: ColorUtils.blackShade.withOpacity(0.5),
-                                        width: 1
-                                    ),
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
+                                        color: ColorUtils.blackShade
+                                            .withOpacity(0.5),
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    if(model.physicalVisitPaymentMethodSelected == false)
+                                    if (model
+                                            .physicalVisitPaymentMethodSelected ==
+                                        false)
                                       TextWidget(
                                         textValue: "Select Method",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.silver,
                                       ),
-                                    if(model.physicalVisitPaymentMethodSelected == true)
+                                    if (model
+                                            .physicalVisitPaymentMethodSelected ==
+                                        true)
                                       Row(
                                         children: [
                                           SizedBox(
                                               width: 10.i,
-                                              child: Image.asset(ImageUtils.cash)),
-                                          SizedBox(width: 2.w,),
+                                              child:
+                                                  Image.asset(ImageUtils.cash)),
+                                          SizedBox(
+                                            width: 2.w,
+                                          ),
                                           TextWidget(
                                             textValue: "Cash",
-                                            fontFamily: FontUtils.poppinsSemiBold,
+                                            fontFamily:
+                                                FontUtils.poppinsSemiBold,
                                             fontSize: 1.6.t,
                                             textColor: ColorUtils.black1,
                                           ),
@@ -405,25 +488,45 @@ class _PhysicalVisitConfirmDetailsState extends State<PhysicalVisitConfirmDetail
                               ),
                             ),
 
-                            SizedBox(height: 3.h,),
+                            SizedBox(
+                              height: 3.h,
+                            ),
                             GreyBackGroundButton(
                               text: "Confirm",
                               buttonTextColor: ColorUtils.white,
-                              buttonColor:  model.physicalVisitPaymentMethodSelected == true ? ColorUtils.red : ColorUtils.white1,
-                              onButtonPressed: (){
-                                Navigator.push(context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child:  PaymentSuccess(
-                                          fromInsurance: false,
-                                          fromPharmacy: false,
-                                          fromLabTest: true,
-                                          fromPhysicalVisit: true,
-                                        )
-                                    ));
+                              buttonColor:
+                                  model.physicalVisitPaymentMethodSelected ==
+                                          true
+                                      ? ColorUtils.red
+                                      : ColorUtils.white1,
+                              onButtonPressed: () {
+                                model.addingBookingDoc(
+                                    context,
+                                    model.token!,
+                                    model.userID!,
+                                    model.userID!,
+                                    "no",
+                                    1,
+                                    widget.date.toString(),
+                                    1,
+                                    1,
+                                    widget.consultationId.toString(),
+                                    'null');
+                                // Navigator.push(
+                                //     context,
+                                //     PageTransition(
+                                //         type: PageTransitionType.fade,
+                                //         child: PaymentSuccess(
+                                //           fromInsurance: false,
+                                //           fromPharmacy: false,
+                                //           fromLabTest: true,
+                                //           fromPhysicalVisit: true,
+                                //         )));
                               },
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                           ],
                         ),
                       ),
@@ -447,7 +550,6 @@ class PhysicalVisitPayment extends StatefulWidget {
 }
 
 class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
-
   int? value;
 
   @override
@@ -455,8 +557,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return SizedBox(
           height: 25.h,
@@ -474,7 +575,8 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
                       children: [
                         SizedBox(
                           width: index == 0 ? 12.i : 30.i,
-                          child: Image.asset(model.physicalVisitPaymentType[index],
+                          child: Image.asset(
+                            model.physicalVisitPaymentType[index],
                           ),
                         ),
                       ],
@@ -490,8 +592,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
                           model.physicalVisitPaymentMethodSelected = true;
                           model.notifyListeners();
                           return setState(() => value = ind as int?);
-                        }
-                    ),
+                        }),
                   ),
                 ],
               );
@@ -508,4 +609,3 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
     );
   }
 }
-
