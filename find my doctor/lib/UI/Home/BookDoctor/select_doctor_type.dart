@@ -69,8 +69,13 @@ class _SelectDoctorTypeState extends State<SelectDoctorType> {
                                               context,
                                               PageTransition(
                                                   type: PageTransitionType.fade,
-                                                  child:
-                                                      PhysicalVisitBookSlot(id: model.doctorTypeModel?[index].id ?? 0)));
+                                                  child: PhysicalVisitBookSlot(
+                                                    id: model
+                                                            .doctorTypeModel?[
+                                                                index]
+                                                            .id ??
+                                                        0,
+                                                  )));
                                         },
                                         child: Row(
                                           children: [

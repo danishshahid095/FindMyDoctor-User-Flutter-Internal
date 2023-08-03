@@ -16,21 +16,21 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
-class PhysicalVisitConfirmDetails extends StatefulWidget {
+class OnlieVisitConfirmDetails extends StatefulWidget {
   String? date;
   String? time;
   int? consultationId;
-  PhysicalVisitConfirmDetails(
+  OnlieVisitConfirmDetails(
       {Key? key, this.date, this.consultationId, this.time})
       : super(key: key);
 
   @override
-  State<PhysicalVisitConfirmDetails> createState() =>
-      _PhysicalVisitConfirmDetailsState();
+  State<OnlieVisitConfirmDetails> createState() =>
+      OnlieVisitConfirmDetails();
 }
 
-class _PhysicalVisitConfirmDetailsState
-    extends State<PhysicalVisitConfirmDetails> {
+class _OnlieVisitConfirmDetailsState
+    extends State<OnlieVisitConfirmDetails> {
   bool switchValue = true;
 
   @override
@@ -501,33 +501,33 @@ class _PhysicalVisitConfirmDetailsState
                                       ? ColorUtils.red
                                       : ColorUtils.white1,
                               onButtonPressed: () {
-                                model.addingBookingDoc(
-                                    context,
-                                    model.token!,
-                                    model.userID!,
-                                    model.userID!.toString(),
-                                    "no",
-                                    1,
-                                    widget.date.toString(),
-                                    1,
-                                    1,
-                                    widget.consultationId.toString(),
-                                    'null');
-
-                                // add bboking doctor online
-
-                                // model.addingBookingDocOnline(
+                                // model.addingBookingDoc(
                                 //     context,
                                 //     model.token!,
                                 //     model.userID!,
                                 //     model.userID!.toString(),
                                 //     "no",
-                                //     6,
+                                //     1,
                                 //     widget.date.toString(),
                                 //     1,
                                 //     1,
                                 //     widget.consultationId.toString(),
                                 //     'null');
+
+                                // add bboking doctor online
+
+                                model.addingBookingDocOnline(
+                                    context,
+                                    model.token!,
+                                    model.userID!,
+                                    model.userID!.toString(),
+                                    "no",
+                                    6,
+                                    widget.date.toString(),
+                                    1,
+                                    1,
+                                    widget.consultationId.toString(),
+                                    'null');
                                 // Navigator.push(
                                 //     context,
                                 //     PageTransition(

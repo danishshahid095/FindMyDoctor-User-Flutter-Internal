@@ -48,6 +48,7 @@ import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
 import '../services/post/post_add_beneficiary.dart';
 import '../services/post/post_add_booking_doctor.dart';
+import '../services/post/post_add_booking_doctor_online.dart';
 import '../services/post/post_add_email.dart';
 import '../services/post/post_add_fullname.dart';
 import '../services/post/post_add_phone_number.dart';
@@ -62,6 +63,7 @@ class MainViewModel extends BaseViewModel {
   String? token;
   String? fcmToken;
   int? userID;
+  String? bookig_slot_time;
 
   bool fromDoctorBook = false;
   bool fromLabTestBook = false;
@@ -455,30 +457,54 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
   var slot = availableSlot();
+  List<SlotsModel>? docslotModel;
   List<SlotsModel>? DocslotModel = DocSlotCompleteModel().data;
   Future doAvailableSlot(
     BuildContext context,
-    int? userId,
+    int? id,
     String? date,
   ) async {
     loadingWidget = true;
 
     notifyListeners();
-    var responseslot = slot.AvailableSlot(
-      251,
-      date,
-    );
-    if (responseslot is List<SlotsModel>) {
-      DocslotModel = responseslot as List<SlotsModel>?;
 
-      print(DocslotModel);
-      print('respone');
-      print(responseslot);
-
-      notifyListeners();
-    } else {
-      notifyListeners();
+    try {
+      List<SlotsModel>? responseslot = await slot.AvailableSlot(id, date);
+      if (responseslot != null) {
+        docslotModel = responseslot;
+        print(docslotModel![0].booked_slots_time.toString());
+        bookig_slot_time = docslotModel![0].booked_slots_time!.substring(0, 5);
+        print(bookig_slot_time);
+        //  print(object)
+        print('response');
+        // print(responseslot[0]);
+        // print('response');
+        // print(responseslot);
+      } else {
+        // Handle error when API returns null or there's an issue with the response
+        print('API returned null or there was an error in the response');
+      }
+    } catch (e) {
+      print('Exception occurred during API call: $e');
     }
+    loadingWidget = false;
+    notifyListeners();
+
+    // var responseslot = slot.AvailableSlot(
+    //   id,
+    //   date,
+    // );
+    // if (responseslot !=null && responseslot is List<SlotsModel>) {
+    //   DocslotModel = responseslot as List<SlotsModel>?;
+
+    //   print(DocslotModel);
+    //   print('respone');
+    //   print(responseslot);
+
+    //   notifyListeners();
+    // } else {
+    //   notifyListeners();
+    // }
     // if (responseslot != null && responseslot is SlotsModel) {
     //   print(" this is response data : ${responseslot}");
     // }
@@ -1239,8 +1265,8 @@ class MainViewModel extends BaseViewModel {
     BuildContext context,
     String token,
     int foruser,
-    int recepient,
-   String is_beneficiary,
+    String recepient,
+    String is_beneficiary,
     int type,
     String date_time,
     int promo,
@@ -1251,6 +1277,53 @@ class MainViewModel extends BaseViewModel {
     loadingWidget = true;
     notifyListeners();
     var response = await addBookingDoc.addBookingDoc(
+        token,
+        foruser,
+        recepient,
+        is_beneficiary,
+        type,
+        date_time,
+        promo,
+        payment_method,
+        consultation_type,
+        booked_doctor);
+
+    if (response != null && response == 1) ;
+    Navigator.push(
+        context,
+        PageTransition(
+            type: PageTransitionType.fade,
+            child: PaymentSuccess(
+              fromInsurance: false,
+              fromPharmacy: false,
+              fromLabTest: true,
+              fromPhysicalVisit: true,
+            )));
+    loadingWidget = false;
+    notifyListeners();
+  }
+
+  /// end add booking doctor apii//////////
+
+  //  Add Booking Doc online api start
+  var addBookingDocOnline = AddBookingDoctorOnline();
+
+  Future addingBookingDocOnline(
+    BuildContext context,
+    String token,
+    int foruser,
+    String recepient,
+    String is_beneficiary,
+    int type,
+    String date_time,
+    int promo,
+    int payment_method,
+    String consultation_type,
+    String booked_doctor,
+  ) async {
+    loadingWidget = true;
+    notifyListeners();
+    var response = await addBookingDocOnline.addBookingDocOnline(
         token,
         foruser,
         recepient,

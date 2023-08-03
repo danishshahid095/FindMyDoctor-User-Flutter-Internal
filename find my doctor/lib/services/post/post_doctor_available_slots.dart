@@ -9,12 +9,12 @@ import '../../model/Doctor/onlineDoctorModel.dart';
 class availableSlot {
   var _dioService = DioService.getInstance();
 
-  Future AvailableSlot(
-    int? userId,
+  Future<List<SlotsModel>?> AvailableSlot(
+    int? id,
     String? date,
   ) async {
     var availableslotJson = {
-      "id": 251,
+      "id": id,
       "date": date,
     };
     try {
@@ -32,7 +32,7 @@ class availableSlot {
       // var newdata = json.decode(data);
       if (response.statusCode == 200) {
         // user found
-        if (response.data["status"] == 1) {
+        if (response.data["success"] == 1) {
           List historyData = response.data["data"];
           print(historyData);
           List<SlotsModel> docslotModel =
@@ -41,10 +41,10 @@ class availableSlot {
           // SlotsModel onlineDocResponse = SlotsModel.fromJson(response.data);
           // return onlineDocResponse;
         } else {
-          return response.data['data'];
+          return null;
         }
       } else {
-        return response.statusMessage;
+        return null;
       }
     } catch (e) {
       dynamic exception = e;

@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
-class AddBookingDoctor {
+class AddBookingDoctorOnline {
   var _dioService = DioService.getInstance();
 
-  Future addBookingDoc(
+  Future addBookingDocOnline(
       String token,
       int foruser,
       String recepient,
@@ -17,7 +17,7 @@ class AddBookingDoctor {
       int payment_method,
       String consultation_type,
       String booked_doctor) async {
-    var bookingdocJson = {
+    var bookingdoconlineJson = {
       "foruser": foruser,
       "recepient": recepient,
       "is_beneficiary": is_beneficiary,
@@ -35,7 +35,7 @@ class AddBookingDoctor {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           HttpHeaders.contentTypeHeader: "application/json",
         }),
-        data: jsonEncode(bookingdocJson),
+        data: jsonEncode(bookingdoconlineJson),
       );
       if (response.statusCode == 200) {
         // user found

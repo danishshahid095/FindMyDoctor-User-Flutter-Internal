@@ -132,19 +132,19 @@ class _SelectDoctorState extends State<SelectDoctor> {
                                             PageTransition(
                                                 type: PageTransitionType.fade,
                                                 child: PhysicalVisitBookSlot(
-                                                  start_time: model
-                                                          .onlineDoctorModel?[
-                                                              index]
-                                                          .start_time
-                                                          .toString() ??
-                                                      "0",
-                                                  end_time: model
-                                                          .onlineDoctorModel?[
-                                                              index]
-                                                          .end_time
-                                                          .toString() ??
-                                                      "0",
-                                                )));
+                                                    start_time: model
+                                                            .onlineDoctorModel?[
+                                                                index]
+                                                            .start_time
+                                                            .toString() ??
+                                                        "0",
+                                                    end_time: model
+                                                            .onlineDoctorModel?[
+                                                                index]
+                                                            .end_time
+                                                            .toString() ??
+                                                        "0",
+                                                    id: model.userID)));
                                       },
                                       child: Row(
                                         children: [

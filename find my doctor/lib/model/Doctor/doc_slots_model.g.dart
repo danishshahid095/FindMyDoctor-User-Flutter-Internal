@@ -8,13 +8,13 @@ part of 'doc_slots_model.dart';
 
 SlotsModel _$SlotsModelFromJson(Map<String, dynamic> json) => SlotsModel(
       bookedSlotsDate: json['bookedSlotsDate'] as String?,
-      bookedSlotsTime: json['bookedSlotsTime'] as String?,
+      booked_slots_time: json['booked_slots_time'] as String?,
     );
 
 Map<String, dynamic> _$SlotsModelToJson(SlotsModel instance) =>
     <String, dynamic>{
       'bookedSlotsDate': instance.bookedSlotsDate,
-      'bookedSlotsTime': instance.bookedSlotsTime,
+      'booked_slots_time': instance.booked_slots_time,
     };
 
 DocSlotCompleteModel _$DocSlotCompleteModelFromJson(

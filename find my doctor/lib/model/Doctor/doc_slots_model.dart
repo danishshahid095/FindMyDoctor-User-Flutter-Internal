@@ -5,16 +5,16 @@ part 'doc_slots_model.g.dart';
 @JsonSerializable()
 class SlotsModel {
   String? bookedSlotsDate;
-  String? bookedSlotsTime;
+  String? booked_slots_time;
 
-  SlotsModel({this.bookedSlotsDate, this.bookedSlotsTime});
+  SlotsModel({this.bookedSlotsDate, this.booked_slots_time});
   factory SlotsModel.fromJson(Map<String, dynamic> json) =>
       _$SlotsModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$SlotsModelToJson(this);
   @override
   String toString() {
-    return 'OnlineDoctorModel{bookedSlotsDate: $bookedSlotsDate, bookedSlotsTime: $bookedSlotsTime,}';
+    return 'SlotsModel{bookedSlotsDate: $bookedSlotsDate, bookedSlotsTime: $booked_slots_time,}';
   }
 }
 

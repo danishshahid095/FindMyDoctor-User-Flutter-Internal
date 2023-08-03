@@ -39,17 +39,19 @@ class PhysicalVisitBookSlot extends StatefulWidget {
 
 class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
   // DateTime selectedDate = DateTime.now();
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    // scheduleBreaks();
-  }
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   // scheduleBreaks();
+  // }
 
   bool pmTapped = true;
   bool amTapped = false;
   bool doneTapped = false;
   var slotdata;
+  var date;
+  var apitime;
   //DateTime now = DateTime.now();
   //List<String>? slots = ['4', '5'];
   DateTime selectedDate = DateTime.now();
@@ -59,13 +61,13 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
   //     "-" +
   //     DateTime.now().day.toString();
   //DateTime.now();
-
+  String? selectedtime;
   TimeOfDay selectedTime = TimeOfDay.now();
   var startTime;
   var endTime;
 
   List<String> timeEntries = [];
-
+  // List<String> testList = [];
   void scheduleBreaks() {
     // Convert the start time to minutes
     int currentMinutes = int.parse(widget.start_time!.split(":")[0]) * 60 +
@@ -75,23 +77,80 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
     int endMinutes = int.parse(widget.end_time!.split(":")[0]) * 60 +
         int.parse(widget.end_time!.split(":")[1]);
 
-    // Use a while loop to add time entries to the list every 15 minutes
+    // Use a set to store time entries to avoid duplicates
+    Set<String> uniqueTimeEntries = Set();
+
+    // Use a while loop to add time entries to the set every 15 minutes
     while (currentMinutes <= endMinutes) {
-      timeEntries.add(widget.start_time!);
+      String timeEntry = widget.start_time!;
+
+      // Add the time entry to the set
+      uniqueTimeEntries.add(timeEntry);
+
       if (currentMinutes % 60 == 15) {
-        timeEntries.add(_addMinutesToTime(widget.start_time!, 15));
+        timeEntry = _addMinutesToTime(widget.start_time!, 15);
+
+        // Add the time entry to the set
+        uniqueTimeEntries.add(timeEntry);
+
         currentMinutes += 15;
       }
+
       widget.start_time = _addMinutesToTime(widget.start_time!, 15);
       currentMinutes += 15;
     }
 
+    // Convert the set to a list and store it in timeEntries
+    timeEntries = uniqueTimeEntries.toList();
+
     // Print the time entries list in the terminal
-    timeEntries.forEach((entry) {
-      print(entry);
-    });
-    print("this is first index ${timeEntries[0]}");
+    // timeEntries.forEach((entry) {
+    //   print(entry);
+    // });
+    print(timeEntries);
+
+    // for (int i = 0; i < timeEntries.length - 1; i++) {
+    //   String startTime = timeEntries[i];
+    //   String endTime = timeEntries[i + 1];
+    //   testList.add('$startTime-$endTime');
+    //}
+
+    // Print the test list
+    // print(testList);
   }
+
+  // void scheduleBreaks() {
+  //   // Convert the start time to minutes
+  //   int currentMinutes = int.parse(widget.start_time!.split(":")[0]) * 60 +
+  //       int.parse(widget.start_time!.split(":")[1]);
+
+  //   // Convert the end time to minutes
+  //   int endMinutes = int.parse(widget.end_time!.split(":")[0]) * 60 +
+  //       int.parse(widget.end_time!.split(":")[1]);
+  // // Use a set to store time entries to avoid duplicates
+  // Set<String> uniqueTimeEntries = Set();
+  //   // Use a while loop to add time entries to the list every 15 minutes
+  //   while (currentMinutes <= endMinutes) {
+
+  //     timeEntries.add(widget.start_time!);
+  //     if (currentMinutes % 60 == 15) {
+  //       timeEntries.add(_addMinutesToTime(widget.start_time!, 15));
+
+  //       currentMinutes += 15;
+  //     }
+  //     widget.start_time = _addMinutesToTime(widget.start_time!, 15);
+  //     currentMinutes += 15;
+  //   }
+
+  //   // Print the time entries list in the terminal
+  //   timeEntries.forEach((entry) {
+  //     print(entry);
+  //   });
+  //   print(timeEntries);
+  //   // timeEntries.removeWhere((entry) => entry ==);
+  //   //timeEntries.remove(apitime);
+  //   // print("this is first index ${timeEntries[0]}");
+  // }
 
   String _addMinutesToTime(String timeStr, int minutes) {
     // Convert the time string to a DateTime object
@@ -125,10 +184,16 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
 
   @override
   Widget build(BuildContext context) {
+    String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
+    date = formattedDate;
+    // var apitime;
+    //print(date);
+
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onModelReady: (model) {
+        scheduleBreaks();
         var model1 = model;
         //.doAvailableSlot(context, 76, selectedDate);
         //slotdata = model.doAvailableSlot(context, '2023-08-04', 76);
@@ -136,6 +201,8 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
       builder: (context, model, child) {
         startTime = widget.start_time;
         endTime = widget.end_time;
+
+        // apitime = model.docslotModel![0].booked_slots_time.toString();
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
@@ -201,6 +268,15 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                             SizedBox(
                               height: 5.h,
                             ),
+                            // Text(
+                            //   selectedTime != null
+                            //       ? 'Selected Time: ${selectedTime.format(context)}'
+                            //       : 'No time selected',
+                            //   style: TextStyle(fontSize: 18),
+                            // ),
+                            // Text(model.docslotModel![0].booked_slots_time
+                            //  .toString()),
+                            //Text(apitime),
                             //  Text(slots.toString()),
                             //  generateTimeSlots(startTime, endTime),
                             // Text(startTime),
@@ -243,9 +319,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                     onTap: () => _selectDate(context),
                                     hint: doneTapped == false
                                         ? "00"
-                                        : selectedDate
-                                            .toString()
-                                            .substring(8, 10),
+                                        : date.toString().substring(8, 10),
                                     unit: "DD",
                                     // hint: "00",
                                     // unit: "HH",
@@ -257,9 +331,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                     onTap: () => _selectDate(context),
                                     hint: doneTapped == false
                                         ? "00"
-                                        : selectedDate
-                                            .toString()
-                                            .substring(5, 7),
+                                        : date.toString().substring(5, 7),
                                     unit: "MM",
                                   ),
                                 ),
@@ -304,7 +376,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                               children: [
                                 Expanded(
                                   child: SquareDateTextField(
-                                    onTap: () => _selectTime(context),
+                                    onTap: () => _showTimePicker(context),
                                     hint: doneTapped == false
                                         ? "00"
                                         : selectedTime.hourOfPeriod.toString(),
@@ -316,7 +388,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                 SvgPicture.asset(ImageUtils.clockColon),
                                 Expanded(
                                   child: SquareDateTextField(
-                                    onTap: () => _selectTime(context),
+                                    onTap: () => _showTimePicker(context),
                                     hint: doneTapped == false
                                         ? "00"
                                         : selectedTime.minute.toString(),
@@ -449,18 +521,33 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
             CupertinoButton(
               onPressed: () async {
                 print('this is date');
-                print(selectedDate);
+
+                //print(selectedDate);
+                print(date);
                 setState(() {
                   doneTapped = true;
                 });
                 //slotdata;
                 Navigator.pop(context, selectedDate);
                 await model.doAvailableSlot(
-                    context, 251, selectedDate.toString().substring(5, 9));
+                    context,
+                    251,
+                    //'2023-08-15'
+                    date.toString());
+
+                // testList.removeWhere((entry) => entry.contains(
+                //     model.docslotModel![0].booked_slots_time.toString()));
+                // testList.forEach((entry) {
+                //   print(entry);
+                // });
                 // await slotdata.doAvailableSlot(
                 //     context,
                 //      76,
                 //     selectedDate);
+                if (timeEntries.contains(model.bookig_slot_time)) {
+                  timeEntries.remove(model.bookig_slot_time);
+                }
+                print("this is remove time ${timeEntries}");
               },
               child: Text('Done'),
             ),
@@ -528,5 +615,53 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
         selectedTime = pickedTime;
       });
     }
+  }
+
+  void _showTimePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: 200,
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.builder(
+                  itemCount: timeEntries.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      title: Text(timeEntries[index]),
+                      onTap: () {
+                        setState(() {
+                          List<String> timeParts =
+                              timeEntries[index].split(':');
+                          int hour = int.parse(timeParts[0]);
+                          int minute = int.parse(timeParts[1]);
+                          selectedTime = TimeOfDay(hour: hour, minute: minute);
+                          //selectedTime = timeEntries[index];
+                        });
+                      },
+                    );
+                  },
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // _showTimePicker(context);
+                  Navigator.pop(context, selectedTime);
+                  print(selectedTime);
+                },
+                child: Text('Done'),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((value) {
+      if (value != null) {
+        // Do something with the selected time
+        print('Selected time: $value');
+      }
+    });
   }
 }
