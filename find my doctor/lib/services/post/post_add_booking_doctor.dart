@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
+import '../../model/Doctor/booking_doc_model.dart';
+
 class AddBookingDoctor {
   var _dioService = DioService.getInstance();
 
@@ -40,9 +42,12 @@ class AddBookingDoctor {
       if (response.statusCode == 200) {
         // user found
         if (response.data["success"] == 1) {
-          return;
+          BookingDocModel bookDocResponse = BookingDocModel.fromJson(response.data);
+          
+          return bookDocResponse;
+          
         } else {
-          return response.data['message'];
+          return response.data['data'];
         }
       } else {
         return response.statusMessage;

@@ -26,27 +26,19 @@ import '../../../modules/dio_service.dart';
 import '../../../modules/navigation_service.dart' as my_nav_service;
 import 'online_visit_confirm_details.dart';
 
-class PhysicalVisitBookSlot extends StatefulWidget {
+class OnlineVisitBookSlot extends StatefulWidget {
   int? id;
   String? start_time;
   String? end_time;
   //late DateTime selectedDate;
-  PhysicalVisitBookSlot({Key? key, this.start_time, this.end_time, this.id})
+  OnlineVisitBookSlot({Key? key, this.start_time, this.end_time, this.id})
       : super(key: key);
 
   @override
-  State<PhysicalVisitBookSlot> createState() => _PhysicalVisitBookSlotState();
+  State<OnlineVisitBookSlot> createState() => _OnlineVisitBookSlotState();
 }
 
-class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
-  // DateTime selectedDate = DateTime.now();
-  // @override
-  // void initState() {
-  //   // TODO: implement initState
-  //   super.initState();
-  //   // scheduleBreaks();
-  // }
-
+class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
   bool pmTapped = true;
   bool amTapped = false;
   bool doneTapped = false;
@@ -54,13 +46,14 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
   var date;
   var apitime;
   DateTime selectedDate = DateTime.now();
+
   String? selectedtime;
   TimeOfDay selectedTime = TimeOfDay.now();
   var startTime;
   var endTime;
 
   List<String> timeEntries = [];
-  // List<String> testList = [];
+
   void scheduleBreaks() {
     // Convert the start time to minutes
     int currentMinutes = int.parse(widget.start_time!.split(":")[0]) * 60 +
@@ -101,11 +94,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
     //   print(entry);
     // });
     print(timeEntries);
-
-    
   }
-
-  
 
   String _addMinutesToTime(String timeStr, int minutes) {
     // Convert the time string to a DateTime object
@@ -121,8 +110,6 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
     return newTimeStr;
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     String formattedDate = DateFormat('yyyy-MM-dd').format(selectedDate);
@@ -134,7 +121,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onModelReady: (model) {
-        //scheduleBreaks();
+        scheduleBreaks();
         var model1 = model;
         //.doAvailableSlot(context, 76, selectedDate);
         //slotdata = model.doAvailableSlot(context, '2023-08-04', 76);
@@ -317,7 +304,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                               children: [
                                 Expanded(
                                   child: SquareDateTextField(
-                                    onTap: () => _selectTime(context),
+                                    onTap: () => _showTimePicker(context),
                                     hint: doneTapped == false
                                         ? "00"
                                         : selectedTime.hourOfPeriod.toString(),
@@ -329,7 +316,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                 SvgPicture.asset(ImageUtils.clockColon),
                                 Expanded(
                                   child: SquareDateTextField(
-                                    onTap: () => _selectTime(context),
+                                    onTap: () => _showTimePicker(context),
                                     hint: doneTapped == false
                                         ? "00"
                                         : selectedTime.minute.toString(),
@@ -411,6 +398,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                             RedButton(
                               textValue: "Next",
                               onButtonPressed: () {
+                                // Format the selectedDate
                                 String formattedDate = DateFormat("yyyy-MM-dd")
                                     .format(selectedDate);
 
@@ -422,24 +410,27 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                 // Combine the formatted date and time
                                 String combinedDateTime =
                                     "$formattedDate $formattedTime:00";
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child: PhysicalVisitConfirmDetails(
-                                          date: combinedDateTime.toString(),
-                                          time: selectedTime.toString(),
-                                          consultationId: widget.id,
-                                        )));
+
+                                print(
+                                    "Selected Date and Time: $combinedDateTime");
                                 // Navigator.push(
                                 //     context,
                                 //     PageTransition(
                                 //         type: PageTransitionType.fade,
-                                //         child: OnlineVisitConfirmDetails(
+                                //         child: PhysicalVisitConfirmDetails(
                                 //           date: selectedDate.toString(),
                                 //           time: selectedTime.toString(),
                                 //           consultationId: widget.id,
                                 //         )));
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: OnlineVisitConfirmDetails(
+                                          date: combinedDateTime.toString(),
+                                          time: selectedTime.toString(),
+                                          consultationId: widget.id,
+                                        )));
                               },
                             ),
                             SizedBox(
@@ -490,14 +481,18 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                 });
                 //slotdata;
                 Navigator.pop(context, selectedDate);
-                // await model.doAvailableSlot(
-                //     context,
-                //     251,
-                //     //'2023-08-15'
-                //     date.toString());
+                await model.doAvailableSlot(
+                    context,
+                    251,
+                    //'2023-08-15'
+                    date.toString());
 
-                // if (timeEntries.contains(model.bookig_slot_time)) {
-                //   timeEntries.remove(model.bookig_slot_time);
+                timeEntries.removeWhere((entry) =>
+                    model.bookingSlotTimes.contains(entry.substring(0, 5)));
+                print("this is remove time ${timeEntries}");
+                // print(timeEntries);
+                // if (timeEntries.contains(model.bookingSlotTimes)) {
+                //   timeEntries.remove(model.bookingSlotTimes);
                 // }
                 // print("this is remove time ${timeEntries}");
               },
@@ -569,51 +564,56 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
     }
   }
 
-  // void _showTimePicker(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (BuildContext builder) {
-  //       return Container(
-  //         height: 200,
-  //         child: Column(
-  //           children: [
-  //             Expanded(
-  //               child: ListView.builder(
-  //                 itemCount: timeEntries.length,
-  //                 itemBuilder: (context, index) {
-  //                   return ListTile(
-  //                     title: Text(timeEntries[index]),
-  //                     onTap: () {
-  //                       setState(() {
-  //                         List<String> timeParts =
-  //                             timeEntries[index].split(':');
-  //                         int hour = int.parse(timeParts[0]);
-  //                         int minute = int.parse(timeParts[1]);
-  //                         selectedTime = TimeOfDay(hour: hour, minute: minute);
-  //                         //selectedTime = timeEntries[index];
-  //                       });
-  //                     },
-  //                   );
-  //                 },
-  //               ),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: () {
-  //                 // _showTimePicker(context);
-  //                 Navigator.pop(context, selectedTime);
-  //                 print(selectedTime);
-  //               },
-  //               child: Text('Done'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   ).then((value) {
-  //     if (value != null) {
-  //       // Do something with the selected time
-  //       print('Selected time: $value');
-  //     }
-  //   });
-  // }
+  void _showTimePicker(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext builder) {
+        return Container(
+          height: 200,
+          child: Column(
+            children: [
+              Expanded(
+                child: timeEntries.isEmpty
+                    ? Center(
+                        child: Text('No time slots available.'),
+                      )
+                    : ListView.builder(
+                        itemCount: timeEntries.length,
+                        itemBuilder: (context, index) {
+                          return ListTile(
+                            title: Text(timeEntries[index]),
+                            onTap: () {
+                              setState(() {
+                                List<String> timeParts =
+                                    timeEntries[index].split(':');
+                                int hour = int.parse(timeParts[0]);
+                                int minute = int.parse(timeParts[1]);
+                                selectedTime =
+                                    TimeOfDay(hour: hour, minute: minute);
+                                //selectedTime = timeEntries[index];
+                              });
+                            },
+                          );
+                        },
+                      ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  // _showTimePicker(context);
+                  Navigator.pop(context, selectedTime);
+                  print(selectedTime);
+                },
+                child: Text('Done'),
+              ),
+            ],
+          ),
+        );
+      },
+    ).then((value) {
+      if (value != null) {
+        // Do something with the selected time
+        print('Selected time: $value');
+      }
+    });
+  }
 }

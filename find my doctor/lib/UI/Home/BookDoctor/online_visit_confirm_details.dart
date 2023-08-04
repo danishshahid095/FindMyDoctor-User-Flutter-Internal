@@ -16,21 +16,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
-class OnlieVisitConfirmDetails extends StatefulWidget {
+class OnlineVisitConfirmDetails extends StatefulWidget {
   String? date;
   String? time;
   int? consultationId;
-  OnlieVisitConfirmDetails(
+  OnlineVisitConfirmDetails(
       {Key? key, this.date, this.consultationId, this.time})
       : super(key: key);
 
   @override
-  State<OnlieVisitConfirmDetails> createState() =>
-      OnlieVisitConfirmDetails();
+  State<OnlineVisitConfirmDetails> createState() =>
+      _OnlineVisitConfirmDetailsState();
 }
 
-class _OnlieVisitConfirmDetailsState
-    extends State<OnlieVisitConfirmDetails> {
+class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
   bool switchValue = true;
 
   @override
@@ -97,7 +96,8 @@ class _OnlieVisitConfirmDetailsState
                                       height: 1.h,
                                     ),
                                     TextWidget(
-                                      textValue: "5th June 2022 • 03:45 PM",
+                                      textValue: widget.date.toString(),
+                                      //"5th June 2022 • 03:45 PM",
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
@@ -501,21 +501,6 @@ class _OnlieVisitConfirmDetailsState
                                       ? ColorUtils.red
                                       : ColorUtils.white1,
                               onButtonPressed: () {
-                                // model.addingBookingDoc(
-                                //     context,
-                                //     model.token!,
-                                //     model.userID!,
-                                //     model.userID!.toString(),
-                                //     "no",
-                                //     1,
-                                //     widget.date.toString(),
-                                //     1,
-                                //     1,
-                                //     widget.consultationId.toString(),
-                                //     'null');
-
-                                // add bboking doctor online
-
                                 model.addingBookingDocOnline(
                                     context,
                                     model.token!,
@@ -527,7 +512,8 @@ class _OnlieVisitConfirmDetailsState
                                     1,
                                     1,
                                     widget.consultationId.toString(),
-                                    'null');
+                                    76);
+                                print('online dco api ');
                                 // Navigator.push(
                                 //     context,
                                 //     PageTransition(

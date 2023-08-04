@@ -17,6 +17,7 @@ import 'package:stacked/stacked.dart';
 
 import '../../../Utils/constants.dart';
 import '../../../Utils/whole_page_loader.dart';
+import 'online_visit_book_slot.dart';
 
 class SelectDoctor extends StatefulWidget {
   int categoryId;
@@ -131,7 +132,7 @@ class _SelectDoctorState extends State<SelectDoctor> {
                                             context,
                                             PageTransition(
                                                 type: PageTransitionType.fade,
-                                                child: PhysicalVisitBookSlot(
+                                                child: OnlineVisitBookSlot(
                                                     start_time: model
                                                             .onlineDoctorModel?[
                                                                 index]

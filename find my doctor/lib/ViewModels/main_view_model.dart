@@ -4,6 +4,7 @@ import 'package:find_my_doctor/UI/sign_in_options.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/prefrences_view_model.dart';
+import 'package:find_my_doctor/model/Doctor/booking_doc_model.dart';
 import 'package:find_my_doctor/model/Doctor/doctorTypeModel.dart';
 import 'package:find_my_doctor/model/Doctor/onlineDoctorModel.dart';
 import 'package:find_my_doctor/model/Doctor/specialistCategoryModel.dart';
@@ -69,6 +70,7 @@ class MainViewModel extends BaseViewModel {
   bool fromLabTestBook = false;
   bool fromPharmacy = false;
   bool fromBuyInsurance = false;
+  List<String> bookingSlotTimes = [];
 
   List FAQs = [
     {
@@ -471,12 +473,19 @@ class MainViewModel extends BaseViewModel {
     try {
       List<SlotsModel>? responseslot = await slot.AvailableSlot(id, date);
       if (responseslot != null) {
+
         docslotModel = responseslot;
-        print(docslotModel![0].booked_slots_time.toString());
-        bookig_slot_time = docslotModel![0].booked_slots_time!.substring(0, 5);
-        print(bookig_slot_time);
-        //  print(object)
-        print('response');
+        for (var entry in docslotModel!) {
+          String bookedSlotsTime = entry.booked_slots_time.toString();
+          bookingSlotTimes.add(bookedSlotsTime.substring(0, 5));
+        }
+        print('this is  only time ${bookingSlotTimes}');
+        //bookig_slot_time = bookingSlotTimes as String?;
+        // print("this is  model response data ${responseslot}");
+        // print("this is  model data ${docslotModel}");
+        //print(docslotModel![0].booked_slots_time.toString());
+      
+       // print('response');
         // print(responseslot[0]);
         // print('response');
         // print(responseslot);
@@ -1274,8 +1283,6 @@ class MainViewModel extends BaseViewModel {
     String consultation_type,
     String booked_doctor,
   ) async {
-    loadingWidget = true;
-    notifyListeners();
     var response = await addBookingDoc.addBookingDoc(
         token,
         foruser,
@@ -1287,18 +1294,26 @@ class MainViewModel extends BaseViewModel {
         payment_method,
         consultation_type,
         booked_doctor);
+    loadingWidget = true;
+    notifyListeners();
+    if (response != null && response is BookingDocModel) {
+      print(
+          "this is  physical  book doc respone insertId: ${response.data!.insertId.toString()}");
+      Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.fade,
+              child: PaymentSuccess(
+                fromInsurance: false,
+                fromPharmacy: false,
+                fromLabTest: true,
+                fromPhysicalVisit: true,
+              )));
 
-    if (response != null && response == 1) ;
-    Navigator.push(
-        context,
-        PageTransition(
-            type: PageTransitionType.fade,
-            child: PaymentSuccess(
-              fromInsurance: false,
-              fromPharmacy: false,
-              fromLabTest: true,
-              fromPhysicalVisit: true,
-            )));
+      loadingWidget = false;
+    } else {
+      print('some thing worng');
+    }
     loadingWidget = false;
     notifyListeners();
   }
@@ -1319,10 +1334,8 @@ class MainViewModel extends BaseViewModel {
     int promo,
     int payment_method,
     String consultation_type,
-    String booked_doctor,
+    int booked_doctor,
   ) async {
-    loadingWidget = true;
-    notifyListeners();
     var response = await addBookingDocOnline.addBookingDocOnline(
         token,
         foruser,
@@ -1334,18 +1347,27 @@ class MainViewModel extends BaseViewModel {
         payment_method,
         consultation_type,
         booked_doctor);
+    loadingWidget = true;
+    notifyListeners();
+    if (response != null && response is BookingDocModel) {
+      print(
+          "this is  onlie book doc respone insertId: ${response.data!.insertId.toString()}");
+      Navigator.push(
+          context,
+          PageTransition(
+              type: PageTransitionType.fade,
+              child: PaymentSuccess(
+                fromInsurance: false,
+                fromPharmacy: false,
+                fromLabTest: true,
+                fromPhysicalVisit: true,
+              )));
 
-    if (response != null && response == 1) ;
-    Navigator.push(
-        context,
-        PageTransition(
-            type: PageTransitionType.fade,
-            child: PaymentSuccess(
-              fromInsurance: false,
-              fromPharmacy: false,
-              fromLabTest: true,
-              fromPhysicalVisit: true,
-            )));
+      loadingWidget = false;
+      //notifyListeners();
+    } else {
+      print('some thing worng');
+    }
     loadingWidget = false;
     notifyListeners();
   }

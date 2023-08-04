@@ -97,7 +97,8 @@ class _PhysicalVisitConfirmDetailsState
                                       height: 1.h,
                                     ),
                                     TextWidget(
-                                      textValue: "5th June 2022 • 03:45 PM",
+                                      textValue: widget.date.toString(),
+                                      // "5th June 2022 • 03:45 PM",
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
@@ -513,7 +514,7 @@ class _PhysicalVisitConfirmDetailsState
                                     1,
                                     widget.consultationId.toString(),
                                     'null');
-
+                                print('off dco api ');
                                 // add bboking doctor online
 
                                 // model.addingBookingDocOnline(
@@ -527,7 +528,8 @@ class _PhysicalVisitConfirmDetailsState
                                 //     1,
                                 //     1,
                                 //     widget.consultationId.toString(),
-                                //     'null');
+                                //     76);
+                                // print('online dco api ');
                                 // Navigator.push(
                                 //     context,
                                 //     PageTransition(
