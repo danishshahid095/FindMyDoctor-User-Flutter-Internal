@@ -38,11 +38,15 @@ import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
 import '../model/Doctor/doc_slots_model.dart';
+import '../model/Doctor/doctor_history_model.dart';
+import '../model/Doctor/doctor_myactive_model.dart';
 import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
 import '../model/login/userLoginModel.dart';
+import '../services/get/get_doctor_myactive.dart';
+import '../services/get/get_doctor_myhistory.dart';
 import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
@@ -1192,8 +1196,63 @@ class MainViewModel extends BaseViewModel {
   }
 
 //######################################################################## Lab Active Booking  ###############################################################################//
-/////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
+//####### doctor myactive api start  ###########
+
+GetDoctorMyActive getdoctoractive = GetDoctorMyActive();
+  List<DoctorActiveModel>? doctormyactive =
+      DoctorActiveCompleteModel().data;
+  bool doctoractiveLoader = false;
+
+  Future gettingDoctorActive(BuildContext context, String token) async {
+    doctoractiveLoader = true;
+
+    var doctorActiveResponse =
+        await getdoctoractive.getdoctorMyActive(token);
+    if (doctorActiveResponse != null &&
+        doctorActiveResponse is List<DoctorActiveModel>) {
+      doctormyactive = doctorActiveResponse;
+      doctoractiveLoader = false;
+      notifyListeners();
+    } else {
+      doctoractiveLoader = false;
+      notifyListeners();
+    }
+    doctoractiveLoader = false;
+  }
+  
+  //####### doctor  myactive  api end  ###########
+
+
+//####### doctor  myHistory api start  ###########
+
+GetDoctorMyHostory getdoctormyhistory = GetDoctorMyHostory();
+  List<DoctorHistoryModel>? doctormyhistory =
+      DoctorHistoryCompleteModel().data;
+  bool doctormyhistoryLoader = false;
+
+  Future gettingDoctorMyhistory(BuildContext context, String token) async {
+    doctormyhistoryLoader = true;
+
+    var doctormyhistoryResponse =
+        await getdoctormyhistory.getdoctorMyHistory(token);
+    if (doctormyhistoryResponse != null &&
+        doctormyhistoryResponse is List<DoctorHistoryModel>) {
+      doctormyhistory = doctormyhistoryResponse;
+      doctormyhistoryLoader = false;
+      notifyListeners();
+    } else {
+      doctormyhistoryLoader = false;
+      notifyListeners();
+    }
+    doctormyhistoryLoader = false;
+  }
+
+  //####### doctor  myhistory api  end  ###########
+
+
+
+/////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
   //######################################################################## Lab History Booking ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
 
@@ -1223,7 +1282,8 @@ class MainViewModel extends BaseViewModel {
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
   //######################################################################## Lab History Booking ###############################################################################//
-/////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////     
+///Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetLabOrderDetail getLabOrderDetail = GetLabOrderDetail();
   LabBookingDetailModel? labBookingDetailModel =
