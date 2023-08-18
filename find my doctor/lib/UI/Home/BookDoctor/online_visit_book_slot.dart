@@ -127,7 +127,7 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
         //slotdata = model.doAvailableSlot(context, '2023-08-04', 76);
       },
       builder: (context, model, child) {
-        startTime = widget.start_time;
+        startTime = widget.start_time!;
         endTime = widget.end_time;
 
         // apitime = model.docslotModel![0].booked_slots_time.toString();

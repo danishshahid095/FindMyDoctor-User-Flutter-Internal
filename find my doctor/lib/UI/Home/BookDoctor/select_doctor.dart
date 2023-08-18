@@ -31,6 +31,13 @@ class SelectDoctor extends StatefulWidget {
 class _SelectDoctorState extends State<SelectDoctor> {
   var start_time = '';
   String? end_time = '';
+  String _parseTime(String? timeString) {
+    if (timeString == null || timeString.isEmpty) {
+      return "0:00";
+    }
+
+    return timeString;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,253 +57,318 @@ class _SelectDoctorState extends State<SelectDoctor> {
                   bottom: false,
                   child: Scaffold(
                     backgroundColor: Colors.white,
-                    body: Column(
-                      children: [
-                        Column(
-                          children: [
-                            SizedBox(
-                              height: context.getPadding().top,
-                            ),
-                            Container(
-                              height: 10.h,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.5),
-                                    spreadRadius: 3,
-                                    blurRadius: 7,
-                                    offset: Offset(
-                                        0, 3), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.only(
-                                    left: 3.w, top: 2.h, right: 3.w),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        ExpandTapWidget(
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                          tapPadding: EdgeInsets.all(50),
-                                          child: SvgPicture.asset(
-                                              ImageUtils.backArrowRed),
-                                        ),
-                                        SizedBox(
-                                          width: 3.w,
-                                        ),
-                                        TextWidget(
-                                          textValue: "Select Doctor",
-                                          fontFamily: FontUtils.interBold,
-                                          fontSize: 2.t,
-                                          textColor: ColorUtils.red,
-                                        ),
-                                      ],
-                                    ),
-                                    InkWell(
-                                        onTap: () {
-                                          MyBottomModelSheet.showModelSheet(
-                                            context,
-                                            MediaQuery.of(context).size.height /
-                                                1.25,
-                                            "Sort Doctors",
-                                            SortDoctors(),
-                                          );
-                                        },
-                                        child: SvgPicture.asset(
-                                            ImageUtils.menuIcon)),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        PageHorizontalMargin(
-                          widget: Column(
+                    body: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Column(
                             children: [
                               SizedBox(
-                                child: ListView.separated(
-                                  shrinkWrap: true,
-                                  physics: BouncingScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            PageTransition(
-                                                type: PageTransitionType.fade,
-                                                child: OnlineVisitBookSlot(
-                                                    start_time: model
-                                                            .onlineDoctorModel?[
-                                                                index]
-                                                            .start_time
-                                                            .toString() ??
-                                                        "0",
-                                                    end_time: model
-                                                            .onlineDoctorModel?[
-                                                                index]
-                                                            .end_time
-                                                            .toString() ??
-                                                        "0",
-                                                    id: model.userID)));
-                                      },
-                                      child: Row(
+                                height: context.getPadding().top,
+                              ),
+                              Container(
+                                height: 10.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.withOpacity(0.5),
+                                      spreadRadius: 3,
+                                      blurRadius: 7,
+                                      offset: Offset(
+                                          0, 3), // changes position of shadow
+                                    ),
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsets.only(
+                                      left: 3.w, top: 2.h, right: 3.w),
+                                  child: Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
                                         children: [
-                                          // Image.asset(
-                                          //   model.doctorDetails[index]
-                                          //   ["image"],
-                                          //   width: 20.i,
-                                          //   fit: BoxFit.cover,
-                                          // ),
-                                          CachedNetworkImage(
-                                              placeholder: (context, url) {
-                                                return Image.asset(
-                                                    ImageUtils.stetescope);
-                                              },
-                                              width: 20.i,
-                                              height: 20.i,
-                                              //height: MediaQuery.of(context).size.height / 3,
-                                              fit: BoxFit.cover,
-                                              imageUrl: Constants.imageUrl +
-                                                  model
-                                                      .onlineDoctorModel![index]
-                                                      .image!,
-                                              errorWidget: (context, url,
-                                                      error) =>
-                                                  Image.asset(
-                                                      ImageUtils.stetescope)),
+                                          ExpandTapWidget(
+                                            onTap: () {
+                                              Navigator.pop(context);
+                                            },
+                                            tapPadding: EdgeInsets.all(50),
+                                            child: SvgPicture.asset(
+                                                ImageUtils.backArrowRed),
+                                          ),
                                           SizedBox(
                                             width: 3.w,
                                           ),
-                                          Expanded(
-                                            child: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  model
-                                                          .onlineDoctorModel?[
-                                                              index]
-                                                          .fullName
-                                                          .toString() ??
-                                                      '',
-                                                  style: TextStyle(
-                                                    color: ColorUtils.red,
-                                                    fontFamily:
-                                                        FontUtils.poppinsBold,
-                                                    fontSize: 1.8.t,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  height: 0.75.h,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                      model
-                                                              .onlineDoctorModel?[
-                                                                  index]
-                                                              .qualification ??
-                                                          '',
-                                                      style: TextStyle(
-                                                        color: ColorUtils
-                                                            .blackShade,
-                                                        fontFamily: FontUtils
-                                                            .interRegular,
-                                                        fontSize: 1.6.t,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      ' | ',
-                                                      style: TextStyle(
-                                                        color: ColorUtils
-                                                            .blackShade,
-                                                        fontFamily: FontUtils
-                                                            .interRegular,
-                                                        fontSize: 1.6.t,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      model
-                                                              .onlineDoctorModel?[
-                                                                  index]
-                                                              .experience ??
-                                                          '',
-                                                      style: TextStyle(
-                                                        color: ColorUtils
-                                                            .blackShade,
-                                                        fontFamily: FontUtils
-                                                            .interRegular,
-                                                        fontSize: 1.6.t,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      ' Years Experience',
-                                                      style: TextStyle(
-                                                        color: ColorUtils
-                                                            .blackShade,
-                                                        fontFamily: FontUtils
-                                                            .interRegular,
-                                                        fontSize: 1.6.t,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            width: 2.w,
-                                          ),
-                                          Row(
-                                            children: [
-                                              Text(
-                                                'Rs. ',
-                                                style: TextStyle(
-                                                  color: ColorUtils.lightGreen,
-                                                  fontFamily:
-                                                      FontUtils.interSemiBold,
-                                                  fontSize: 2.t,
-                                                ),
-                                              ),
-                                              Text(
-                                                model.onlineDoctorModel?[index]
-                                                        .fee
-                                                        .toString() ??
-                                                    "0",
-                                                style: TextStyle(
-                                                  color: ColorUtils.lightGreen,
-                                                  fontFamily:
-                                                      FontUtils.interSemiBold,
-                                                  fontSize: 2.t,
-                                                ),
-                                              ),
-                                            ],
+                                          TextWidget(
+                                            textValue: "Select Doctor",
+                                            fontFamily: FontUtils.interBold,
+                                            fontSize: 2.t,
+                                            textColor: ColorUtils.red,
                                           ),
                                         ],
                                       ),
-                                    );
-                                  },
-                                  separatorBuilder: (context, index) {
-                                    return Divider(
-                                      color: ColorUtils.silver,
-                                    );
-                                  },
-                                  itemCount:
-                                      model.onlineDoctorModel?.length ?? 0,
+                                      InkWell(
+                                          onTap: () {
+                                            MyBottomModelSheet.showModelSheet(
+                                              context,
+                                              MediaQuery.of(context)
+                                                      .size
+                                                      .height /
+                                                  1.25,
+                                              "Sort Doctors",
+                                              SortDoctors(),
+                                            );
+                                          },
+                                          child: SvgPicture.asset(
+                                              ImageUtils.menuIcon)),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                      ],
+                          PageHorizontalMargin(
+                            widget: Column(
+                              children: [
+                                SizedBox(
+                                  child: ListView.separated(
+                                    shrinkWrap: true,
+                                    physics: BouncingScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          // if (model.onlineDoctorModel != null &&
+                                          //     index >= 0 &&
+                                          //     index <
+                                          //         model.onlineDoctorModel!
+                                          //             .length) {
+                                          //   Navigator.push(
+                                          //     context,
+                                          //     PageTransition(
+                                          //       type: PageTransitionType.fade,
+                                          //       child: OnlineVisitBookSlot(
+                                          //         start_time: parseTime(model
+                                          //             .onlineDoctorModel![index]
+                                          //             .start_time).isEmpty?'0:00': parseTime(model
+                                          //             .onlineDoctorModel![index]
+                                          //             .start_time),
+                                          //         end_time: parseTime(model
+                                          //             .onlineDoctorModel![index]
+                                          //             .end_time).isEmpty?'0':parseTime(model
+                                          //             .onlineDoctorModel![index]
+                                          //             .end_time),
+                                          //         id: model.userID,
+                                          //       ),
+                                          //     ),
+                                          //   );
+                                          // } else {
+                                          //   print("Invalid index: $index");
+                                          // }
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: OnlineVisitBookSlot(
+                                                      start_time: model
+                                                              .onlineDoctorModel?[
+                                                                  index]
+                                                              .start_time
+                                                              .toString() ??
+                                                          "0",
+                                                      end_time: model
+                                                              .onlineDoctorModel?[
+                                                                  index]
+                                                              .end_time
+                                                              .toString() ??
+                                                          "0",
+                                                      id: model.userID)));
+                                        },
+                                        child: Row(
+                                          children: [
+                                            // Image.asset(
+                                            //   model.doctorDetails[index]
+                                            //   ["image"],
+                                            //   width: 20.i,
+                                            //   fit: BoxFit.cover,
+                                            // ),
+                                            CachedNetworkImage(
+                                                placeholder: (context, url) {
+                                                  return Image.asset(
+                                                      ImageUtils.stetescope);
+                                                },
+                                                width: 20.i,
+                                                height: 20.i,
+                                                //height: MediaQuery.of(context).size.height / 3,
+                                                fit: BoxFit.cover,
+                                                imageUrl: Constants.imageUrl +
+                                                    model
+                                                        .onlineDoctorModel![
+                                                            index]
+                                                        .image!,
+                                                errorWidget: (context, url,
+                                                        error) =>
+                                                    Image.asset(
+                                                        ImageUtils.stetescope)),
+                                            SizedBox(
+                                              width: 3.w,
+                                            ),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  // Text(
+                                                  //   model
+                                                  //           .onlineDoctorModel![
+                                                  //               index]
+                                                  //           .start_time
+                                                  //           .toString()
+                                                  //           .isEmpty
+                                                  //       ? '0:00'
+                                                  //       : model
+                                                  //           .onlineDoctorModel![
+                                                  //               index]
+                                                  //           .start_time
+                                                  //           .toString(),
+                                                  // ),
+                                                  // Text(
+                                                  //   model
+                                                  //           .onlineDoctorModel![
+                                                  //               index]
+                                                  //           .end_time
+                                                  //           .toString()
+                                                  //           .isEmpty
+                                                  //       ? '0:00'
+                                                  //       : model
+                                                  //           .onlineDoctorModel![
+                                                  //               index]
+                                                  //           .end_time
+                                                  //           .toString(),
+                                                  // ),
+                                                  Text(
+                                                    model
+                                                            .onlineDoctorModel?[
+                                                                index]
+                                                            .fullName
+                                                            .toString() ??
+                                                        '',
+                                                    style: TextStyle(
+                                                      color: ColorUtils.red,
+                                                      fontFamily:
+                                                          FontUtils.poppinsBold,
+                                                      fontSize: 1.8.t,
+                                                    ),
+                                                  ),
+                                                  SizedBox(
+                                                    height: 0.75.h,
+                                                  ),
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                        model
+                                                                .onlineDoctorModel?[
+                                                                    index]
+                                                                .qualification ??
+                                                            '',
+                                                        style: TextStyle(
+                                                          color: ColorUtils
+                                                              .blackShade,
+                                                          fontFamily: FontUtils
+                                                              .interRegular,
+                                                          fontSize: 1.6.t,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ' | ',
+                                                        style: TextStyle(
+                                                          color: ColorUtils
+                                                              .blackShade,
+                                                          fontFamily: FontUtils
+                                                              .interRegular,
+                                                          fontSize: 1.6.t,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        model
+                                                                .onlineDoctorModel?[
+                                                                    index]
+                                                                .experience ??
+                                                            '',
+                                                        style: TextStyle(
+                                                          color: ColorUtils
+                                                              .blackShade,
+                                                          fontFamily: FontUtils
+                                                              .interRegular,
+                                                          fontSize: 1.6.t,
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        ' Years Experience',
+                                                        style: TextStyle(
+                                                          color: ColorUtils
+                                                              .blackShade,
+                                                          fontFamily: FontUtils
+                                                              .interRegular,
+                                                          fontSize: 1.6.t,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: 2.w,
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  'Rs. ',
+                                                  style: TextStyle(
+                                                    color:
+                                                        ColorUtils.lightGreen,
+                                                    fontFamily:
+                                                        FontUtils.interSemiBold,
+                                                    fontSize: 2.t,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  model
+                                                          .onlineDoctorModel?[
+                                                              index]
+                                                          .fee
+                                                          .toString() ??
+                                                      "0",
+                                                  style: TextStyle(
+                                                    color:
+                                                        ColorUtils.lightGreen,
+                                                    fontFamily:
+                                                        FontUtils.interSemiBold,
+                                                    fontSize: 2.t,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                    separatorBuilder: (context, index) {
+                                      return Divider(
+                                        color: ColorUtils.silver,
+                                      );
+                                    },
+                                    itemCount:
+                                        model.onlineDoctorModel?.length ?? 0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
