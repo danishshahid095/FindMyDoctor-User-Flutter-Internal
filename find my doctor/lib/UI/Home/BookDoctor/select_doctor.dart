@@ -266,18 +266,20 @@ class _SelectDoctorState extends State<SelectDoctor> {
                                                   ),
                                                   Row(
                                                     children: [
-                                                      Text(
-                                                        model
-                                                                .onlineDoctorModel?[
-                                                                    index]
-                                                                .qualification ??
-                                                            '',
-                                                        style: TextStyle(
-                                                          color: ColorUtils
-                                                              .blackShade,
-                                                          fontFamily: FontUtils
-                                                              .interRegular,
-                                                          fontSize: 1.6.t,
+                                                      Expanded(
+                                                        child: Text(
+                                                          model
+                                                                  .onlineDoctorModel?[
+                                                                      index]
+                                                                  .qualification ??
+                                                              '',
+                                                          style: TextStyle(
+                                                            color: ColorUtils
+                                                                .blackShade,
+                                                            fontFamily: FontUtils
+                                                                .interRegular,
+                                                            fontSize: 1.6.t,
+                                                          ),
                                                         ),
                                                       ),
                                                       Text(

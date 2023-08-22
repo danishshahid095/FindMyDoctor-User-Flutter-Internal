@@ -13,7 +13,7 @@ DoctorActiveModel _$DoctorActiveModelFromJson(Map<String, dynamic> json) =>
       ..appointment_user = json['appointment_user'] as String?
       ..appoint_type = json['appoint_type'] as String?
       ..doctor_consultation_type = json['doctor_consultation_type'] as String?
-      ..doctor = json['doctor'] as String?
+      ..doctor = json['doctor'] as int?
       ..is_beneficiary = json['is_beneficiary'] as String?
       ..date_time = json['date_time'] == null
           ? null

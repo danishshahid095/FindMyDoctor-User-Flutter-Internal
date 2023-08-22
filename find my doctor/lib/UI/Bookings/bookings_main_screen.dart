@@ -304,7 +304,6 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                           ],
                                                         ),
                                                       ),
-                                                      
                                                     ],
                                                   );
                                                 },
@@ -315,7 +314,6 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                 itemCount: model.doctormyactive
                                                         ?.length ??
                                                     0),
-                                    
                                             SizedBox(
                                               height: 3.h,
                                             ),
@@ -640,6 +638,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     fontSize:
                                                                         1.6.t,
                                                                   ),
+
                                                                   // TextWidget(
                                                                   //   textValue:
                                                                   //       "Lab Order",
@@ -682,36 +681,8 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       ),
                                                                     ],
                                                                   ),
-                                                                  SizedBox(
-                                                                    height:
-                                                                        0.75.h,
-                                                                  ),
-                                                                  Row(
-                                                                    children: [
-                                                                      TextWidget(
-                                                                        textValue:
-                                                                            "Doctor Consultation Type: ",
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                      TextWidget(
-                                                                        textValue: model
-                                                                            .doctormyhistory![index]
-                                                                            .doctor_consultation_type
-                                                                            .toString(),
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                    ],
-                                                                  ),
+
+                                                                 
                                                                 ],
                                                               ),
                                                             ),
@@ -750,6 +721,41 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                           ],
                                                         ),
                                                       ),
+                                                      SizedBox(
+                                                        height: 0.75.h,
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsets.only(
+                                                                left: 2.w),
+                                                        child: Row(
+                                                          children: [
+                                                            TextWidget(
+                                                              textValue:
+                                                                  "Doctor Consultation Type: ",
+                                                              textColor:
+                                                                  ColorUtils
+                                                                      .blackShade,
+                                                              fontFamily: FontUtils
+                                                                  .interRegular,
+                                                              fontSize: 1.6.t,
+                                                            ),
+                                                            TextWidget(
+                                                              textValue: model
+                                                                  .doctormyhistory![
+                                                                      index]
+                                                                  .doctor_consultation_type
+                                                                  .toString(),
+                                                              textColor:
+                                                                  ColorUtils
+                                                                      .blackShade,
+                                                              fontFamily: FontUtils
+                                                                  .interRegular,
+                                                              fontSize: 1.6.t,
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      )
                                                     ],
                                                   );
                                                 },

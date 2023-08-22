@@ -10,13 +10,11 @@ ActiveLabBookingModel _$ActiveLabBookingModelFromJson(
         Map<String, dynamic> json) =>
     ActiveLabBookingModel()
       ..id = json['id'] as int?
-      ..amount = (json['amount'] as num?)?.toDouble()
+      ..amount = (json['amount'] as int?)
       ..status = json['status'] as int?
       ..name = json['name'] as String?
       ..is_beneficiary = json['is_beneficiary'] as String?
-      ..date_time = json['date_time'] == null
-          ? null
-          : DateTime.parse(json['date_time'] as String)
+      ..date_time = json['date_time'] as String?
       ..b_status = json['b_status'] as String?;
 
 Map<String, dynamic> _$ActiveLabBookingModelToJson(
@@ -27,7 +25,7 @@ Map<String, dynamic> _$ActiveLabBookingModelToJson(
       'status': instance.status,
       'name': instance.name,
       'is_beneficiary': instance.is_beneficiary,
-      'date_time': instance.date_time?.toIso8601String(),
+      'date_time': instance.date_time,
       'b_status': instance.b_status,
     };
 

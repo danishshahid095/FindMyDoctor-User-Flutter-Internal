@@ -11,7 +11,7 @@ class DoctorHistoryModel {
   String? appointment_user;
   String? appoint_type;
   String? doctor_consultation_type;
-  String? doctor;
+  int? doctor;
   String? is_beneficiary;
   DateTime? date_time;
   double? amount;

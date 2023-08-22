@@ -7,11 +7,11 @@ class ActiveLabBookingModel {
   ActiveLabBookingModel();
 
   int? id;
-  double? amount;
+  int? amount;
   int? status;
   String? name;
   String? is_beneficiary;
-  DateTime? date_time;
+  String? date_time;
   String? b_status;
 
   factory ActiveLabBookingModel.fromJson(Map<String, dynamic> json) =>
