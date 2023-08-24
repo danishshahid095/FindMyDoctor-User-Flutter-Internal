@@ -9,7 +9,7 @@ part of 'onlineDoctorModel.dart';
 OnlineDoctorModel _$OnlineDoctorModelFromJson(Map<String, dynamic> json) =>
     OnlineDoctorModel(
       id: json['id'] as int?,
-      fullName: json['fullName'] as String?,
+      fullname: json['fullname'] as String?,
       email: json['email'] as String?,
       phone: json['phone'] as String?,
       type: json['type'] as int?,
@@ -31,7 +31,7 @@ OnlineDoctorModel _$OnlineDoctorModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$OnlineDoctorModelToJson(OnlineDoctorModel instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'fullName': instance.fullName,
+      'fullname': instance.fullname,
       'email': instance.email,
       'phone': instance.phone,
       'type': instance.type,

@@ -251,7 +251,7 @@ class _SelectDoctorState extends State<SelectDoctor> {
                                                     model
                                                             .onlineDoctorModel?[
                                                                 index]
-                                                            .fullName
+                                                            .fullname
                                                             .toString() ??
                                                         '',
                                                     style: TextStyle(

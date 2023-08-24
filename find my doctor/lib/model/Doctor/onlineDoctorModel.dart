@@ -5,7 +5,7 @@ part 'onlineDoctorModel.g.dart';
 @JsonSerializable()
 class OnlineDoctorModel {
   int? id;
-  String? fullName;
+  String? fullname;
   String? email;
   String? phone;
   int? type;
@@ -25,7 +25,7 @@ class OnlineDoctorModel {
 
   OnlineDoctorModel({
     this.id,
-    this.fullName,
+    this.fullname,
     this.email,
     this.phone,
     this.type,
@@ -51,7 +51,7 @@ class OnlineDoctorModel {
 
   @override
   String toString() {
-    return 'OnlineDoctorModel{id: $id, fullname: $fullName, email: $email, phone: $phone, type: $type, image: $image, qualification: $qualification, experience: $experience, specialistCategory: $specialistCategory, PMDA_ID: $PMDA_ID, CNIC: $CNIC, availability: $availability, fee: $fee, speciality: $speciality, doctorType: $doctorType, consultation: $consultation, start_time: $start_time, end_time: $end_time}';
+    return 'OnlineDoctorModel{id: $id, fullname: $fullname, email: $email, phone: $phone, type: $type, image: $image, qualification: $qualification, experience: $experience, specialistCategory: $specialistCategory, PMDA_ID: $PMDA_ID, CNIC: $CNIC, availability: $availability, fee: $fee, speciality: $speciality, doctorType: $doctorType, consultation: $consultation, start_time: $start_time, end_time: $end_time}';
   }
 }
 
