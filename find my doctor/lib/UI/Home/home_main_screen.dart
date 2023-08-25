@@ -22,7 +22,6 @@ class HomeMainScreen extends StatefulWidget {
 }
 
 class _HomeMainScreenState extends State<HomeMainScreen> {
-
   bool searchTapped = false;
 
   @override
@@ -54,80 +53,83 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                           height: context.getPadding().top,
                         ),
                         TopMarginHome(),
-                        if(searchTapped == true)
-                        TextField(
-                          style: TextStyle(color: ColorUtils.silver2),
-                          decoration: InputDecoration(
-                            fillColor: ColorUtils.silver1,
-                            filled: true,
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: ColorUtils.silver1),
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(30.0)),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius:
-                              BorderRadius.all(Radius.circular(30.0)),
-                              borderSide: BorderSide(
-                                  color: ColorUtils.silver1, width: 1.5),
-                            ),
-                            labelStyle:
-                            const TextStyle(color: Color(0xFFDEDEDE)),
-                            hintText: "Search",
-                            hintStyle: TextStyle(
-                                fontFamily: FontUtils.interRegular,
-                                color: ColorUtils.silver2
-                            ),
-                            prefixIcon: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 14.0),
-                              child: SvgPicture.asset(
-                                ImageUtils.searchIcon,
-                                height: 1.i,
-                                width: 1.i,
+                        if (searchTapped == true)
+                          TextField(
+                            style: TextStyle(color: ColorUtils.silver2),
+                            decoration: InputDecoration(
+                              fillColor: ColorUtils.silver1,
+                              filled: true,
+                              enabledBorder: OutlineInputBorder(
+                                borderSide:
+                                    BorderSide(color: ColorUtils.silver1),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30.0)),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(30.0)),
+                                borderSide: BorderSide(
+                                    color: ColorUtils.silver1, width: 1.5),
+                              ),
+                              labelStyle:
+                                  const TextStyle(color: Color(0xFFDEDEDE)),
+                              hintText: "Search",
+                              hintStyle: TextStyle(
+                                  fontFamily: FontUtils.interRegular,
+                                  color: ColorUtils.silver2),
+                              prefixIcon: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 14.0),
+                                child: SvgPicture.asset(
+                                  ImageUtils.searchIcon,
+                                  height: 1.i,
+                                  width: 1.i,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                        if(searchTapped == false)
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextWidget(
-                                  textValue: "Hello Hussain,",
-                                  fontFamily: FontUtils.poppinsBold,
-                                  fontSize: 2.4.t,
-                                  textColor: ColorUtils.red,
-                                ),
-                                TextWidget(
-                                  textValue: "How may we help you today?",
-                                  fontFamily: FontUtils.interMedium,
-                                  fontSize: 1.8.t,
-                                  textColor: ColorUtils.blackShade,
-                                ),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: (){
-                                setState(() {
-                                  searchTapped = true;
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: ColorUtils.silver1,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: SvgPicture.asset(ImageUtils.searchIcon),
+                        if (searchTapped == false)
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: 'Hello .' +
+                                        model.fullname.toString(),
+                                    //textValue: "Hello Hussain,",
+                                    fontFamily: FontUtils.poppinsBold,
+                                    fontSize: 2.4.t,
+                                    textColor: ColorUtils.red,
+                                  ),
+                                  TextWidget(
+                                    textValue: "How may we help you today?",
+                                    fontFamily: FontUtils.interMedium,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.blackShade,
+                                  ),
+                                ],
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    searchTapped = true;
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: ColorUtils.silver1,
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child:
+                                        SvgPicture.asset(ImageUtils.searchIcon),
+                                  ),
                                 ),
                               ),
-                            ),
-                          ],
-                        ),
+                            ],
+                          ),
                         SizedBox(
                           height: 2.h,
                         ),
@@ -148,7 +150,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                             ),
                             TextWidget(
                               textValue: "Our Services",
-                             // textValue: model.fcmToken,
+                              // textValue: model.fcmToken,
                               fontFamily: FontUtils.poppinsBold,
                               fontSize: 2.4.t,
                               textColor: ColorUtils.red,
@@ -170,51 +172,58 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                 shrinkWrap: true,
                                 primary: false,
                                 gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 10.0,
-                                    mainAxisSpacing: 10.0,
-                                    childAspectRatio: 1.7),
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 10.0,
+                                        mainAxisSpacing: 10.0,
+                                        childAspectRatio: 1.7),
                                 itemBuilder: (context, index) {
                                   return GestureDetector(
-                                    onTap: (){
-                                      if(index == 0){
+                                    onTap: () {
+                                      if (index == 0) {
                                         model.fromDoctorBook = true;
                                         model.fromPharmacy = false;
                                         model.fromLabTestBook = false;
                                         model.fromBuyInsurance = false;
                                         model.notifyListeners();
-                                        Navigator.push(context,
-                                            PageTransition(type: PageTransitionType.fade, child: BookADoctor()));
-                                      }
-                                      else if(index == 1){
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child: BookADoctor()));
+                                      } else if (index == 1) {
                                         model.fromDoctorBook = false;
                                         model.fromPharmacy = true;
                                         model.fromLabTestBook = false;
                                         model.fromBuyInsurance = false;
                                         model.notifyListeners();
-                                        Navigator.push(context,
-                                            PageTransition(type: PageTransitionType.fade,
-                                             child: BookADoctor()));
-                                      }
-                                      else if(index == 2){
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child: BookADoctor()));
+                                      } else if (index == 2) {
                                         model.fromDoctorBook = false;
                                         model.fromPharmacy = false;
                                         model.fromLabTestBook = true;
                                         model.fromBuyInsurance = false;
                                         model.notifyListeners();
-                                        Navigator.push(context,
-                                            PageTransition(type: PageTransitionType.fade,
-                                             child: BookADoctor()));
-                                      }
-                                      else{
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child: BookADoctor()));
+                                      } else {
                                         model.fromDoctorBook = false;
                                         model.fromPharmacy = false;
                                         model.fromLabTestBook = false;
                                         model.fromBuyInsurance = true;
                                         model.notifyListeners();
-                                        Navigator.push(context,
-                                            PageTransition(type: PageTransitionType.fade, child: InsuranceMainScreen()));
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child: InsuranceMainScreen()));
                                       }
                                     },
                                     child: Container(
@@ -224,12 +233,13 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                         color: ColorUtils.silver1,
                                       ),
                                       child: Padding(
-                                        padding:
-                                        EdgeInsets.symmetric(horizontal: 1.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 1.w),
                                         child: Row(
                                           children: [
                                             Image.asset(
-                                              model.services[index]["serviceImage"],
+                                              model.services[index]
+                                                  ["serviceImage"],
                                               width: 16.i,
                                               fit: BoxFit.cover,
                                             ),
@@ -241,12 +251,13 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                                 alignment: Alignment.centerLeft,
                                                 child: Text(
                                                   model.services[index]
-                                                  ["serviceName"],
+                                                      ["serviceName"],
                                                   style: TextStyle(
                                                       fontFamily:
-                                                      FontUtils.poppinsBold,
+                                                          FontUtils.poppinsBold,
                                                       fontSize: 2.t,
-                                                      color: ColorUtils.blackShade),
+                                                      color: ColorUtils
+                                                          .blackShade),
                                                 ),
                                               ),
                                             )
@@ -288,27 +299,32 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
                                   return Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(8),
                                         child: Image.asset(
                                           model.blogs[index]["blogImage"],
-                                          width:
-                                          MediaQuery.of(context).size.width / 2,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              2,
                                         ),
                                       ),
                                       SizedBox(
                                         height: 2.h,
                                       ),
                                       TextWidget(
-                                        textValue: model.blogs[index]["blogName"],
+                                        textValue: model.blogs[index]
+                                            ["blogName"],
                                         fontSize: 1.4.t,
                                         fontFamily: FontUtils.interBold,
                                         textColor: ColorUtils.black1,
                                       ),
                                       TextWidget(
-                                        textValue: model.blogs[index]["details"],
+                                        textValue: model.blogs[index]
+                                            ["details"],
                                         fontSize: 1.4.t,
                                         fontFamily: FontUtils.interRegular,
                                         textColor: ColorUtils.black1,

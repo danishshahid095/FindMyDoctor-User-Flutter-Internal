@@ -51,6 +51,7 @@ import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
+import '../services/patch/user_update.dart';
 import '../services/post/post_add_beneficiary.dart';
 import '../services/post/post_add_booking_doctor.dart';
 import '../services/post/post_add_booking_doctor_online.dart';
@@ -68,8 +69,10 @@ class MainViewModel extends BaseViewModel {
   String? token;
   String? fcmToken;
   int? userID;
+  String? fullname;
+  String? email;
+  String? phone;
   String? bookig_slot_time;
-
   bool fromDoctorBook = false;
   bool fromLabTestBook = false;
   bool fromPharmacy = false;
@@ -357,6 +360,17 @@ class MainViewModel extends BaseViewModel {
         prefService.saveUserToken(token!);
         userID = response.data!.id;
         prefService.saveUserID(userID!);
+        fullname = response.data!.fullname!;
+        prefService.saveUserName(fullname!);
+        print('this is name ${fullname}');
+        // await prefService.getUserName();
+        // fullname = prefService.userName;
+
+        email = response.data!.email!;
+        prefService.saveUserEmail(email!);
+
+        phone = response.data!.phone!;
+        prefService.saveUserPhone(phone!);
 
         // // Getting User Details
         // var userDetailsResponse = await getUserDetails.getUserDetails(token!);
@@ -477,7 +491,6 @@ class MainViewModel extends BaseViewModel {
     try {
       List<SlotsModel>? responseslot = await slot.AvailableSlot(id, date);
       if (responseslot != null) {
-
         docslotModel = responseslot;
         for (var entry in docslotModel!) {
           String bookedSlotsTime = entry.booked_slots_time.toString();
@@ -488,8 +501,8 @@ class MainViewModel extends BaseViewModel {
         // print("this is  model response data ${responseslot}");
         // print("this is  model data ${docslotModel}");
         //print(docslotModel![0].booked_slots_time.toString());
-      
-       // print('response');
+
+        // print('response');
         // print(responseslot[0]);
         // print('response');
         // print(responseslot);
@@ -1199,16 +1212,14 @@ class MainViewModel extends BaseViewModel {
 
 //####### doctor myactive api start  ###########
 
-GetDoctorMyActive getdoctoractive = GetDoctorMyActive();
-  List<DoctorActiveModel>? doctormyactive =
-      DoctorActiveCompleteModel().data;
+  GetDoctorMyActive getdoctoractive = GetDoctorMyActive();
+  List<DoctorActiveModel>? doctormyactive = DoctorActiveCompleteModel().data;
   bool doctoractiveLoader = false;
 
   Future gettingDoctorActive(BuildContext context, String token) async {
     doctoractiveLoader = true;
 
-    var doctorActiveResponse =
-        await getdoctoractive.getdoctorMyActive(token);
+    var doctorActiveResponse = await getdoctoractive.getdoctorMyActive(token);
     if (doctorActiveResponse != null &&
         doctorActiveResponse is List<DoctorActiveModel>) {
       doctormyactive = doctorActiveResponse;
@@ -1220,15 +1231,13 @@ GetDoctorMyActive getdoctoractive = GetDoctorMyActive();
     }
     doctoractiveLoader = false;
   }
-  
-  //####### doctor  myactive  api end  ###########
 
+  //####### doctor  myactive  api end  ###########
 
 //####### doctor  myHistory api start  ###########
 
-GetDoctorMyHostory getdoctormyhistory = GetDoctorMyHostory();
-  List<DoctorHistoryModel>? doctormyhistory =
-      DoctorHistoryCompleteModel().data;
+  GetDoctorMyHostory getdoctormyhistory = GetDoctorMyHostory();
+  List<DoctorHistoryModel>? doctormyhistory = DoctorHistoryCompleteModel().data;
   bool doctormyhistoryLoader = false;
 
   Future gettingDoctorMyhistory(BuildContext context, String token) async {
@@ -1249,8 +1258,6 @@ GetDoctorMyHostory getdoctormyhistory = GetDoctorMyHostory();
   }
 
   //####### doctor  myhistory api  end  ###########
-
-
 
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
   //######################################################################## Lab History Booking ###############################################################################//
@@ -1282,8 +1289,8 @@ GetDoctorMyHostory getdoctormyhistory = GetDoctorMyHostory();
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
   //######################################################################## Lab History Booking ###############################################################################//
-/////////////////////////////////////////////////////////////////////////     
-///Starts    ///////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////
+  ///Starts    ///////////////////////////////////////////////////////////////////////////////////
 
   GetLabOrderDetail getLabOrderDetail = GetLabOrderDetail();
   LabBookingDetailModel? labBookingDetailModel =
@@ -1488,6 +1495,19 @@ GetDoctorMyHostory getdoctormyhistory = GetDoctorMyHostory();
   }
   // ############   lab booking details api  end ################
 
+
+TextEditingController updateNameController = TextEditingController();
+ var userupdate = UserUpdate();
+
+  Future userUpdate(BuildContext context,   String token, String fullname, String email, String phone, String userId) async {
+    loadingWidget = true;
+    var userUpdateResponse =
+        await userupdate.userUpdate(token, fullname, email, phone,userId);
+    if (userUpdateResponse != null) {
+      return userUpdateResponse;
+      // notifyListeners();
+    } else {}
+  }
   // Show Error Message
   void showErrorMessage(BuildContext context, String error) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

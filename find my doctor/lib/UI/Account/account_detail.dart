@@ -34,8 +34,7 @@ class _Account_DetailState extends State<Account_Detail> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -54,325 +53,393 @@ class _Account_DetailState extends State<Account_Detail> {
                       BackSingleText(
                         backText: "Personal Information",
                       ),
-                      SizedBox(height: 1.h,),
+                      SizedBox(
+                        height: 1.h,
+                      ),
                     ],
                   ),
                   Expanded(
                     child: SingleChildScrollView(
                       child: PageHorizontalMargin(
-                        widget: Column(
-                          children: [
-                            SizedBox(height: 2.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Full Name",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "Hussain Akhtar",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Gender",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "Select Gender",
-                                      textColor: ColorUtils.red,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-                                      _SelectgenderPopup(context);
-                                      // Navigator.push(context,
-                                      //     PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Date",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "dd/mm/yyyy",
-                                      textColor: ColorUtils.red,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-                                      _SelectdatePopup(context);
-                                      // Navigator.push(context,
-                                      //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Email",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "hussain.ak073@gmail.com",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: Edit_Email()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Change Password",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: Edit_Password()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Phone",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "+92 345 3048539",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: Edit_Number()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "City",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "No City Selected",
-                                      textColor: ColorUtils.red,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: SelectCity()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Address",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "No address details added",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: EnterAddress()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                            SizedBox(height: 1.h,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextWidget(
-                                      textValue: "Policy Number",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
-                                    ),
-                                    SizedBox(height: 0.75.h,),
-                                    TextWidget(
-                                      textValue: "No policy details added",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
-                                  ],
-                                ),
-                                InkWell(
-                                    onTap: (){
-
-                                      // Navigator.push(context,
-                                      //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
-                                    },
-                                    child: ForwardButtonBlack()),
-                              ],
-                            ),
-                            SizedBox(height: 1.h,),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-                          ],
-                        )
-                      ),
+                          widget: Column(
+                        children: [
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Full Name",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.prefService.userName.toString(),
+                                    // "Hussain Akhtar",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Name()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Gender",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: "Select Gender",
+                                    textColor: ColorUtils.red,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    _SelectgenderPopup(context);
+                                    // Navigator.push(context,
+                                    //     PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Date",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: "dd/mm/yyyy",
+                                    textColor: ColorUtils.red,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    _SelectdatePopup(context);
+                                    // Navigator.push(context,
+                                    //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Email",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue:
+                                        model.prefService.userEmail.toString(),
+                                    //"hussain.ak073@gmail.com",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Email()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Change Password",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Password()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Phone",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.phone.toString(),
+                                    //"+92 345 3048539",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Number()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "City",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: "No City Selected",
+                                    textColor: ColorUtils.red,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: SelectCity()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Address",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: "No address details added",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: EnterAddress()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Policy Number",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: "No policy details added",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    // Navigator.push(context,
+                                    //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                        ],
+                      )),
                     ),
                   ),
                 ],
@@ -383,8 +450,8 @@ class _Account_DetailState extends State<Account_Detail> {
       },
     );
   }
-  void _SelectgenderPopup(BuildContext ) {
-    
+
+  void _SelectgenderPopup(BuildContext) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -393,96 +460,91 @@ class _Account_DetailState extends State<Account_Detail> {
           topRight: Radius.circular(24.0),
         ),
       ),
-      backgroundColor: Colors.white, context: context, builder: (context) {
-      return PageHorizontalMargin(
-        widget: Container(
-          height: MediaQuery.of(context).size.height/1.5,
-          child: Column(
-            children: [
-              SizedBox(height: 2.h,),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextWidget(
-                  textValue: "Select Gender",
-                  fontFamily: FontUtils.poppinsBold,
-                  fontSize: 2.2.t,
-                  textColor: ColorUtils.red,
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) {
+        return PageHorizontalMargin(
+          widget: Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 2.h,
                 ),
-              ),
-              Image.asset(
-                ImageUtils.femaleDoctor,
-                width: 50.i,
-                height: 50.i,
-              ),
-              SizedBox(height: 2.h,),
-
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                      child: Text("Male")),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextWidget(
+                    textValue: "Select Gender",
+                    fontFamily: FontUtils.poppinsBold,
+                    fontSize: 2.2.t,
+                    textColor: ColorUtils.red,
+                  ),
+                ),
+                Image.asset(
+                  ImageUtils.femaleDoctor,
+                  width: 50.i,
+                  height: 50.i,
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 4, child: Text("Male")),
+                    Expanded(
+                      flex: 1,
+                      child: RadioListTile(
                         activeColor: ColorUtils.red,
                         value: 0,
-                      groupValue: true,
-                        onChanged: (ind) {
-
-                        },
+                        groupValue: true,
+                        onChanged: (ind) {},
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                      child: Text("Female")),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 4, child: Text("Female")),
+                    Expanded(
+                      flex: 1,
+                      child: RadioListTile(
                         activeColor: ColorUtils.red,
                         value: 0,
-                      groupValue: true,
-                        onChanged: (ind) {
-
-                        },
+                        groupValue: true,
+                        onChanged: (ind) {},
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    flex: 4,
-                      child: Text("Other")),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 4, child: Text("Other")),
+                    Expanded(
+                      flex: 1,
+                      child: RadioListTile(
                         activeColor: ColorUtils.red,
                         value: 0,
-                      groupValue: true,
-                        onChanged: (ind) {
-
-                        },
+                        groupValue: true,
+                        onChanged: (ind) {},
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 2.h,),
-              RedButton(
-                textValue: "Confirm",
-                onButtonPressed: (){
-
-                },
-              ),
-              SizedBox(height: 2.h,),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                RedButton(
+                  textValue: "Confirm",
+                  onButtonPressed: () {},
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    },
+        );
+      },
     );
     // showCupertinoModalPopup(
     //    context: BuildContext,
@@ -514,8 +576,7 @@ class _Account_DetailState extends State<Account_Detail> {
     //     ));
   }
 
-  void _SelectdatePopup(BuildContext ) {
-
+  void _SelectdatePopup(BuildContext) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -524,82 +585,93 @@ class _Account_DetailState extends State<Account_Detail> {
           topRight: Radius.circular(24.0),
         ),
       ),
-      backgroundColor: Colors.white, context: context, builder: (context) {
-      return PageHorizontalMargin(
-        widget: Container(
-          height: MediaQuery.of(context).size.height/1.5,
-          child: Column(
-            children: [
-              SizedBox(height: 2.h,),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextWidget(
-                  textValue: "Select Date of Birth",
-                  fontFamily: FontUtils.poppinsBold,
-                  fontSize: 2.2.t,
-                  textColor: ColorUtils.red,
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) {
+        return PageHorizontalMargin(
+          widget: Container(
+            height: MediaQuery.of(context).size.height / 1.5,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 2.h,
                 ),
-              ),
-              Image.asset(
-                ImageUtils.femaleDoctor,
-                width: 50.i,
-                height: 50.i,
-              ),
-              SizedBox(height: 2.h,),
-
-              Row(
-                children: [
-                  Image.asset(
-                    ImageUtils.addIcon,
-                  ),
-                  SizedBox(width: 2.w,),
-                  TextWidget(
-                    textValue: "Enter Date of Birth",
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextWidget(
+                    textValue: "Select Date of Birth",
                     fontFamily: FontUtils.poppinsBold,
                     fontSize: 2.2.t,
                     textColor: ColorUtils.red,
                   ),
-                ],
-              ),
-              SizedBox(height: 3.h,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    child: SquareDateTextField(
-                      hint: "00",
-                      unit: "HH",
+                ),
+                Image.asset(
+                  ImageUtils.femaleDoctor,
+                  width: 50.i,
+                  height: 50.i,
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Row(
+                  children: [
+                    Image.asset(
+                      ImageUtils.addIcon,
                     ),
-                  ),
-                  SvgPicture.asset(ImageUtils.dateSlash),
-                  Expanded(
-                    child: SquareDateTextField(
-                      hint: "00",
-                      unit: "MM",
+                    SizedBox(
+                      width: 2.w,
                     ),
-                  ),
-                  SvgPicture.asset(ImageUtils.dateSlash),
-                  Expanded(
-                    child: SquareDateTextField(
-                      hint: "2022",
-                      unit: "YYYY",
+                    TextWidget(
+                      textValue: "Enter Date of Birth",
+                      fontFamily: FontUtils.poppinsBold,
+                      fontSize: 2.2.t,
+                      textColor: ColorUtils.red,
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 4.h,),
-              RedButton(
-                textValue: "Confirm",
-                onButtonPressed: (){
-
-                },
-              ),
-              SizedBox(height: 2.h,),
-            ],
+                  ],
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: SquareDateTextField(
+                        hint: "00",
+                        unit: "HH",
+                      ),
+                    ),
+                    SvgPicture.asset(ImageUtils.dateSlash),
+                    Expanded(
+                      child: SquareDateTextField(
+                        hint: "00",
+                        unit: "MM",
+                      ),
+                    ),
+                    SvgPicture.asset(ImageUtils.dateSlash),
+                    Expanded(
+                      child: SquareDateTextField(
+                        hint: "2022",
+                        unit: "YYYY",
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 4.h,
+                ),
+                RedButton(
+                  textValue: "Confirm",
+                  onButtonPressed: () {},
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    },
+        );
+      },
     );
     // showCupertinoModalPopup(
     //    context: BuildContext,

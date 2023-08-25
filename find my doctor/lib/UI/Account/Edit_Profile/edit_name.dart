@@ -12,7 +12,6 @@ import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-
 class Edit_Name extends StatefulWidget {
   const Edit_Name({Key? key}) : super(key: key);
 
@@ -26,8 +25,7 @@ class _Edit_NameState extends State<Edit_Name> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -46,48 +44,56 @@ class _Edit_NameState extends State<Edit_Name> {
                       BackSingleText(
                         backText: "Update Name",
                       ),
-                      SizedBox(height: 1.h,),
+                      SizedBox(
+                        height: 1.h,
+                      ),
                     ],
                   ),
                   Expanded(
                     child: SingleChildScrollView(
                       child: PageHorizontalMargin(
                           widget: Column(
-                            children: [
-                              Image.asset(
-                                ImageUtils.femaleDoctor,
-                                width: 60.i,
-                                height: 60.i,
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              TextWidget(
-                                textValue: "Update Your Name",
-                                textColor: ColorUtils.red,
-                                fontFamily: FontUtils.interBold,
-                                fontSize: 2.4.t,
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              CustomTextField(
-                                hintText: "Enter Updated Name",
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              RedButton(
-                                textValue: "Confirm",
-                                onButtonPressed: (){
-                                  Navigator.pop(context);
-                                  // Navigator.push(context,
-                                  //     PageTransition(type: PageTransitionType.fade, child: ()));
-                                },
-                              ),
-                            ],
-                          )
-                      ),
+                        children: [
+                          Image.asset(
+                            ImageUtils.femaleDoctor,
+                            width: 60.i,
+                            height: 60.i,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          TextWidget(
+                            textValue: "Update Your Name",
+                            textColor: ColorUtils.red,
+                            fontFamily: FontUtils.interBold,
+                            fontSize: 2.4.t,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          CustomTextField(
+                            hintText: "Enter Updated Name",
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          RedButton(
+                            textValue: "Confirm",
+                            onButtonPressed: () {
+                              model.userUpdate(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  model.updateNameController.toString(),
+                                  model.email.toString(),
+                                  model.phone.toString(),
+                                  model.userID.toString());
+                              Navigator.pop(context);
+                              // Navigator.push(context,
+                              //     PageTransition(type: PageTransitionType.fade, child: ()));
+                            },
+                          ),
+                        ],
+                      )),
                     ),
                   ),
                 ],

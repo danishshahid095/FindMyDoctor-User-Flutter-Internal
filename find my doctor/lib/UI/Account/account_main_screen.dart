@@ -84,7 +84,8 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                   ),
                                   SizedBox(height: 0.75.h,),
                                   TextWidget(
-                                    textValue: "Hussain Akhtar",
+                                    textValue:   model.fullname.toString(),
+                                    //"Hussain Akhtar",
                                     textColor: ColorUtils.blackShade,
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
