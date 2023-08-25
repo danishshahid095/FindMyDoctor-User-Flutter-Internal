@@ -60,5 +60,9 @@
 	<false/>
 	<key>io.flutter.embedded_views_preview</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+    <string>We require camera access to connect</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>We require microphone access to connect</string>
 </dict>
 </plist>

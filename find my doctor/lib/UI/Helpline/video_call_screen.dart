@@ -1,111 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
+import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
-class Vedio_call_Screen extends StatefulWidget {
-  const Vedio_call_Screen({super.key});
+import '../../App/locator.dart';
+import '../../Utils/constants.dart';
+import '../../ViewModels/main_view_model.dart';
+
+class VideoCallScreen extends StatefulWidget {
+  const VideoCallScreen({Key? key, required this.callID}) : super(key: key);
+  final String callID;
 
   @override
-  State<Vedio_call_Screen> createState() => _Vedio_call_ScreenState();
+  _VideoCallScreenState createState() => _VideoCallScreenState();
 }
 
-class _Vedio_call_ScreenState extends State<Vedio_call_Screen> {
+class _VideoCallScreenState extends State<VideoCallScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            //color: Colors.amber,
-            child: Image.asset(
-              'assets/images/doctor.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-          Positioned(
-            top: 90,
-            left: 285,
-            child: Container(
-              height: 100, width: 100,
-              // color: Colors.amber,
-              child: Image.asset(
-                'assets/images/patient.png',
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          Positioned(
-              top: 20,
-              left: 10,
-              child: Container(
-                height: 50,
-                width: 50,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                  ),
-                  color: Colors.white,
-                ),
-              )),
-          Positioned(
-            top: 740,
-            left: 100,
-            //right: 200,
-            child: Container(
-              height: 50,
-
-              width: 200,
-              // color: Colors.amberAccent,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset(
-                          'assets/images/Mute.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset(
-                          'assets/images/callend.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Image.asset(
-                          'assets/images/callmute.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  ]),
-            ),
-          ),
-        ],
-      ),
+    return ViewModelBuilder<MainViewModel>.reactive(
+      viewModelBuilder: () => locator<MainViewModel>(),
+      disposeViewModel: false,
+      onModelReady: (model) {},
+      builder: (context, model, child) {
+        return ZegoUIKitPrebuiltCall(
+          appID: Constants.appId,
+          appSign: Constants.appSign,
+          userID: model.userID.toString(),
+          userName: model.userID.toString(),
+          callID: widget.callID,
+          config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+            ..onOnlySelfInRoom = (context) => Navigator.of(context).pop(),
+        );
+      },
     );
   }
 }
