@@ -5,21 +5,21 @@ import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
 import 'package:find_my_doctor/Widgets/back_with_signleText.dart';
+import 'package:find_my_doctor/Widgets/custom_text_field.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/red_button.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:stacked/stacked.dart';
 
-class Edit_Number extends StatefulWidget {
-  const Edit_Number({Key? key}) : super(key: key);
+class Edit_Weight extends StatefulWidget {
+  const Edit_Weight({Key? key}) : super(key: key);
 
   @override
-  State<Edit_Number> createState() => _Edit_NumberState();
+  State<Edit_Weight> createState() => _Edit_WeightState();
 }
 
-class _Edit_NumberState extends State<Edit_Number> {
+class _Edit_WeightState extends State<Edit_Weight> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
@@ -42,7 +42,7 @@ class _Edit_NumberState extends State<Edit_Number> {
                         height: context.getPadding().top,
                       ),
                       BackSingleText(
-                        backText: "Update Number",
+                        backText: "Update Weight",
                       ),
                       SizedBox(
                         height: 1.h,
@@ -63,7 +63,7 @@ class _Edit_NumberState extends State<Edit_Number> {
                             height: 2.h,
                           ),
                           TextWidget(
-                            textValue: "Update Your Number",
+                            textValue: "Update Your  Weight",
                             textColor: ColorUtils.red,
                             fontFamily: FontUtils.interBold,
                             fontSize: 2.4.t,
@@ -71,48 +71,22 @@ class _Edit_NumberState extends State<Edit_Number> {
                           SizedBox(
                             height: 2.h,
                           ),
-                          IntlPhoneField(
-                            decoration: InputDecoration(
-                              counter: Text(''),
-                              floatingLabelBehavior:
-                                  FloatingLabelBehavior.never,
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                // width: 0.0 produces a thin "hairline" border
-                                borderSide:
-                                    BorderSide(color: ColorUtils.lightBlue),
-                              ),
-                              labelText: 'Phone Number',
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(),
-                              ),
-                            ),
-                            initialCountryCode: 'PK',
-                            onChanged: (phone) {
-                              model.updatephoneController.text =
-                                  phone.completeNumber;
-                              //model.updatephoneController;
-                              print(phone.completeNumber);
-                            },
+                          CustomTextField(
+                            controller: model.userweightController,
+                            hintText: "Enter Updated Weight",
                           ),
                           SizedBox(
-                            height: 25.h,
+                            height: 30.h,
                           ),
                           RedButton(
                             textValue: "Confirm",
                             onButtonPressed: () {
-                              model.usersUpdatePhone(
+                              model.doUseMeta(
                                   context,
                                   model.prefService.userToken.toString(),
-                                  model.fullname.toString(),
-                                  // 'burhan2@gmail.com'.toString(),
-                                  // '12345678902'.toString(),
-                                  model.email.toString(),
-                                  model.phone.toString(),
+                                  'weight'.toString(),
+                                  model.userweightController.toString(),
                                   model.userID!);
-
-                              print(
-                                  model.updatephoneController.text.toString());
                               Navigator.pop(context);
                               // Navigator.push(context,
                               //     PageTransition(type: PageTransitionType.fade, child: ()));

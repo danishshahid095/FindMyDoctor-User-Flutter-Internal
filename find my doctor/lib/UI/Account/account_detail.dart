@@ -21,6 +21,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
+import 'Edit_Profile/Edit_address.dart';
+import 'Edit_Profile/edit_age.dart';
+import 'Edit_Profile/edit_height.dart';
+import 'Edit_Profile/edit_weight.dart';
+
 class Account_Detail extends StatefulWidget {
   const Account_Detail({Key? key}) : super(key: key);
 
@@ -82,7 +87,7 @@ class _Account_DetailState extends State<Account_Detail> {
                                     height: 0.75.h,
                                   ),
                                   TextWidget(
-                                    textValue: model.prefService.userName.toString(),
+                                    textValue: model.fullname.toString(),
                                     // "Hussain Akhtar",
                                     textColor: ColorUtils.blackShade,
                                     fontFamily: FontUtils.interRegular,
@@ -101,88 +106,88 @@ class _Account_DetailState extends State<Account_Detail> {
                                   child: ForwardButtonBlack()),
                             ],
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Gender",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "Select Gender",
-                                    textColor: ColorUtils.red,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    _SelectgenderPopup(context);
-                                    // Navigator.push(context,
-                                    //     PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Date",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "dd/mm/yyyy",
-                                    textColor: ColorUtils.red,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    _SelectdatePopup(context);
-                                    // Navigator.push(context,
-                                    //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Divider(
+                          //   color: ColorUtils.silver,
+                          // ),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         TextWidget(
+                          //           textValue: "Gender",
+                          //           textColor: ColorUtils.blackShade,
+                          //           fontFamily: FontUtils.interSemiBold,
+                          //           fontSize: 1.6.t,
+                          //         ),
+                          //         SizedBox(
+                          //           height: 0.75.h,
+                          //         ),
+                          //         TextWidget(
+                          //           textValue: "Select Gender",
+                          //           textColor: ColorUtils.red,
+                          //           fontFamily: FontUtils.interRegular,
+                          //           fontSize: 1.8.t,
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     InkWell(
+                          //         onTap: () {
+                          //           _SelectgenderPopup(context);
+                          //           // Navigator.push(context,
+                          //           //     PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
+                          //         },
+                          //         child: ForwardButtonBlack()),
+                          //   ],
+                          // ),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Divider(
+                          //   color: ColorUtils.silver,
+                          // ),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         TextWidget(
+                          //           textValue: "Date",
+                          //           textColor: ColorUtils.blackShade,
+                          //           fontFamily: FontUtils.interSemiBold,
+                          //           fontSize: 1.6.t,
+                          //         ),
+                          //         SizedBox(
+                          //           height: 0.75.h,
+                          //         ),
+                          //         TextWidget(
+                          //           textValue: "dd/mm/yyyy",
+                          //           textColor: ColorUtils.red,
+                          //           fontFamily: FontUtils.interRegular,
+                          //           fontSize: 1.8.t,
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     InkWell(
+                          //         onTap: () {
+                          //           _SelectdatePopup(context);
+                          //           // Navigator.push(context,
+                          //           //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
+                          //         },
+                          //         child: ForwardButtonBlack()),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: 1.h,
                           ),
@@ -217,15 +222,16 @@ class _Account_DetailState extends State<Account_Detail> {
                                   ),
                                 ],
                               ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Email()));
-                                  },
-                                  child: ForwardButtonBlack()),
+                              // InkWell(
+                              //     onTap: () {
+                              //       Navigator.push(
+                              //           context,
+                              //           PageTransition(
+                              //               type: PageTransitionType.fade,
+                              //               child: Edit_Email()
+                              //               ));
+                              //     },
+                              //     child: ForwardButtonBlack()),
                             ],
                           ),
                           SizedBox(
@@ -302,6 +308,187 @@ class _Account_DetailState extends State<Account_Detail> {
                                         PageTransition(
                                             type: PageTransitionType.fade,
                                             child: Edit_Number()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Address",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue:
+                                        //"karachi",
+                                        model.address.toString(),
+                                    //"hussain.ak073@gmail.com",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Address()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Age",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.age.toString(),
+                                    // model.phone.toString(),
+                                    //"+92 345 3048539",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Age()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Height",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.height.toString(),
+                                    // "5",
+                                    //model.phone.toString(),
+                                    //"+92 345 3048539",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Height()));
+                                  },
+                                  child: ForwardButtonBlack()),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Divider(
+                            color: ColorUtils.silver,
+                          ),
+                          SizedBox(
+                            height: 1.h,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TextWidget(
+                                    textValue: "Weight",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interSemiBold,
+                                    fontSize: 1.6.t,
+                                  ),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.weight.toString(),
+                                    //"11",
+                                    textColor: ColorUtils.blackShade,
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                  ),
+                                ],
+                              ),
+                              InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Edit_Weight()));
                                   },
                                   child: ForwardButtonBlack()),
                             ],

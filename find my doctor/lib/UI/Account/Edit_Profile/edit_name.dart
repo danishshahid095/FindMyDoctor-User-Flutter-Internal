@@ -62,6 +62,7 @@ class _Edit_NameState extends State<Edit_Name> {
                           SizedBox(
                             height: 2.h,
                           ),
+                          //Text(model.fullname.toString()),
                           TextWidget(
                             textValue: "Update Your Name",
                             textColor: ColorUtils.red,
@@ -73,21 +74,30 @@ class _Edit_NameState extends State<Edit_Name> {
                           ),
                           CustomTextField(
                             hintText: "Enter Updated Name",
+                            controller: model.updateNameController,
                           ),
                           SizedBox(
                             height: 30.h,
                           ),
+                          // Text(model.userID.toString()),
+                          // Text(model.email.toString()),
+                          // Text(model.phone.toString()),
+                          // Text(model.updateNameController.text.toString()),
                           RedButton(
                             textValue: "Confirm",
                             onButtonPressed: () {
-                              model.userUpdate(
+                              model.usersUpdate(
                                   context,
                                   model.prefService.userToken.toString(),
-                                  model.updateNameController.toString(),
+                                  model.fullname.toString(),
+                                  // 'burhan2@gmail.com'.toString(),
+                                  // '12345678902'.toString(),
                                   model.email.toString(),
                                   model.phone.toString(),
-                                  model.userID.toString());
+                                  model.userID!);
+                              print(model.updateNameController.text.toString());
                               Navigator.pop(context);
+                              print(model.fullname.toString());
                               // Navigator.push(context,
                               //     PageTransition(type: PageTransitionType.fade, child: ()));
                             },

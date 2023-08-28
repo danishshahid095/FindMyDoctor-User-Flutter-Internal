@@ -10,6 +10,7 @@ class PreferencesViewModel extends BaseViewModel{
   String? userName;
   String? userEmail;
   String? userPhone;
+   String? userAddress;
 
   Future saveUserToken(String tokenValue) async{
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -111,5 +112,23 @@ class PreferencesViewModel extends BaseViewModel{
     await sharedPreferences.remove("phone");
     notifyListeners();
   }
+// user address
+Future saveUseraddress(String address) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("address", address);
+    userAddress = address;
+    notifyListeners();
+  }
 
+  Future getUserAddress() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userAddress = await sharedPreferences.getString("address");
+    notifyListeners();
+  }
+
+  Future removeUserAddress() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove("address");
+    notifyListeners();
+  }
 }

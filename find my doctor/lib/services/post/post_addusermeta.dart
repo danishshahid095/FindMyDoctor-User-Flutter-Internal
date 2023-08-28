@@ -4,20 +4,20 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
-class UserUpdate {
+class AddUserMeta {
   var _dioService = DioService.getInstance();
-  Future userUpdate(String token, String fullName, String Email, String Phone,
-      int userId) async {
+
+  Future addusermeta(
+      String token, String key, String value, int user) async {
     var json = {
-      "fullname": fullName,
-      "email": Email,
-      "phone": Phone,
-      "id": userId
+      "key": key,
+      "value": value,
+      "user": user
       // "password": password,
     };
     try {
-      final response = await _dioService.patch(
-        'users/update-data',
+      final response = await _dioService.post(
+        'user-meta/create',
         //  'user-meta/update',
         options: Options(headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
@@ -29,6 +29,9 @@ class UserUpdate {
         // user found
         //print('udate');
         if (response.data["success"] == 1) {
+          // UserDetailsModel userDetailsResponse =
+          //     UserDetailsModel.fromJson(response.data);
+          // userDetailsResponse;
           return;
         } else {
           return response.data['message'];

@@ -58,6 +58,7 @@ import '../services/post/post_add_booking_doctor_online.dart';
 import '../services/post/post_add_email.dart';
 import '../services/post/post_add_fullname.dart';
 import '../services/post/post_add_phone_number.dart';
+import '../services/post/post_addusermeta.dart';
 import '../services/post/post_doctor_available_slots.dart';
 import '../services/post/post_login.dart';
 import '../services/post/post_signup.dart';
@@ -72,6 +73,10 @@ class MainViewModel extends BaseViewModel {
   String? fullname;
   String? email;
   String? phone;
+  String? address;
+  String? age;
+  String? height;
+  String? weight;
   String? bookig_slot_time;
   bool fromDoctorBook = false;
   bool fromLabTestBook = false;
@@ -262,6 +267,16 @@ class MainViewModel extends BaseViewModel {
     fcmToken = prefService.fcmToken;
     await prefService.getUserID();
     userID = prefService.userID;
+    print(userID);
+    await prefService.getUserName();
+    fullname = prefService.userName;
+
+    await prefService.getUserEmail();
+    email = prefService.userEmail;
+    await prefService.getUserPhone();
+    phone = prefService.userPhone;
+    await prefService.getUserAddress();
+    address = prefService.userAddress;
 
     if (token != null) {}
     Timer(
@@ -360,15 +375,14 @@ class MainViewModel extends BaseViewModel {
         prefService.saveUserToken(token!);
         userID = response.data!.id;
         prefService.saveUserID(userID!);
+        print(' this is user id ${userID}');
         fullname = response.data!.fullname!;
         prefService.saveUserName(fullname!);
         print('this is name ${fullname}');
         // await prefService.getUserName();
         // fullname = prefService.userName;
-
         email = response.data!.email!;
         prefService.saveUserEmail(email!);
-
         phone = response.data!.phone!;
         prefService.saveUserPhone(phone!);
 
@@ -1495,19 +1509,142 @@ class MainViewModel extends BaseViewModel {
   }
   // ############   lab booking details api  end ################
 
+  TextEditingController updateNameController = TextEditingController();
+  TextEditingController updateemailController = TextEditingController();
 
-TextEditingController updateNameController = TextEditingController();
- var userupdate = UserUpdate();
-
-  Future userUpdate(BuildContext context,   String token, String fullname, String email, String phone, String userId) async {
+  var userupdate = UserUpdate();
+  Future usersUpdate(BuildContext context, String token, String fullName,
+      String Email, String Phone, int userId) async {
     loadingWidget = true;
-    var userUpdateResponse =
-        await userupdate.userUpdate(token, fullname, email, phone,userId);
-    if (userUpdateResponse != null) {
-      return userUpdateResponse;
+    notifyListeners();
+
+    try {
+      var userUpdateResponse =
+          await userupdate.userUpdate(token, fullName, Email, Phone, userId);
+      // print('User update response: $userUpdateResponse');
+
+      loadingWidget = false;
+      fullname = updateNameController.text;
+      prefService.saveUserName(fullname!);
+      // phone = updatephoneController.text;
+      // prefService.saveUserPhone(phone!);
+      //updateNameController.text = fullname!;
+      // email = updateNameController.text;
+      // updateNameController.text = email!;
+      // phone = updateNameController.text;
+      // updateNameController.text = phone!;
+      //print('user update name ${fullname}');
+
+      notifyListeners();
+
+      if (userUpdateResponse != null) {
+        // Update the fullname in your ViewModel
+        //updateNameController.text = fullname;
+
+        notifyListeners();
+        return userUpdateResponse;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+      // Handle error case
+    } finally {
+      loadingWidget = false;
+      notifyListeners();
+    }
+  }
+
+  //phone
+  TextEditingController updatephoneController = TextEditingController();
+  Future usersUpdatePhone(BuildContext context, String token, String fullName,
+      String Email, String Phone, int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+
+    try {
+      var userUpdateResponse =
+          await userupdate.userUpdate(token, fullName, Email, Phone, userId);
+      // print('User update response: $userUpdateResponse');
+
+      loadingWidget = false;
+      phone = updatephoneController.text;
+      prefService.saveUserPhone(phone!);
+      //updateNameController.text = fullname!;
+      // email = updateNameController.text;
+      // updateNameController.text = email!;
+      // phone = updateNameController.text;
+      // updateNameController.text = phone!;
+      //print('user update name ${fullname}');
+
+      notifyListeners();
+
+      if (userUpdateResponse != null) {
+        // Update the fullname in your ViewModel
+        //updateNameController.text = fullname;
+
+        notifyListeners();
+        return userUpdateResponse;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+      // Handle error case
+    } finally {
+      loadingWidget = false;
+      notifyListeners();
+    }
+  }
+
+  /// user meta creat api
+  TextEditingController useraddressController = TextEditingController();
+  TextEditingController userageController = TextEditingController();
+  TextEditingController userheightController = TextEditingController();
+  TextEditingController userweightController = TextEditingController();
+  var addusermete = AddUserMeta();
+  Future doUseMeta(BuildContext context, String token, String key, String value,
+      int user) async {
+    loadingWidget = true;
+    var usercreatResponse =
+        await addusermete.addusermeta(token, key, value, user);
+    address = useraddressController.text;
+    prefService.saveUseraddress(address!);
+    // useraddressController.text = address!;
+
+    age = userageController.text;
+    userageController.text = age!;
+
+    height = userheightController.text;
+    userheightController.text = height!;
+
+    weight = userweightController.text;
+    userweightController.text = weight!;
+    if (usercreatResponse != null) {
+      return usercreatResponse;
       // notifyListeners();
     } else {}
   }
+
+  // Future userUpdate(BuildContext context, String token, String fullname,
+  //     String email, String phone, String userId) async {
+  //   loadingWidget = true;
+  //   notifyListeners();
+
+  //   var userUpdateResponse =
+  //       await userupdate.userUpdate(token, fullname, email, phone, userId);
+  //   print(userUpdateResponse);
+  //   loadingWidget = false;
+  //   notifyListeners();
+  //   if (userUpdateResponse != null) {
+  //     notifyListeners();
+  //     return userUpdateResponse;
+
+  //     // notifyListeners();
+  //   } else {}
+  //   notifyListeners();
+  // }
+
   // Show Error Message
   void showErrorMessage(BuildContext context, String error) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
