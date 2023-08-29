@@ -43,12 +43,15 @@ class SignInOptions extends StatelessWidget {
                     Image.asset(ImageUtils.userPic),
                     SpaceBelowDoctors(),
                     TextWidget(
-                      textValue: "Sign up & find the best healthcare available online!",
+                      textValue:
+                          "Sign up & find the best healthcare available online!",
                       fontFamily: FontUtils.poppinsBold,
                       fontSize: 2.4.t,
                       textColor: ColorUtils.red,
                     ),
-                    SizedBox(height: 3.h,),
+                    SizedBox(
+                      height: 3.h,
+                    ),
                     Container(
                       decoration: const BoxDecoration(
                         shape: BoxShape.rectangle,
@@ -65,10 +68,14 @@ class SignInOptions extends StatelessWidget {
                         ),
                         child: MaterialButton(
                           padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-                          onPressed: (){
-                            Navigator.push(context,
-                                PageTransition(type: PageTransitionType.fade, child:  Login()));
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(25)),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                PageTransition(
+                                    type: PageTransitionType.fade,
+                                    child: Login()));
                           },
                           child: Text(
                             "Sign In",
@@ -80,53 +87,65 @@ class SignInOptions extends StatelessWidget {
                         ),
                       ),
                     ),
-                    SizedBox(height: 2.h,),
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     CustomButtonTwo(
-                      onButtonPressed: (){},
+                      onButtonPressed: () {},
                       textValue: "Sign in with Google",
                       assetName: ImageUtils.google,
                       buttonColor: ColorUtils.red,
                     ),
-                    SizedBox(height: 2.h,),
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     CustomButtonTwo(
                       buttonColor: ColorUtils.blackShade,
                       assetName: ImageUtils.apple,
                       textValue: "Sign in with Apple",
-                      onButtonPressed: (){},
+                      onButtonPressed: () {},
                     ),
-                    SizedBox(height: 2.h,),
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     CustomButtonTwo(
                       buttonColor: ColorUtils.lightBlue,
                       assetName: ImageUtils.faceBook,
                       textValue: "Sign in with Facebook",
-                      onButtonPressed: (){},
+                      onButtonPressed: () {},
                     ),
-                    SizedBox(height: 3.h,),
+                    SizedBox(
+                      height: 3.h,
+                    ),
                     Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        SvgPicture.asset(
-                            ImageUtils.horizontalLine),
+                        SvgPicture.asset(ImageUtils.horizontalLine),
                         TextWidget(
                           textValue: "OR",
                           textColor: ColorUtils.silver,
                           fontSize: 1.6.t,
                           fontFamily: FontUtils.interMedium,
                         ),
-                        SvgPicture.asset(
-                            ImageUtils.horizontalLine),
+                        SvgPicture.asset(ImageUtils.horizontalLine),
                       ],
                     ),
-                    SizedBox(height: 3.h,),
+                    SizedBox(
+                      height: 3.h,
+                    ),
                     RedButton(
                       textValue: "Sign Up",
-                      onButtonPressed: (){
-                        Navigator.push(context,
-                            PageTransition(type: PageTransitionType.fade, child:  Signup()));
+                      onButtonPressed: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: Signup()));
                       },
                     ),
-                    SizedBox(height: 1.h,),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                   ],
                 ),
               ),

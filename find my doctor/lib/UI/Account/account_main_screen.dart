@@ -27,7 +27,6 @@ class AccountMainScreen extends StatefulWidget {
 }
 
 class _AccountMainScreenState extends State<AccountMainScreen> {
-
   bool switchValue = false;
 
   @override
@@ -35,7 +34,10 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {},
+      onModelReady: (model) async {
+        // await model.gettingUserMeta(
+        //     context, model.prefService.userToken.toString(), model.userID!);
+      },
       builder: (context, model, child) {
         return SafeArea(
           top: false,
@@ -60,7 +62,9 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                           textColor: ColorUtils.red,
                         ),
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                     ],
                   ),
                 ),
@@ -82,9 +86,11 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 1.6.t,
                                   ),
-                                  SizedBox(height: 0.75.h,),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
                                   TextWidget(
-                                    textValue:   model.fullname.toString(),
+                                    textValue: model.fullname.toString(),
                                     //"Hussain Akhtar",
                                     textColor: ColorUtils.blackShade,
                                     fontFamily: FontUtils.interRegular,
@@ -93,24 +99,30 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                 ],
                               ),
                               InkWell(
-                                onTap: (){
-
-                                  Navigator.push(context,
-                                      PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
-                                },
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Account_Detail()));
+                                  },
                                   child: ForwardButtonBlack()),
                             ],
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           GestureDetector(
                             onTap: () {
                               if (!model.loadingWidget) {
-                                model.uploadFCM(context, model.token!, model.fcmToken!, model.userID!);
+                                model.uploadFCM(context, model.token!,
+                                    model.fcmToken!, model.userID!);
                               }
                             },
                             child: Row(
@@ -125,7 +137,9 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 0.75.h,),
+                                    SizedBox(
+                                      height: 0.75.h,
+                                    ),
                                     TextWidget(
                                       textValue: "Token",
                                       textColor: ColorUtils.blackShade,
@@ -137,13 +151,15 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ],
                             ),
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -156,7 +172,9 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 1.6.t,
                                   ),
-                                  SizedBox(height: 0.75.h,),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
                                   TextWidget(
                                     textValue: "No beneficiaries added",
                                     textColor: ColorUtils.red,
@@ -166,19 +184,25 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                 ],
                               ),
                               InkWell(
-                                onTap: (){
-                                  Navigator.push(context,
-                                      PageTransition(type: PageTransitionType.fade, child: Add_Beneficiaries()));
-                                },
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: Add_Beneficiaries()));
+                                  },
                                   child: ForwardButtonBlack()),
                             ],
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -191,7 +215,9 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 1.6.t,
                                   ),
-                                  SizedBox(height: 0.75.h,),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
                                   TextWidget(
                                     textValue: "No payment details added",
                                     textColor: ColorUtils.red,
@@ -203,20 +229,24 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ForwardButtonBlack(),
                             ],
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 3.h,),
+                          SizedBox(
+                            height: 3.h,
+                          ),
                           TextWidget(
                             textValue: "System Settings",
                             fontFamily: FontUtils.poppinsBold,
                             fontSize: 2.t,
                             textColor: ColorUtils.red,
                           ),
-
-                          SizedBox(height: 2.h,),
+                          SizedBox(
+                            height: 2.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -229,7 +259,9 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 1.6.t,
                                   ),
-                                  SizedBox(height: 0.75.h,),
+                                  SizedBox(
+                                    height: 0.75.h,
+                                  ),
                                   TextWidget(
                                     textValue: "English",
                                     textColor: ColorUtils.blackShade,
@@ -239,18 +271,21 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                 ],
                               ),
                               InkWell(
-                                onTap: (){
-                                  _SelectLanguagePopup(context);
-                                },
+                                  onTap: () {
+                                    _SelectLanguagePopup(context);
+                                  },
                                   child: ForwardButtonBlack()),
                             ],
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -264,7 +299,8 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                 width: 50,
                                 height: 20,
                                 child: Switch(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   value: switchValue,
                                   activeColor: ColorUtils.red,
                                   onChanged: (value) {
@@ -276,25 +312,31 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 3.h,),
+                          SizedBox(
+                            height: 3.h,
+                          ),
                           TextWidget(
                             textValue: "Support",
                             fontFamily: FontUtils.poppinsBold,
                             fontSize: 2.t,
                             textColor: ColorUtils.red,
                           ),
-
-                          SizedBox(height: 2.h,),
+                          SizedBox(
+                            height: 2.h,
+                          ),
                           InkWell(
-                            onTap: (){
-                              Navigator.push(context,
-                                  PageTransition(type: PageTransitionType.fade, child: Terms_Conditions()));
-
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: Terms_Conditions()));
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -309,17 +351,22 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           InkWell(
-                            onTap: (){
-                              Navigator.push(context,
-                                  PageTransition(type: PageTransitionType.fade, child: FAQs()));
-
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: FAQs()));
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -334,17 +381,22 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           InkWell(
-                            onTap: (){
-
-                              Navigator.push(context,
-                                  PageTransition(type: PageTransitionType.fade, child: Privacy_Policy()));
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type: PageTransitionType.fade,
+                                      child: Privacy_Policy()));
                             },
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -359,12 +411,15 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -377,18 +432,21 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                               ForwardButtonBlack()
                             ],
                           ),
-                          SizedBox(height: 1.h,),
+                          SizedBox(
+                            height: 1.h,
+                          ),
                           Divider(
                             color: ColorUtils.silver,
                           ),
-                          SizedBox(height: 2.h,),
+                          SizedBox(
+                            height: 2.h,
+                          ),
                           Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.rectangle,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(8)),
-                                border: Border.all(color: ColorUtils.red)
-                            ),
+                                    BorderRadius.all(Radius.circular(8)),
+                                border: Border.all(color: ColorUtils.red)),
                             child: AnimatedContainer(
                               duration: const Duration(milliseconds: 400),
                               width: MediaQuery.of(context).size.width / 1,
@@ -428,8 +486,7 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
     );
   }
 
-  void _SelectLanguagePopup(BuildContext ) {
-
+  void _SelectLanguagePopup(BuildContext) {
     showModalBottomSheet(
       isScrollControlled: true,
       shape: RoundedRectangleBorder(
@@ -438,92 +495,88 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
           topRight: Radius.circular(24.0),
         ),
       ),
-      backgroundColor: Colors.white, context: context, builder: (context) {
-      return PageHorizontalMargin(
-        widget: Container(
-          height: MediaQuery.of(context).size.height/2.5,
-          child: Column(
-            children: [
-              SizedBox(height: 2.h,),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: TextWidget(
-                  textValue: "Select Language",
-                  fontFamily: FontUtils.poppinsBold,
-                  fontSize: 2.2.t,
-                  textColor: ColorUtils.red,
+      backgroundColor: Colors.white,
+      context: context,
+      builder: (context) {
+        return PageHorizontalMargin(
+          widget: Container(
+            height: MediaQuery.of(context).size.height / 2.5,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 2.h,
                 ),
-              ),
-
-              SizedBox(height: 2.h,),
-
-              Row(
-                children: [
-                  Expanded(
-                      flex: 4,
-                      child: Text("English")),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
-                      activeColor: ColorUtils.red,
-                      value: 0,
-                      groupValue: true,
-                      onChanged: (ind) {
-
-                      },
-                    ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextWidget(
+                    textValue: "Select Language",
+                    fontFamily: FontUtils.poppinsBold,
+                    fontSize: 2.2.t,
+                    textColor: ColorUtils.red,
                   ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      flex: 4,
-                      child: Text("Urdu (Roman)")),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
-                      activeColor: ColorUtils.red,
-                      value: 0,
-                      groupValue: true,
-                      onChanged: (ind) {
-
-                      },
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 4, child: Text("English")),
+                    Expanded(
+                      flex: 1,
+                      child: RadioListTile(
+                        activeColor: ColorUtils.red,
+                        value: 0,
+                        groupValue: true,
+                        onChanged: (ind) {},
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Expanded(
-                      flex: 4,
-                      child: Text("اردو")),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
-                      activeColor: ColorUtils.red,
-                      value: 0,
-                      groupValue: true,
-                      onChanged: (ind) {
-
-                      },
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 4, child: Text("Urdu (Roman)")),
+                    Expanded(
+                      flex: 1,
+                      child: RadioListTile(
+                        activeColor: ColorUtils.red,
+                        value: 0,
+                        groupValue: true,
+                        onChanged: (ind) {},
+                      ),
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(height: 2.h,),
-              RedButton(
-                textValue: "Confirm",
-                onButtonPressed: (){
-                  Navigator.pop(context);
-                },
-              ),
-              SizedBox(height: 2.h,),
-            ],
+                  ],
+                ),
+                Row(
+                  children: [
+                    Expanded(flex: 4, child: Text("اردو")),
+                    Expanded(
+                      flex: 1,
+                      child: RadioListTile(
+                        activeColor: ColorUtils.red,
+                        value: 0,
+                        groupValue: true,
+                        onChanged: (ind) {},
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+                RedButton(
+                  textValue: "Confirm",
+                  onButtonPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                SizedBox(
+                  height: 2.h,
+                ),
+              ],
+            ),
           ),
-        ),
-      );
-    },
+        );
+      },
     );
     // showCupertinoModalPopup(
     //    context: BuildContext,

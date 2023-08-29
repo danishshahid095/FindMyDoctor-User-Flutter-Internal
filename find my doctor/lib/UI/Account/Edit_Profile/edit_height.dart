@@ -25,8 +25,7 @@ class _Edit_HeightState extends State<Edit_Height> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -45,55 +44,63 @@ class _Edit_HeightState extends State<Edit_Height> {
                       BackSingleText(
                         backText: "Update Height",
                       ),
-                      SizedBox(height: 1.h,),
+                      SizedBox(
+                        height: 1.h,
+                      ),
                     ],
                   ),
                   Expanded(
                     child: SingleChildScrollView(
                       child: PageHorizontalMargin(
                           widget: Column(
-                            children: [
-                              Image.asset(
-                                ImageUtils.femaleDoctor,
-                                width: 60.i,
-                                height: 60.i,
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              TextWidget(
-                                textValue: "Update Your  Height",
-                                textColor: ColorUtils.red,
-                                fontFamily: FontUtils.interBold,
-                                fontSize: 2.4.t,
-                              ),
-                              SizedBox(
-                                height: 2.h,
-                              ),
-                              CustomTextField(
-                                controller: model.userheightController,
-                                hintText: "Enter Updated Height",
-                              ),
-                              SizedBox(
-                                height: 30.h,
-                              ),
-                              RedButton(
-                                textValue: "Confirm",
-                                onButtonPressed: (){
-                                  model.doUseMeta(
-                                  context,
-                                  model.prefService.userToken.toString(),
-                                  'height'.toString(),
-                                  model.userheightController.toString(),
-                                  model.userID!);
-                                  Navigator.pop(context);
-                                  // Navigator.push(context,
-                                  //     PageTransition(type: PageTransitionType.fade, child: ()));
-                                },
-                              ),
-                            ],
-                          )
-                      ),
+                        children: [
+                          Image.asset(
+                            ImageUtils.femaleDoctor,
+                            width: 60.i,
+                            height: 60.i,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          TextWidget(
+                            textValue: "Update Your  Height",
+                            textColor: ColorUtils.red,
+                            fontFamily: FontUtils.interBold,
+                            fontSize: 2.4.t,
+                          ),
+                          SizedBox(
+                            height: 2.h,
+                          ),
+                          CustomTextField(
+                            controller: model.userheightController,
+                            hintText: "Enter Updated Height",
+                          ),
+                          SizedBox(
+                            height: 30.h,
+                          ),
+                          RedButton(
+                            textValue: "Confirm",
+                            onButtonPressed: () {
+                              model.height.toString().isEmpty
+                                  ? model.doUseMetaHeight(
+                                      context,
+                                      model.prefService.userToken.toString(),
+                                      'height'.toString(),
+                                      model.userheightController.toString(),
+                                      model.userID!)
+                                  : model.usersMetaUpdateHeight(
+                                      context,
+                                      model.prefService.userToken.toString(),
+                                      'height'.toString(),
+                                      model.userheightController.toString(),
+                                      model.userID!);
+                              Navigator.pop(context);
+                              // Navigator.push(context,
+                              //     PageTransition(type: PageTransitionType.fade, child: ()));
+                            },
+                          ),
+                        ],
+                      )),
                     ),
                   ),
                 ],

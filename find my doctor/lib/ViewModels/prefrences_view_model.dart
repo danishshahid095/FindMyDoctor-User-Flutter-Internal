@@ -1,54 +1,58 @@
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 
-class PreferencesViewModel extends BaseViewModel{
-
+class PreferencesViewModel extends BaseViewModel {
   String? userToken;
   String? fcmToken;
   int? userID;
   String? userName;
   String? userEmail;
   String? userPhone;
-   String? userAddress;
+  String? userAddress;
+  String? userAge;
+  String? userHeight;
+  String? userWeight;
 
-  Future saveUserToken(String tokenValue) async{
+  Future saveUserToken(String tokenValue) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString("tokenValue", tokenValue);
     userToken = tokenValue;
     notifyListeners();
   }
-  Future getUserToken() async{
+
+  Future getUserToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     userToken = await sharedPreferences.getString("tokenValue");
     notifyListeners();
   }
 
-  Future removeUserToken() async{
+  Future removeUserToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove("tokenValue");
     notifyListeners();
   }
 
-  Future saveFCMToken(String tokenValue) async{
+  Future saveFCMToken(String tokenValue) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString("FCMtokenValue", tokenValue);
     fcmToken = tokenValue;
     notifyListeners();
   }
-  Future getFCMToken() async{
+
+  Future getFCMToken() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     fcmToken = await sharedPreferences.getString("FCMtokenValue");
     notifyListeners();
   }
 
-  Future saveUserID(int userID) async{
+  Future saveUserID(int userID) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setInt("userID", userID);
     userID = userID;
     notifyListeners();
   }
-  Future getUserID() async{
+
+  Future getUserID() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     userID = await sharedPreferences.getInt("userID");
     notifyListeners();
@@ -72,7 +76,7 @@ class PreferencesViewModel extends BaseViewModel{
     await sharedPreferences.remove("fullname");
     notifyListeners();
   }
-   //user email
+  //user email
 
   Future saveUserEmail(String email) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -92,7 +96,7 @@ class PreferencesViewModel extends BaseViewModel{
     await sharedPreferences.remove("email");
     notifyListeners();
   }
-   //user phone
+  //user phone
 
   Future saveUserPhone(String phone) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
@@ -112,8 +116,9 @@ class PreferencesViewModel extends BaseViewModel{
     await sharedPreferences.remove("phone");
     notifyListeners();
   }
+
 // user address
-Future saveUseraddress(String address) async {
+  Future saveUseraddress(String address) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.setString("address", address);
     userAddress = address;
@@ -129,6 +134,67 @@ Future saveUseraddress(String address) async {
   Future removeUserAddress() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove("address");
+    userAddress = null;
+    notifyListeners();
+  }
+
+  //age
+  Future saveUserage(String age) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("age", age);
+    userAge = age;
+    notifyListeners();
+  }
+
+  Future getUserAge() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userAge = await sharedPreferences.getString("age");
+    notifyListeners();
+  }
+
+  Future removeUserAge() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove("age");
+    notifyListeners();
+  }
+
+  //height
+  Future saveUserHeight(String height) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("height", height);
+    userHeight = height;
+    notifyListeners();
+  }
+
+  Future getUserHeight() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userHeight = await sharedPreferences.getString("height");
+    notifyListeners();
+  }
+
+  Future removeUserHeight() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove("height");
+    notifyListeners();
+  }
+
+  //weight
+  Future saveUserWeight(String weight) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("weight", weight);
+    userWeight = weight;
+    notifyListeners();
+  }
+
+  Future getUserWeight() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userWeight = await sharedPreferences.getString("weight");
+    notifyListeners();
+  }
+
+  Future removeUserWeight() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.remove("weight");
     notifyListeners();
   }
 }

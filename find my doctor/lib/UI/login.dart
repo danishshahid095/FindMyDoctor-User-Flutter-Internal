@@ -22,7 +22,10 @@ class Login extends StatelessWidget {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {},
+      onModelReady: (model) async {
+        await model.gettingUserMeta(
+            context, model.prefService.userToken.toString(), model.userID!);
+      },
       builder: (context, model, child) {
         return SafeArea(
           top: false,
@@ -37,7 +40,8 @@ class Login extends StatelessWidget {
                       height: context.getPadding().top,
                     ),
                     TopMarginRegistration(),
-                    Image.asset(ImageUtils.doctorNurse,
+                    Image.asset(
+                      ImageUtils.doctorNurse,
                     ),
                     SpaceBelowDoctors(),
                     TextWidget(
@@ -46,20 +50,26 @@ class Login extends StatelessWidget {
                       fontSize: 2.4.t,
                       textColor: ColorUtils.red,
                     ),
-                    SizedBox(height: 8.h,),
+                    SizedBox(
+                      height: 8.h,
+                    ),
                     CustomTextField(
                       hintText: "Enter Email",
                       controller: model.loginEmailController,
                     ),
-                    SizedBox(height: 2.h,),
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     CustomTextField(
                       hintText: "Enter Password",
                       controller: model.loginPasswordController,
                     ),
-                    SizedBox(height: 3.h,),
+                    SizedBox(
+                      height: 3.h,
+                    ),
                     Container(
                       //margin: EdgeInsets.symmetric(horizontal: 12.w),
-                      decoration:  BoxDecoration(
+                      decoration: BoxDecoration(
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.all(Radius.circular(30.5)),
                           gradient: LinearGradient(
@@ -67,42 +77,52 @@ class Login extends StatelessWidget {
                               ColorUtils.red.withOpacity(1),
                               ColorUtils.red3.withOpacity(1),
                             ],
-                          )
-                      ),
+                          )),
                       child: AnimatedContainer(
                         duration: const Duration(milliseconds: 400),
                         width: MediaQuery.of(context).size.width / 1,
                         height: 6.35.h,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: ColorUtils.red
-                        ),
+                            color: ColorUtils.red),
                         child: MaterialButton(
                             padding: EdgeInsets.zero,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.5)),
-                            onPressed: (){
-                              model.loadingWidget == true ? (){} :
-                              model.doUserLogin(context, model.loginEmailController.text.toString(), model.loginPasswordController.text.toString());
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.5)),
+                            onPressed: () {
+                              model.loadingWidget == true
+                                  ? () {}
+                                  : model.doUserLogin(
+                                      context,
+                                      model.loginEmailController.text
+                                          .toString(),
+                                      model.loginPasswordController.text
+                                          .toString());
                             },
-                            child: model.loadingWidget == false ? Text(
-                              "Sign in",
-                              style: TextStyle(
-                                fontFamily: FontUtils.poppinsBold,
-                                fontSize: 2.t,
-                                color: ColorUtils.white,
-                              ),
-                            ) : WidgetLoader()
-                        ),
+                            child: model.loadingWidget == false
+                                ? Text(
+                                    "Sign in",
+                                    style: TextStyle(
+                                      fontFamily: FontUtils.poppinsBold,
+                                      fontSize: 2.t,
+                                      color: ColorUtils.white,
+                                    ),
+                                  )
+                                : WidgetLoader()),
                       ),
                     ),
-                    SizedBox(height: 2.h,),
+                    SizedBox(
+                      height: 2.h,
+                    ),
                     TextWidget(
                       textValue: "Forgot your password?",
                       fontFamily: FontUtils.poppinsBold,
                       fontSize: 1.6.t,
                       textColor: ColorUtils.red,
                     ),
-                    SizedBox(height: 1.h,),
+                    SizedBox(
+                      height: 1.h,
+                    ),
                   ],
                 ),
               ),

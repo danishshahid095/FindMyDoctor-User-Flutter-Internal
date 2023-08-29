@@ -44,6 +44,7 @@ import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
+import '../model/login/get_user_meta_model.dart';
 import '../model/login/userLoginModel.dart';
 import '../services/get/get_doctor_myactive.dart';
 import '../services/get/get_doctor_myhistory.dart';
@@ -51,6 +52,8 @@ import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
+import '../services/get/get_user_meta.dart';
+import '../services/patch/user_meta_update.dart';
 import '../services/patch/user_update.dart';
 import '../services/post/post_add_beneficiary.dart';
 import '../services/post/post_add_booking_doctor.dart';
@@ -275,8 +278,18 @@ class MainViewModel extends BaseViewModel {
     email = prefService.userEmail;
     await prefService.getUserPhone();
     phone = prefService.userPhone;
+
     await prefService.getUserAddress();
     address = prefService.userAddress;
+    //prefService.removeUserAddress();
+    await prefService.getUserAge();
+    age = prefService.userAge;
+
+    await prefService.getUserHeight();
+    height = prefService.userHeight;
+
+    await prefService.getUserWeight();
+    weight = prefService.userWeight;
 
     if (token != null) {}
     Timer(
@@ -292,6 +305,7 @@ class MainViewModel extends BaseViewModel {
   // On LogOut
   void onLogout() async {
     await prefService.removeUserToken();
+    // prefService.removeUserAddress();
     navigationService.navigateToUntil(to: SignInOptions());
   }
 
@@ -1526,15 +1540,6 @@ class MainViewModel extends BaseViewModel {
       loadingWidget = false;
       fullname = updateNameController.text;
       prefService.saveUserName(fullname!);
-      // phone = updatephoneController.text;
-      // prefService.saveUserPhone(phone!);
-      //updateNameController.text = fullname!;
-      // email = updateNameController.text;
-      // updateNameController.text = email!;
-      // phone = updateNameController.text;
-      // updateNameController.text = phone!;
-      //print('user update name ${fullname}');
-
       notifyListeners();
 
       if (userUpdateResponse != null) {
@@ -1597,11 +1602,12 @@ class MainViewModel extends BaseViewModel {
     }
   }
 
-  /// user meta creat api
+  /// user meta creat api address
   TextEditingController useraddressController = TextEditingController();
   TextEditingController userageController = TextEditingController();
   TextEditingController userheightController = TextEditingController();
   TextEditingController userweightController = TextEditingController();
+
   var addusermete = AddUserMeta();
   Future doUseMeta(BuildContext context, String token, String key, String value,
       int user) async {
@@ -1610,22 +1616,223 @@ class MainViewModel extends BaseViewModel {
         await addusermete.addusermeta(token, key, value, user);
     address = useraddressController.text;
     prefService.saveUseraddress(address!);
+    getUser![0].meta_value = address;
+    prefService.saveUseraddress(getUser![0].meta_value!);
     // useraddressController.text = address!;
 
-    age = userageController.text;
-    userageController.text = age!;
-
-    height = userheightController.text;
-    userheightController.text = height!;
-
-    weight = userweightController.text;
-    userweightController.text = weight!;
     if (usercreatResponse != null) {
       return usercreatResponse;
       // notifyListeners();
     } else {}
   }
 
+  //create meta age
+
+  Future doUseMetaAge(BuildContext context, String token, String key,
+      String value, int user) async {
+    loadingWidget = true;
+    var usercreatResponse =
+        await addusermete.addusermeta(token, key, value, user);
+    age = userageController.text;
+    prefService.saveUserage(age!);
+    //userageController.text = age!;
+
+    if (usercreatResponse != null) {
+      return usercreatResponse;
+      // notifyListeners();
+    } else {}
+  }
+
+  // meta create height
+  Future doUseMetaHeight(BuildContext context, String token, String key,
+      String value, int user) async {
+    loadingWidget = true;
+    var usercreatResponse =
+        await addusermete.addusermeta(token, key, value, user);
+
+    height = userheightController.text;
+    prefService.saveUserHeight(height!);
+    // userheightController.text = height!;
+
+    if (usercreatResponse != null) {
+      return usercreatResponse;
+      // notifyListeners();
+    } else {}
+  }
+
+// meta create  weight
+  Future doUseMetaWeight(BuildContext context, String token, String key,
+      String value, int user) async {
+    loadingWidget = true;
+    var usercreatResponse =
+        await addusermete.addusermeta(token, key, value, user);
+
+    weight = userweightController.text;
+    prefService.saveUserWeight(weight!);
+    // userweightController.text = weight!;
+
+    if (usercreatResponse != null) {
+      return usercreatResponse;
+      // notifyListeners();
+    } else {}
+  }
+
+// user meta update api
+  var usermetaUpdate = UserMetaUpdate();
+  Future usersMetaUpdateAddress(BuildContext context, String token, String key,
+      String value, int user) async {
+    loadingWidget = true;
+    notifyListeners();
+    try {
+      var usermetaUpdateResponse =
+          await usermetaUpdate.userMetaUpdate(token, key, value, user);
+      // print('User update response: $userUpdateResponse');
+      loadingWidget = false;
+      // address = usermetaUpdateResponse[0]
+      // print('this is update address ${address}');
+      // address = getUser![0].meta_value.toString();
+      prefService.saveUseraddress(address!);
+      //getUser![0].meta_value = useraddressController.text.toString();
+      address = useraddressController.text.toString();
+      prefService.saveUseraddress(address!);
+      print('this is  update ${address}');
+      // getUser![0].meta_value = address;
+      // await prefService.saveUseraddress(getUser![0].meta_value!);
+      notifyListeners();
+      if (usermetaUpdateResponse != null) {
+        // Update the fullname in your ViewModel
+        //updateNameController.text = fullname;
+
+        notifyListeners();
+        return usermetaUpdateResponse;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+      // Handle error case
+    } finally {
+      loadingWidget = false;
+      notifyListeners();
+    }
+  }
+
+  // meta update age
+  Future usersMetaUpdateAge(BuildContext context, String token, String key,
+      String value, int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+    try {
+      var usermetaUpdateResponse =
+          await usermetaUpdate.userMetaUpdate(token, key, value, userId);
+      // print('User update response: $userUpdateResponse');
+      loadingWidget = false;
+      age = userageController.text;
+      prefService.saveUserage(age!);
+      notifyListeners();
+      if (usermetaUpdateResponse != null) {
+        // Update the fullname in your ViewModel
+        //updateNameController.text = fullname;
+
+        notifyListeners();
+        return usermetaUpdateResponse;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+      // Handle error case
+    } finally {
+      loadingWidget = false;
+      notifyListeners();
+    }
+  }
+
+  // meta update height
+  Future usersMetaUpdateHeight(BuildContext context, String token, String key,
+      String value, int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+    try {
+      var usermetaUpdateResponse =
+          await usermetaUpdate.userMetaUpdate(token, key, value, userId);
+      // print('User update response: $userUpdateResponse');
+      loadingWidget = false;
+      height = userheightController.text;
+      prefService.saveUserHeight(height!);
+      notifyListeners();
+      if (usermetaUpdateResponse != null) {
+        // Update the fullname in your ViewModel
+        //updateNameController.text = fullname;
+
+        notifyListeners();
+        return usermetaUpdateResponse;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+      // Handle error case
+    } finally {
+      loadingWidget = false;
+      notifyListeners();
+    }
+  }
+
+  // meta update weight
+  Future usersMetaUpdateWeight(BuildContext context, String token, String key,
+      String value, int userId) async {
+    loadingWidget = true;
+    notifyListeners();
+    try {
+      var usermetaUpdateResponse =
+          await usermetaUpdate.userMetaUpdate(token, key, value, userId);
+      // print('User update response: $userUpdateResponse');
+      loadingWidget = false;
+      weight = userweightController.text;
+      prefService.saveUserWeight(weight!);
+      notifyListeners();
+      if (usermetaUpdateResponse != null) {
+        // Update the fullname in your ViewModel
+        //updateNameController.text = fullname;
+
+        notifyListeners();
+        return usermetaUpdateResponse;
+      } else {
+        // Handle error case
+      }
+    } catch (error) {
+      print('An error occurred: $error');
+      // Handle error case
+    } finally {
+      loadingWidget = false;
+      notifyListeners();
+    }
+  }
+
+  GetUseMeta getuserdata = GetUseMeta();
+  List<GetUserMeta>? getUser = GetUserMetaCompleteModel().data;
+  bool getuserLoader = false;
+
+  Future gettingUserMeta(BuildContext context, String token, int usreId) async {
+    getuserLoader = true;
+
+    var getuserResponse = await getuserdata.getuser(token, usreId);
+    if (getuserResponse != null && getuserResponse is List<GetUserMeta>) {
+      getUser = getuserResponse;
+      getuserLoader = false;
+      address = getuserResponse[0].meta_value!;
+      print('this is fdfdfgf ${address}');
+      // address = getUser![0].meta_value.toString();
+      prefService.saveUseraddress(address!);
+
+      notifyListeners();
+    } else {
+      getuserLoader = false;
+      notifyListeners();
+    }
+    getuserLoader = false;
+  }
   // Future userUpdate(BuildContext context, String token, String fullname,
   //     String email, String phone, String userId) async {
   //   loadingWidget = true;

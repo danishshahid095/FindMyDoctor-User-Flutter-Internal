@@ -10,7 +10,7 @@ ActiveLabBookingModel _$ActiveLabBookingModelFromJson(
         Map<String, dynamic> json) =>
     ActiveLabBookingModel()
       ..id = json['id'] as int?
-      ..amount = (json['amount'] as int?)
+      ..amount = json['amount'] as int?
       ..status = json['status'] as int?
       ..name = json['name'] as String?
       ..is_beneficiary = json['is_beneficiary'] as String?
