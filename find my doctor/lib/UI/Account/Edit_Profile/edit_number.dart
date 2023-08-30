@@ -108,7 +108,7 @@ class _Edit_NumberState extends State<Edit_Number> {
                                   // 'burhan2@gmail.com'.toString(),
                                   // '12345678902'.toString(),
                                   model.email.toString(),
-                                  model.phone.toString(),
+                                  model.updatephoneController.text.toString(),
                                   model.userID!);
 
                               print(

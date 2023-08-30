@@ -89,15 +89,16 @@ class _Edit_NameState extends State<Edit_Name> {
                               model.usersUpdate(
                                   context,
                                   model.prefService.userToken.toString(),
-                                  model.fullname.toString(),
+                                  // model.fullname.toString(),
+                                  model.updateNameController.text.toString(),
                                   // 'burhan2@gmail.com'.toString(),
                                   // '12345678902'.toString(),
                                   model.email.toString(),
                                   model.phone.toString(),
                                   model.userID!);
-                              print(model.updateNameController.text.toString());
+                             // print(model.updateNameController.text.toString());
                               Navigator.pop(context);
-                              print(model.fullname.toString());
+                             // print(model.fullname.toString());
                               // Navigator.push(context,
                               //     PageTransition(type: PageTransitionType.fade, child: ()));
                             },

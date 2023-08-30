@@ -23,8 +23,8 @@ class Login extends StatelessWidget {
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onModelReady: (model) async {
-        await model.gettingUserMeta(
-            context, model.prefService.userToken.toString(), model.userID!);
+        // await model.gettingUserMeta(
+        //     context, model.prefService.userToken.toString(), model.userID!);
       },
       builder: (context, model, child) {
         return SafeArea(

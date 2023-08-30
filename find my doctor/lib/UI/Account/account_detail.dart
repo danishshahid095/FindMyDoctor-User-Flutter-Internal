@@ -9,6 +9,7 @@ import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
+import 'package:find_my_doctor/Utils/whole_page_loader.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
 import 'package:find_my_doctor/Widgets/back_with_signleText.dart';
 import 'package:find_my_doctor/Widgets/forward_button_black.dart';
@@ -59,776 +60,877 @@ class _Account_DetailState extends State<Account_Detail> {
   //   }
   // }
 
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onModelReady: (model) async {
-        // await model.gettingUserMeta(
-        //     context, model.prefService.userToken.toString(), model.userID!);
+        await model.gettingUserMeta(
+            context, model.prefService.userToken.toString(), model.userID!);
       },
       builder: (context, model, child) {
-        return GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: SafeArea(
-            top: false,
-            bottom: false,
-            child: Scaffold(
-              backgroundColor: Colors.white,
-              body: Column(
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: context.getPadding().top,
-                      ),
-                      BackSingleText(
-                        backText: "Personal Information",
-                      ),
-                      SizedBox(
-                        height: 1.h,
-                      ),
-                    ],
-                  ),
-                  // TextWidget(
-                  //   textValue: model.getUser![0].meta_value.toString(),
-                  //   //"Address",
-                  //   textColor: ColorUtils.blackShade,
-                  //   fontFamily: FontUtils.interSemiBold,
-                  //   fontSize: 1.6.t,
-                  // ),
-                  // Expanded(
-                  //   child: ListView.separated(
-                  //       shrinkWrap: true,
-                  //       physics: NeverScrollableScrollPhysics(),
-                  //       itemBuilder: (context, index) {
-                  //         return Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             Row(
-                  //               mainAxisAlignment:
-                  //                   MainAxisAlignment.spaceBetween,
-                  //               children: [
-                  //                 Column(
-                  //                   crossAxisAlignment:
-                  //                       CrossAxisAlignment.start,
-                  //                   children: [
-                  //                     TextWidget(
-                  //                       textValue: model
-                  //                           .getUser![index].meta_key
-                  //                           .toString(),
-                  //                       //"Address",
-                  //                       textColor: ColorUtils.blackShade,
-                  //                       fontFamily: FontUtils.interSemiBold,
-                  //                       fontSize: 1.6.t,
-                  //                     ),
-                  //                     SizedBox(
-                  //                       height: 0.75.h,
-                  //                     ),
-                  //                     TextWidget(
-                  //                       textValue: model
-                  //                           .getUser![index].meta_value
-                  //                           .toString(),
-                  //                       //"karachi",
-                  //                       // model.address == null ||
-                  //                       //         model.address.toString().isEmpty
-                  //                       //     ? ' Enter Your Address'
-                  //                       //     : model.address.toString(),
-                  //                       //"hussain.ak073@gmail.com",
-                  //                       textColor: ColorUtils.blackShade,
-                  //                       fontFamily: FontUtils.interRegular,
-                  //                       fontSize: 1.8.t,
-                  //                     ),
-                  //                   ],
-                  //                 ),
-                  //                 InkWell(
-                  //                     onTap: () {
-                  //                       Navigator.push(
-                  //                           context,
-                  //                           PageTransition(
-                  //                               type: PageTransitionType.fade,
-                  //                               child: Edit_Address()));
-                  //                     },
-                  //                     child: ForwardButtonBlack()),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         );
-                  //       },
-                  //       separatorBuilder: (context, index) {
-                  //         return Divider();
-                  //       },
-                  //       itemCount: model.getUser?.length ?? 0),
-                  // ),
-                  // Expanded(
-                  //   child: ListView.builder(
-                  //       itemCount: _apiDataList.length,
-                  //       itemBuilder: (context, index) {
-                  //         return Row(
-                  //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  //           children: [
-                  //             Column(
-                  //               crossAxisAlignment: CrossAxisAlignment.start,
-                  //               children: [
-                  //                 TextWidget(
-                  //                   textValue: "Address",
-                  //                   textColor: ColorUtils.blackShade,
-                  //                   fontFamily: FontUtils.interSemiBold,
-                  //                   fontSize: 1.6.t,
-                  //                 ),
-                  //                 SizedBox(
-                  //                   height: 0.75.h,
-                  //                 ),
-                  //                 TextWidget(
-                  //                   textValue: _apiDataList[index].metaValue,
-                  //                   //"karachi",
-                  //                   //  model.address == null || model.address.toString().isEmpty?' Enter Your Address':  model.address.toString(),
-                  //                   //"hussain.ak073@gmail.com",
-                  //                   textColor: ColorUtils.blackShade,
-                  //                   fontFamily: FontUtils.interRegular,
-                  //                   fontSize: 1.8.t,
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //             InkWell(
-                  //                 onTap: () {
-                  //                   Navigator.push(
-                  //                       context,
-                  //                       PageTransition(
-                  //                           type: PageTransitionType.fade,
-                  //                           child: Edit_Address()));
-                  //                 },
-                  //                 child: ForwardButtonBlack()),
-                  //           ],
-                  //         );
-                  //       }),
-                  //),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: PageHorizontalMargin(
-                          widget: Column(
-                        children: [
-                          SizedBox(
-                            height: 2.h,
-                          ),
+        return model.getuserLoader == true
+            ? WholePageLoader()
+            : GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SafeArea(
+                  top: false,
+                  bottom: false,
+                  child: Scaffold(
+                    backgroundColor: Colors.white,
+                    body: Column(
+                      children: [
+                        SizedBox(
+                          height: context.getPadding().top,
+                        ),
+                        BackSingleText(
+                          backText: "Personal Information",
+                        ),
+                        SizedBox(
+                          height: 1.h,
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: model.getUser!.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [],
+                                      ),
+                                      TextWidget(
+                                        textValue: model
+                                            .getUser![index].meta_key
+                                            .toString(),
+                                        // "Address",
+                                        textColor: ColorUtils.blackShade,
+                                        fontFamily: FontUtils.interSemiBold,
+                                        fontSize: 1.6.t,
+                                      ),
+                                      SizedBox(
+                                        height: 0.75.h,
+                                      ),
+                                      // TextWidget(
+                                      //   textValue: model
+                                      //       .getUser![index].meta_key
+                                      //       .toString(),
 
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Full Name",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
+                                      //   //"karachi",
+                                      //   //  model.address == null || model.address.toString().isEmpty?' Enter Your Address':  model.address.toString(),
+                                      //   //"hussain.ak073@gmail.com",
+                                      //   textColor: ColorUtils.blackShade,
+                                      //   fontFamily: FontUtils.interRegular,
+                                      //   fontSize: 1.8.t,
+                                      // ),
+                                      TextWidget(
+                                        textValue: model.getUser![index]
+                                                        .meta_value
+                                                        .toString() ==
+                                                    null ||
+                                                model.getUser![index].meta_value
+                                                    .toString()
+                                                    .isEmpty
+                                            ? 'enter your address'
+                                            : model.getUser![index].meta_value
+                                                .toString(),
+
+                                        //"karachi",
+                                        //  model.address == null || model.address.toString().isEmpty?' Enter Your Address':  model.address.toString(),
+                                        //"hussain.ak073@gmail.com",
+                                        textColor: ColorUtils.blackShade,
+                                        fontFamily: FontUtils.interRegular,
+                                        fontSize: 1.8.t,
+                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child: Edit_Address()));
+                                          },
+                                          child: ForwardButtonBlack()),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: model.fullname.toString(),
-                                    // "Hussain Akhtar",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Name()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Divider(
-                          //   color: ColorUtils.silver,
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         TextWidget(
-                          //           textValue: "Gender",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interSemiBold,
-                          //           fontSize: 1.6.t,
-                          //         ),
-                          //         SizedBox(
-                          //           height: 0.75.h,
-                          //         ),
-                          //         TextWidget(
-                          //           textValue: "Select Gender",
-                          //           textColor: ColorUtils.red,
-                          //           fontFamily: FontUtils.interRegular,
-                          //           fontSize: 1.8.t,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     InkWell(
-                          //         onTap: () {
-                          //           _SelectgenderPopup(context);
-                          //           // Navigator.push(context,
-                          //           //     PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
-                          //         },
-                          //         child: ForwardButtonBlack()),
-                          //   ],
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Divider(
-                          //   color: ColorUtils.silver,
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         TextWidget(
-                          //           textValue: "Date",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interSemiBold,
-                          //           fontSize: 1.6.t,
-                          //         ),
-                          //         SizedBox(
-                          //           height: 0.75.h,
-                          //         ),
-                          //         TextWidget(
-                          //           textValue: "dd/mm/yyyy",
-                          //           textColor: ColorUtils.red,
-                          //           fontFamily: FontUtils.interRegular,
-                          //           fontSize: 1.8.t,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     InkWell(
-                          //         onTap: () {
-                          //           _SelectdatePopup(context);
-                          //           // Navigator.push(context,
-                          //           //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
-                          //         },
-                          //         child: ForwardButtonBlack()),
-                          //   ],
-                          // ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Email",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue:
-                                        model.prefService.userEmail.toString(),
-                                    //"hussain.ak073@gmail.com",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              // InkWell(
-                              //     onTap: () {
-                              //       Navigator.push(
-                              //           context,
-                              //           PageTransition(
-                              //               type: PageTransitionType.fade,
-                              //               child: Edit_Email()
-                              //               ));
-                              //     },
-                              //     child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Change Password",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Password()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Phone",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: model.phone.toString(),
-                                    //"+92 345 3048539",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Number()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          // ListView.builder(
-                          //     itemCount: _apiDataList.length,
-                          //     itemBuilder: (context, index) {
-                          //       return Row(
-                          //         mainAxisAlignment:
-                          //             MainAxisAlignment.spaceBetween,
-                          //         children: [
-                          //           Column(
-                          //             crossAxisAlignment:
-                          //                 CrossAxisAlignment.start,
-                          //             children: [
-                          //               TextWidget(
-                          //                 textValue: "Address",
-                          //                 textColor: ColorUtils.blackShade,
-                          //                 fontFamily: FontUtils.interSemiBold,
-                          //                 fontSize: 1.6.t,
-                          //               ),
-                          //               SizedBox(
-                          //                 height: 0.75.h,
-                          //               ),
-                          //               TextWidget(
-                          //                 textValue:
-                          //                     _apiDataList[index].metaValue,
-                          //                 //"karachi",
-                          //                 //  model.address == null || model.address.toString().isEmpty?' Enter Your Address':  model.address.toString(),
-                          //                 //"hussain.ak073@gmail.com",
-                          //                 textColor: ColorUtils.blackShade,
-                          //                 fontFamily: FontUtils.interRegular,
-                          //                 fontSize: 1.8.t,
-                          //               ),
-                          //             ],
-                          //           ),
-                          //           InkWell(
-                          //               onTap: () {
-                          //                 Navigator.push(
-                          //                     context,
-                          //                     PageTransition(
-                          //                         type: PageTransitionType.fade,
-                          //                         child: Edit_Address()));
-                          //               },
-                          //               child: ForwardButtonBlack()),
-                          //         ],
-                          //       );
-                          //     }),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                );
+                              }),
+                        ),
+                        // TextWidget(
+                        //   textValue: model.getUser![0].meta_value.toString(),
+                        //   //"Address",
+                        //   textColor: ColorUtils.blackShade,
+                        //   fontFamily: FontUtils.interSemiBold,
+                        //   fontSize: 1.6.t,
+                        // ),
+                        // Expanded(
+                        //   child: ListView.separated(
+                        //       shrinkWrap: true,
+                        //       physics: NeverScrollableScrollPhysics(),
+                        //       itemBuilder: (context, index) {
+                        //         return Column(
+                        //           crossAxisAlignment: CrossAxisAlignment.start,
+                        //           children: [
+                        //             Row(
+                        //               mainAxisAlignment:
+                        //                   MainAxisAlignment.spaceBetween,
+                        //               children: [
+                        //                 Column(
+                        //                   crossAxisAlignment:
+                        //                       CrossAxisAlignment.start,
+                        //                   children: [
+                        //                     TextWidget(
+                        //                       textValue: model
+                        //                           .getUser![index].meta_key
+                        //                           .toString(),
+                        //                       //"Address",
+                        //                       textColor: ColorUtils.blackShade,
+                        //                       fontFamily: FontUtils.interSemiBold,
+                        //                       fontSize: 1.6.t,
+                        //                     ),
+                        //                     SizedBox(
+                        //                       height: 0.75.h,
+                        //                     ),
+                        //                     TextWidget(
+                        //                       textValue: model
+                        //                           .getUser![index].meta_value
+                        //                           .toString(),
+                        //                       //"karachi",
+                        //                       // model.address == null ||
+                        //                       //         model.address.toString().isEmpty
+                        //                       //     ? ' Enter Your Address'
+                        //                       //     : model.address.toString(),
+                        //                       //"hussain.ak073@gmail.com",
+                        //                       textColor: ColorUtils.blackShade,
+                        //                       fontFamily: FontUtils.interRegular,
+                        //                       fontSize: 1.8.t,
+                        //                     ),
+                        //                   ],
+                        //                 ),
+                        //                 InkWell(
+                        //                     onTap: () {
+                        //                       Navigator.push(
+                        //                           context,
+                        //                           PageTransition(
+                        //                               type: PageTransitionType.fade,
+                        //                               child: Edit_Address()));
+                        //                     },
+                        //                     child: ForwardButtonBlack()),
+                        //               ],
+                        //             ),
+                        //           ],
+                        //         );
+                        //       },
+                        //       separatorBuilder: (context, index) {
+                        //         return Divider();
+                        //       },
+                        //       itemCount: model.getUser?.length ?? 0),
+                        // ),
+                        // Expanded(
+                        //   child: ListView.builder(
+                        //       itemCount: _apiDataList.length,
+                        //       itemBuilder: (context, index) {
+                        //         return Row(
+                        //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        //           children: [
+                        //             Column(
+                        //               crossAxisAlignment: CrossAxisAlignment.start,
+                        //               children: [
+                        //                 TextWidget(
+                        //                   textValue: "Address",
+                        //                   textColor: ColorUtils.blackShade,
+                        //                   fontFamily: FontUtils.interSemiBold,
+                        //                   fontSize: 1.6.t,
+                        //                 ),
+                        //                 SizedBox(
+                        //                   height: 0.75.h,
+                        //                 ),
+                        //                 TextWidget(
+                        //                   textValue: _apiDataList[index].metaValue,
+                        //                   //"karachi",
+                        //                   //  model.address == null || model.address.toString().isEmpty?' Enter Your Address':  model.address.toString(),
+                        //                   //"hussain.ak073@gmail.com",
+                        //                   textColor: ColorUtils.blackShade,
+                        //                   fontFamily: FontUtils.interRegular,
+                        //                   fontSize: 1.8.t,
+                        //                 ),
+                        //               ],
+                        //             ),
+                        //             InkWell(
+                        //                 onTap: () {
+                        //                   Navigator.push(
+                        //                       context,
+                        //                       PageTransition(
+                        //                           type: PageTransitionType.fade,
+                        //                           child: Edit_Address()));
+                        //                 },
+                        //                 child: ForwardButtonBlack()),
+                        //           ],
+                        //         );
+                        //       }),
+                        //),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: PageHorizontalMargin(
+                                widget: Column(
+                              children: [
+                                SizedBox(
+                                  height: 2.h,
+                                ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    TextWidget(
-                                      textValue: "Address",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interSemiBold,
-                                      fontSize: 1.6.t,
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Full Name",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                        SizedBox(
+                                          height: 0.75.h,
+                                        ),
+                                        TextWidget(
+                                          textValue: model.fullname.toString(),
+                                          // "Hussain Akhtar",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interRegular,
+                                          fontSize: 1.8.t,
+                                        ),
+                                      ],
                                     ),
-                                    SizedBox(
-                                      height: 0.75.h,
-                                    ),
-                                    TextWidget(
-                                      textValue:
-                                          // model.getUser![0].meta_value
-                                          //     .toString(),
-                                          //"karachi",
-                                          model.address == null ||
-                                                  model.address
-                                                      .toString()
-                                                      .isEmpty
-                                              ? ' Enter Your Address'
-                                              : model.address.toString(),
-                                      //"hussain.ak073@gmail.com",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Name()));
+                                        },
+                                        child: ForwardButtonBlack()),
                                   ],
                                 ),
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Address()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Divider(
+                                //   color: ColorUtils.silver,
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Column(
+                                //       crossAxisAlignment: CrossAxisAlignment.start,
+                                //       children: [
+                                //         TextWidget(
+                                //           textValue: "Gender",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interSemiBold,
+                                //           fontSize: 1.6.t,
+                                //         ),
+                                //         SizedBox(
+                                //           height: 0.75.h,
+                                //         ),
+                                //         TextWidget(
+                                //           textValue: "Select Gender",
+                                //           textColor: ColorUtils.red,
+                                //           fontFamily: FontUtils.interRegular,
+                                //           fontSize: 1.8.t,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     InkWell(
+                                //         onTap: () {
+                                //           _SelectgenderPopup(context);
+                                //           // Navigator.push(context,
+                                //           //     PageTransition(type: PageTransitionType.fade, child: Edit_Name()));
+                                //         },
+                                //         child: ForwardButtonBlack()),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Divider(
+                                //   color: ColorUtils.silver,
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Column(
+                                //       crossAxisAlignment: CrossAxisAlignment.start,
+                                //       children: [
+                                //         TextWidget(
+                                //           textValue: "Date",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interSemiBold,
+                                //           fontSize: 1.6.t,
+                                //         ),
+                                //         SizedBox(
+                                //           height: 0.75.h,
+                                //         ),
+                                //         TextWidget(
+                                //           textValue: "dd/mm/yyyy",
+                                //           textColor: ColorUtils.red,
+                                //           fontFamily: FontUtils.interRegular,
+                                //           fontSize: 1.8.t,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     InkWell(
+                                //         onTap: () {
+                                //           _SelectdatePopup(context);
+                                //           // Navigator.push(context,
+                                //           //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
+                                //         },
+                                //         child: ForwardButtonBlack()),
+                                //   ],
+                                // ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Email",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                        SizedBox(
+                                          height: 0.75.h,
+                                        ),
+                                        TextWidget(
+                                          textValue: model.prefService.userEmail
+                                              .toString(),
+                                          //"hussain.ak073@gmail.com",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interRegular,
+                                          fontSize: 1.8.t,
+                                        ),
+                                      ],
+                                    ),
+                                    // InkWell(
+                                    //     onTap: () {
+                                    //       Navigator.push(
+                                    //           context,
+                                    //           PageTransition(
+                                    //               type: PageTransitionType.fade,
+                                    //               child: Edit_Email()
+                                    //               ));
+                                    //     },
+                                    //     child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Change Password",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Password()));
+                                        },
+                                        child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Phone",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                        SizedBox(
+                                          height: 0.75.h,
+                                        ),
+                                        TextWidget(
+                                          textValue: model.phone.toString(),
+                                          //"+92 345 3048539",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interRegular,
+                                          fontSize: 1.8.t,
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Number()));
+                                        },
+                                        child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          TextWidget(
+                                            textValue: "Address",
+                                            textColor: ColorUtils.blackShade,
+                                            fontFamily: FontUtils.interSemiBold,
+                                            fontSize: 1.6.t,
+                                          ),
+                                          SizedBox(
+                                            height: 0.75.h,
+                                          ),
+                                          TextWidget(
+                                            textValue: model.getUser![0]
+                                                            .meta_value
+                                                            .toString() ==
+                                                        null ||
+                                                    model.getUser![0].meta_value
+                                                        .toString()
+                                                        .isEmpty
+                                                ? ' Enter Your Address'
+                                                : model.getUser![0].meta_value
+                                                    .toString(),
+                                            //"karachi",
+                                            // model.address == null ||
+                                            //         model.address
+                                            //             .toString()
+                                            //             .isEmpty
+                                            //     ? ' Enter Your Address'
+                                            //     : model.address.toString(),
+                                            //"hussain.ak073@gmail.com",
+                                            textColor: ColorUtils.blackShade,
+                                            fontFamily: FontUtils.interRegular,
+                                            fontSize: 1.8.t,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Address()));
+                                        },
+                                        child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Age",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                        SizedBox(
+                                          height: 0.75.h,
+                                        ),
+                                      
+
+                                        TextWidget(
+                                          textValue: 
+                                        
+
+                                          // model.getUser != null &&
+                                          //         model.getUser!.isNotEmpty
+                                          //     ? (model.getUser![0].meta_key ==
+                                          //                 'Age' &&
+                                          //             model.getUser![0]
+                                          //                     .meta_value !=
+                                          //                 null &&
+                                          //             model.getUser![0]
+                                          //                 .meta_value
+                                          //                 .toString()
+                                          //                 .isNotEmpty
+                                          //         ? model.getUser![0].meta_value
+                                          //             .toString()
+                                          //         : 'Enter Your age')
+                                          //     : 'Enter Your age',
+                                          //  model.getUser![0]
+                                          //                 .meta_value
+                                          //                 .toString() ==
+                                          //             null ||
+                                          //         model.getUser![0].meta_value
+                                          //             .toString()
+                                          //             .isEmpty
+                                          //     ? ' Enter Your Age'
+                                          //     : model.getUser![1].meta_value
+                                          //         .toString(),
+                                          model.age == null ||
+                                                  model.age
+                                                      .toString()
+                                                      .isEmpty
+                                              ? ' Enter Your Age'
+                                              : model.age.toString(),
+                                          // model.age.toString(),
+                                          // model.phone.toString(),
+                                          //"+92 345 3048539",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interRegular,
+                                          fontSize: 1.8.t,
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Age()));
+                                        },
+                                        child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Height",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                        SizedBox(
+                                          height: 0.75.h,
+                                        ),
+                                        TextWidget(
+                                          textValue: model.height == null ||
+                                                  model.height
+                                                      .toString()
+                                                      .isEmpty
+                                              ? ' Enter Your height'
+                                              : model.height.toString(),
+                                          //model.height.toString(),
+                                          // "5",
+                                          //model.phone.toString(),
+                                          //"+92 345 3048539",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interRegular,
+                                          fontSize: 1.8.t,
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Height()));
+                                        },
+                                        child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Weight",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 1.6.t,
+                                        ),
+                                        SizedBox(
+                                          height: 0.75.h,
+                                        ),
+                                        TextWidget(
+                                          textValue: model.weight == null ||
+                                                  model.weight
+                                                      .toString()
+                                                      .isEmpty
+                                              ? ' Enter Your weight'
+                                              : model.weight.toString(),
+                                          //model.weight.toString(),
+                                          //"11",
+                                          textColor: ColorUtils.blackShade,
+                                          fontFamily: FontUtils.interRegular,
+                                          fontSize: 1.8.t,
+                                        ),
+                                      ],
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: Edit_Weight()));
+                                        },
+                                        child: ForwardButtonBlack()),
+                                  ],
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                Divider(
+                                  color: ColorUtils.silver,
+                                ),
+                                SizedBox(
+                                  height: 1.h,
+                                ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Column(
+                                //       crossAxisAlignment: CrossAxisAlignment.start,
+                                //       children: [
+                                //         TextWidget(
+                                //           textValue: "City",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interSemiBold,
+                                //           fontSize: 1.6.t,
+                                //         ),
+                                //         SizedBox(
+                                //           height: 0.75.h,
+                                //         ),
+                                //         TextWidget(
+                                //           textValue: "No City Selected",
+                                //           textColor: ColorUtils.red,
+                                //           fontFamily: FontUtils.interRegular,
+                                //           fontSize: 1.8.t,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     InkWell(
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //               context,
+                                //               PageTransition(
+                                //                   type: PageTransitionType.fade,
+                                //                   child: SelectCity()));
+                                //         },
+                                //         child: ForwardButtonBlack()),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Divider(
+                                //   color: ColorUtils.silver,
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Column(
+                                //       crossAxisAlignment: CrossAxisAlignment.start,
+                                //       children: [
+                                //         TextWidget(
+                                //           textValue: "Address",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interSemiBold,
+                                //           fontSize: 1.6.t,
+                                //         ),
+                                //         SizedBox(
+                                //           height: 0.75.h,
+                                //         ),
+                                //         TextWidget(
+                                //           textValue: "No address details added",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interRegular,
+                                //           fontSize: 1.8.t,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     InkWell(
+                                //         onTap: () {
+                                //           Navigator.push(
+                                //               context,
+                                //               PageTransition(
+                                //                   type: PageTransitionType.fade,
+                                //                   child: EnterAddress()));
+                                //         },
+                                //         child: ForwardButtonBlack()),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Divider(
+                                //   color: ColorUtils.silver,
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Column(
+                                //       crossAxisAlignment: CrossAxisAlignment.start,
+                                //       children: [
+                                //         TextWidget(
+                                //           textValue: "Policy Number",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interSemiBold,
+                                //           fontSize: 1.6.t,
+                                //         ),
+                                //         SizedBox(
+                                //           height: 0.75.h,
+                                //         ),
+                                //         TextWidget(
+                                //           textValue: "No policy details added",
+                                //           textColor: ColorUtils.blackShade,
+                                //           fontFamily: FontUtils.interRegular,
+                                //           fontSize: 1.8.t,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //     InkWell(
+                                //         onTap: () {
+                                //           // Navigator.push(context,
+                                //           //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
+                                //         },
+                                //         child: ForwardButtonBlack()),
+                                //   ],
+                                // ),
+                                // SizedBox(
+                                //   height: 1.h,
+                                // ),
+                                // Divider(
+                                //   color: ColorUtils.silver,
+                                // ),
+                              ],
+                            )),
                           ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Age",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: model.age.toString(),
-                                    // model.phone.toString(),
-                                    //"+92 345 3048539",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Age()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Height",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: model.height.toString(),
-                                    // "5",
-                                    //model.phone.toString(),
-                                    //"+92 345 3048539",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Height()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Weight",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: model.weight.toString(),
-                                    //"11",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: Edit_Weight()));
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         TextWidget(
-                          //           textValue: "City",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interSemiBold,
-                          //           fontSize: 1.6.t,
-                          //         ),
-                          //         SizedBox(
-                          //           height: 0.75.h,
-                          //         ),
-                          //         TextWidget(
-                          //           textValue: "No City Selected",
-                          //           textColor: ColorUtils.red,
-                          //           fontFamily: FontUtils.interRegular,
-                          //           fontSize: 1.8.t,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     InkWell(
-                          //         onTap: () {
-                          //           Navigator.push(
-                          //               context,
-                          //               PageTransition(
-                          //                   type: PageTransitionType.fade,
-                          //                   child: SelectCity()));
-                          //         },
-                          //         child: ForwardButtonBlack()),
-                          //   ],
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Divider(
-                          //   color: ColorUtils.silver,
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         TextWidget(
-                          //           textValue: "Address",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interSemiBold,
-                          //           fontSize: 1.6.t,
-                          //         ),
-                          //         SizedBox(
-                          //           height: 0.75.h,
-                          //         ),
-                          //         TextWidget(
-                          //           textValue: "No address details added",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interRegular,
-                          //           fontSize: 1.8.t,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     InkWell(
-                          //         onTap: () {
-                          //           Navigator.push(
-                          //               context,
-                          //               PageTransition(
-                          //                   type: PageTransitionType.fade,
-                          //                   child: EnterAddress()));
-                          //         },
-                          //         child: ForwardButtonBlack()),
-                          //   ],
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Divider(
-                          //   color: ColorUtils.silver,
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     Column(
-                          //       crossAxisAlignment: CrossAxisAlignment.start,
-                          //       children: [
-                          //         TextWidget(
-                          //           textValue: "Policy Number",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interSemiBold,
-                          //           fontSize: 1.6.t,
-                          //         ),
-                          //         SizedBox(
-                          //           height: 0.75.h,
-                          //         ),
-                          //         TextWidget(
-                          //           textValue: "No policy details added",
-                          //           textColor: ColorUtils.blackShade,
-                          //           fontFamily: FontUtils.interRegular,
-                          //           fontSize: 1.8.t,
-                          //         ),
-                          //       ],
-                          //     ),
-                          //     InkWell(
-                          //         onTap: () {
-                          //           // Navigator.push(context,
-                          //           //     PageTransition(type: PageTransitionType.fade, child: Account_Detail()));
-                          //         },
-                          //         child: ForwardButtonBlack()),
-                          //   ],
-                          // ),
-                          // SizedBox(
-                          //   height: 1.h,
-                          // ),
-                          // Divider(
-                          //   color: ColorUtils.silver,
-                          // ),
-                        ],
-                      )),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        );
+                ),
+              );
       },
     );
   }

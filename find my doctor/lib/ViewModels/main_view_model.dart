@@ -1528,16 +1528,17 @@ class MainViewModel extends BaseViewModel {
 
   var userupdate = UserUpdate();
   Future usersUpdate(BuildContext context, String token, String fullName,
-      String Email, String Phone, int userId) async {
+      String Email, String Phone, int id) async {
     loadingWidget = true;
     notifyListeners();
 
     try {
       var userUpdateResponse =
-          await userupdate.userUpdate(token, fullName, Email, Phone, userId);
+          await userupdate.userUpdate(token, fullName, Email, Phone, id);
       // print('User update response: $userUpdateResponse');
 
       loadingWidget = false;
+      print('this is name ipdate respoms ${userUpdateResponse}');
       fullname = updateNameController.text;
       prefService.saveUserName(fullname!);
       notifyListeners();
@@ -1614,10 +1615,12 @@ class MainViewModel extends BaseViewModel {
     loadingWidget = true;
     var usercreatResponse =
         await addusermete.addusermeta(token, key, value, user);
-    address = useraddressController.text;
-    prefService.saveUseraddress(address!);
-    getUser![0].meta_value = address;
-    prefService.saveUseraddress(getUser![0].meta_value!);
+    //getUser![0].meta_value = useraddressController.text;
+    // address = useraddressController.text;
+    // // prefService.saveUseraddress(address!);
+    // getUser![0].meta_value = address;
+    // prefService.saveUseraddress(getUser![0].meta_value!);
+    // print('this is  user add address ${getUser![0].meta_value}');
     // useraddressController.text = address!;
 
     if (usercreatResponse != null) {
@@ -1688,21 +1691,13 @@ class MainViewModel extends BaseViewModel {
           await usermetaUpdate.userMetaUpdate(token, key, value, user);
       // print('User update response: $userUpdateResponse');
       loadingWidget = false;
-      // address = usermetaUpdateResponse[0]
-      // print('this is update address ${address}');
-      // address = getUser![0].meta_value.toString();
-      prefService.saveUseraddress(address!);
-      //getUser![0].meta_value = useraddressController.text.toString();
-      address = useraddressController.text.toString();
+      print('this is  update responde ${usermetaUpdateResponse}');
+      address = useraddressController.text;
       prefService.saveUseraddress(address!);
       print('this is  update ${address}');
-      // getUser![0].meta_value = address;
-      // await prefService.saveUseraddress(getUser![0].meta_value!);
+
       notifyListeners();
       if (usermetaUpdateResponse != null) {
-        // Update the fullname in your ViewModel
-        //updateNameController.text = fullname;
-
         notifyListeners();
         return usermetaUpdateResponse;
       } else {
@@ -1715,6 +1710,14 @@ class MainViewModel extends BaseViewModel {
       loadingWidget = false;
       notifyListeners();
     }
+
+    // address = usermetaUpdateResponse[0]
+    // print('this is update address ${address}');
+    // address = getUser![0].meta_value.toString();
+    // prefService.saveUseraddress(address!);
+    //getUser![0].meta_value = useraddressController.text.toString();
+    //address = useraddressController.text.trim();
+    // prefService.saveUseraddress(address!);
   }
 
   // meta update age
@@ -1819,12 +1822,26 @@ class MainViewModel extends BaseViewModel {
 
     var getuserResponse = await getuserdata.getuser(token, usreId);
     if (getuserResponse != null && getuserResponse is List<GetUserMeta>) {
+      
       getUser = getuserResponse;
       getuserLoader = false;
-      address = getuserResponse[0].meta_value!;
-      print('this is fdfdfgf ${address}');
-      // address = getUser![0].meta_value.toString();
-      prefService.saveUseraddress(address!);
+      print('thi is respo met ${getuserResponse[0].meta_value}');
+      print('this is modedate ${getUser![0].meta_key}');
+      // address = getuserResponse[0].meta_value!;
+      // prefService.saveUseraddress(address!);
+      // print('this is fdfdfgf ${address}');
+
+      // age = getuserResponse[1].meta_value!;
+      // prefService.saveUserage(age!);
+      // print('this is user metat age ${age}');
+
+      // height = getuserResponse[2].meta_value!;
+      // prefService.saveUserHeight(height!);
+      // print('this is user metat height ${height}');
+
+      // weight = getuserResponse[3].meta_value!;
+      // prefService.saveUserWeight(weight!);
+      // print('this is user metat weight ${weight}');
 
       notifyListeners();
     } else {

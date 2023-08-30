@@ -7,12 +7,12 @@ import 'package:find_my_doctor/modules/dio_service.dart';
 class UserUpdate {
   var _dioService = DioService.getInstance();
   Future userUpdate(String token, String fullName, String Email, String Phone,
-      int userId) async {
+      int id) async {
     var json = {
       "fullname": fullName,
       "email": Email,
       "phone": Phone,
-      "id": userId
+      "id": id
       // "password": password,
     };
     try {

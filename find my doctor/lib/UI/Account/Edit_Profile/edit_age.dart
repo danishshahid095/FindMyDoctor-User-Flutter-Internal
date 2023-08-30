@@ -86,13 +86,13 @@ class _Edit_AgeState extends State<Edit_Age> {
                                       context,
                                       model.prefService.userToken.toString(),
                                       'age'.toString(),
-                                      model.userageController.toString(),
+                                      model.userageController.text.toString(),
                                       model.userID!)
                                   : model.usersMetaUpdateAge(
                                       context,
                                       model.prefService.userToken.toString(),
                                       'age'.toString(),
-                                      model.userageController.toString(),
+                                      model.userageController.text.toString(),
                                       model.userID!);
 
                               Navigator.pop(context);

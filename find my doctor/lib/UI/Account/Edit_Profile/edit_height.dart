@@ -86,13 +86,13 @@ class _Edit_HeightState extends State<Edit_Height> {
                                       context,
                                       model.prefService.userToken.toString(),
                                       'height'.toString(),
-                                      model.userheightController.toString(),
+                                      model.userheightController.text.toString(),
                                       model.userID!)
                                   : model.usersMetaUpdateHeight(
                                       context,
                                       model.prefService.userToken.toString(),
                                       'height'.toString(),
-                                      model.userheightController.toString(),
+                                      model.userheightController.text.toString(),
                                       model.userID!);
                               Navigator.pop(context);
                               // Navigator.push(context,

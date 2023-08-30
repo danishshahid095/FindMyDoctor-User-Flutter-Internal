@@ -81,18 +81,24 @@ class _Edit_AddressState extends State<Edit_Address> {
                           RedButton(
                             textValue: "Confirm",
                             onButtonPressed: () {
-                              model.address.toString().isEmpty
+                              model.getUser![0].meta_key.toString() == null ||
+                                      model.getUser![0].meta_key
+                                          .toString()
+                                          .isEmpty
+                                  //model.address.toString().isEmpty
                                   ? model.doUseMeta(
                                       context,
                                       model.prefService.userToken.toString(),
                                       'address'.toString(),
-                                      model.useraddressController.toString(),
+                                      model.useraddressController.text
+                                          .toString(),
                                       model.userID!)
                                   : model.usersMetaUpdateAddress(
                                       context,
                                       model.prefService.userToken.toString(),
                                       'address'.toString(),
-                                      model.useraddressController.toString(),
+                                      model.useraddressController.text
+                                          .toString(),
                                       model.userID!);
                               Navigator.pop(context);
                               // Navigator.push(context,

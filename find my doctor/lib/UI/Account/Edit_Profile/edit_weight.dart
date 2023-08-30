@@ -86,13 +86,13 @@ class _Edit_WeightState extends State<Edit_Weight> {
                                       context,
                                       model.prefService.userToken.toString(),
                                       'weight'.toString(),
-                                      model.userweightController.toString(),
+                                      model.userweightController.text.toString(),
                                       model.userID!)
                                   : model.usersMetaUpdateWeight(
                                       context,
                                       model.prefService.userToken.toString(),
                                       'weight'.toString(),
-                                      model.userweightController.toString(),
+                                      model.userweightController.text.toString(),
                                       model.userID!);
                               Navigator.pop(context);
                               // Navigator.push(context,
