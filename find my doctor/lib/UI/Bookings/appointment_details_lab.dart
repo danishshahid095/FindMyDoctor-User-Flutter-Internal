@@ -62,7 +62,9 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
       disposeViewModel: false,
       onViewModelReady: (model) async {
         await model.LabBookDetials(
-            context, model.prefService.userToken.toString());
+          context,
+          model.prefService.userToken.toString(),
+        );
         //await model.gettingLabBookingDetail(context, model.token!, orderID);
       },
       builder: (context, model, child) {

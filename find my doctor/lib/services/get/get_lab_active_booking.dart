@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/model/Lab/activeLabBookingModel.dart';
-import 'package:find_my_doctor/model/Pharmacy/pharmacyCityModel.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
 class GetLabActiveBooking {

@@ -81,19 +81,18 @@ class _Edit_HeightState extends State<Edit_Height> {
                           RedButton(
                             textValue: "Confirm",
                             onButtonPressed: () {
-                              model.height.toString().isEmpty
-                                  ? model.doUseMetaHeight(
-                                      context,
-                                      model.prefService.userToken.toString(),
-                                      'height'.toString(),
-                                      model.userheightController.text.toString(),
-                                      model.userID!)
-                                  : model.usersMetaUpdateHeight(
-                                      context,
-                                      model.prefService.userToken.toString(),
-                                      'height'.toString(),
-                                      model.userheightController.text.toString(),
-                                      model.userID!);
+                              model.doUseMetaHeight(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  'height'.toString(),
+                                  model.userheightController.text.toString(),
+                                  model.userID!);
+                              model.usersMetaUpdateHeight(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  'height'.toString(),
+                                  model.userheightController.text.toString(),
+                                  model.userID!);
                               Navigator.pop(context);
                               // Navigator.push(context,
                               //     PageTransition(type: PageTransitionType.fade, child: ()));

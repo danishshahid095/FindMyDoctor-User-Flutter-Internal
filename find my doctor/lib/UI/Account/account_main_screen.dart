@@ -1,5 +1,4 @@
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Account/account_detail.dart';
 import 'package:find_my_doctor/UI/Account/beneficiaries.dart';
 import 'package:find_my_doctor/UI/Account/faqs.dart';
 import 'package:find_my_doctor/UI/Account/privacy_policy.dart';
@@ -16,8 +15,7 @@ import 'package:find_my_doctor/Widgets/top_margin_registration.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../Utils/widget_loader.dart';
+import 'test_account.dart';
 
 class AccountMainScreen extends StatefulWidget {
   const AccountMainScreen({Key? key}) : super(key: key);
@@ -104,7 +102,9 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                         context,
                                         PageTransition(
                                             type: PageTransitionType.fade,
-                                            child: Account_Detail()));
+                                            child: Account_Detail_Test()
+                                            //Account_Detail()
+                                            ));
                                   },
                                   child: ForwardButtonBlack()),
                             ],

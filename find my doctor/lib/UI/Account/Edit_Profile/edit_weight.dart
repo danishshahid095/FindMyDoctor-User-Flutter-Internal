@@ -81,19 +81,18 @@ class _Edit_WeightState extends State<Edit_Weight> {
                           RedButton(
                             textValue: "Confirm",
                             onButtonPressed: () {
-                              model.weight.toString().isEmpty
-                                  ? model.doUseMetaWeight(
-                                      context,
-                                      model.prefService.userToken.toString(),
-                                      'weight'.toString(),
-                                      model.userweightController.text.toString(),
-                                      model.userID!)
-                                  : model.usersMetaUpdateWeight(
-                                      context,
-                                      model.prefService.userToken.toString(),
-                                      'weight'.toString(),
-                                      model.userweightController.text.toString(),
-                                      model.userID!);
+                              model.doUseMetaWeight(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  'weight'.toString(),
+                                  model.userweightController.text.toString(),
+                                  model.userID!);
+                              model.usersMetaUpdateWeight(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  'weight'.toString(),
+                                  model.userweightController.text.toString(),
+                                  model.userID!);
                               Navigator.pop(context);
                               // Navigator.push(context,
                               //     PageTransition(type: PageTransitionType.fade, child: ()));

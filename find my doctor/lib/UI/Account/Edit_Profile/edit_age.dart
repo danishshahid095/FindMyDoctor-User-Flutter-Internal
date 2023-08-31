@@ -81,19 +81,19 @@ class _Edit_AgeState extends State<Edit_Age> {
                           RedButton(
                             textValue: "Confirm",
                             onButtonPressed: () {
-                              model.age.toString().isEmpty
-                                  ? model.doUseMetaAge(
-                                      context,
-                                      model.prefService.userToken.toString(),
-                                      'age'.toString(),
-                                      model.userageController.text.toString(),
-                                      model.userID!)
-                                  : model.usersMetaUpdateAge(
-                                      context,
-                                      model.prefService.userToken.toString(),
-                                      'age'.toString(),
-                                      model.userageController.text.toString(),
-                                      model.userID!);
+                              model.doUseMetaAge(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  'age'.toString(),
+                                  model.userageController.text.toString(),
+                                  model.userID!);
+                                  
+                              model.usersMetaUpdateAge(
+                                  context,
+                                  model.prefService.userToken.toString(),
+                                  'age'.toString(),
+                                  model.userageController.text.toString(),
+                                  model.userID!);
 
                               Navigator.pop(context);
                               // Navigator.push(context,

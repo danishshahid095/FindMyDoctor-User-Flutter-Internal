@@ -1508,9 +1508,9 @@ class MainViewModel extends BaseViewModel {
 
   var labdetails = LabBookingDetails();
   var labmodel = LabModel();
-  Future LabBookDetials(BuildContext context, token) async {
+  Future LabBookDetials(BuildContext context, token,) async {
     loadingWidget = true;
-    var labResponse = await labdetails.labbookingdetails(token!);
+    var labResponse = await labdetails.labbookingdetails(token!,);
     loadingWidget = false;
     if (labResponse != null && labResponse is LabModel) {
       // Name = labResponse.data!.name;
@@ -1636,8 +1636,8 @@ class MainViewModel extends BaseViewModel {
     loadingWidget = true;
     var usercreatResponse =
         await addusermete.addusermeta(token, key, value, user);
-    age = userageController.text;
-    prefService.saveUserage(age!);
+    // age = userageController.text;
+    // prefService.saveUserage(age!);
     //userageController.text = age!;
 
     if (usercreatResponse != null) {
@@ -1670,8 +1670,8 @@ class MainViewModel extends BaseViewModel {
     var usercreatResponse =
         await addusermete.addusermeta(token, key, value, user);
 
-    weight = userweightController.text;
-    prefService.saveUserWeight(weight!);
+    // weight = userweightController.text;
+    // prefService.saveUserWeight(weight!);
     // userweightController.text = weight!;
 
     if (usercreatResponse != null) {
@@ -1730,8 +1730,8 @@ class MainViewModel extends BaseViewModel {
           await usermetaUpdate.userMetaUpdate(token, key, value, userId);
       // print('User update response: $userUpdateResponse');
       loadingWidget = false;
-      age = userageController.text;
-      prefService.saveUserage(age!);
+      // age = userageController.text;
+      // prefService.saveUserage(age!);
       notifyListeners();
       if (usermetaUpdateResponse != null) {
         // Update the fullname in your ViewModel
@@ -1761,8 +1761,8 @@ class MainViewModel extends BaseViewModel {
           await usermetaUpdate.userMetaUpdate(token, key, value, userId);
       // print('User update response: $userUpdateResponse');
       loadingWidget = false;
-      height = userheightController.text;
-      prefService.saveUserHeight(height!);
+      // height = userheightController.text;
+      // prefService.saveUserHeight(height!);
       notifyListeners();
       if (usermetaUpdateResponse != null) {
         // Update the fullname in your ViewModel
@@ -1792,8 +1792,8 @@ class MainViewModel extends BaseViewModel {
           await usermetaUpdate.userMetaUpdate(token, key, value, userId);
       // print('User update response: $userUpdateResponse');
       loadingWidget = false;
-      weight = userweightController.text;
-      prefService.saveUserWeight(weight!);
+      // weight = userweightController.text;
+      // prefService.saveUserWeight(weight!);
       notifyListeners();
       if (usermetaUpdateResponse != null) {
         // Update the fullname in your ViewModel
@@ -1822,7 +1822,6 @@ class MainViewModel extends BaseViewModel {
 
     var getuserResponse = await getuserdata.getuser(token, usreId);
     if (getuserResponse != null && getuserResponse is List<GetUserMeta>) {
-      
       getUser = getuserResponse;
       getuserLoader = false;
       print('thi is respo met ${getuserResponse[0].meta_value}');
