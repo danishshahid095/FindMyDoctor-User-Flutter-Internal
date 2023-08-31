@@ -24,7 +24,8 @@ import 'package:path/path.dart' as path;
 import 'pdf_screen.dart';
 
 class Appointment_Details_Lab extends StatefulWidget {
-  const Appointment_Details_Lab({Key? key}) : super(key: key);
+  final String? oderId;
+  const Appointment_Details_Lab({Key? key, this.oderId}) : super(key: key);
 
   @override
   State<Appointment_Details_Lab> createState() =>
@@ -57,14 +58,13 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
   int orderID = 0;
   @override
   Widget build(BuildContext context) {
+    var bookid = widget.oderId.toString();
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onViewModelReady: (model) async {
         await model.LabBookDetials(
-          context,
-          model.prefService.userToken.toString(),
-        );
+            context, model.prefService.userToken.toString(), bookid);
         //await model.gettingLabBookingDetail(context, model.token!, orderID);
       },
       builder: (context, model, child) {
@@ -113,6 +113,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
+                                      Text(bookid),
                                       TextWidget(
                                         textValue: "Lab Booking",
                                         fontFamily: FontUtils.interSemiBold,
@@ -201,15 +202,20 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  TextWidget(
-                                    textValue: model
-                                        .labmodel.data!.tests![0].testName
-                                        .toString(),
-                                    // "CBC",
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                    textColor: ColorUtils.black,
-                                  ),
+                                  // TextWidget(
+                                  //   textValue: model
+                                  //           .labmodel.data!.tests![0].testName
+                                  //           .toString()
+                                  //           .isEmpty
+                                  //       ? 'No Test avaiable'
+                                  //       : model
+                                  //           .labmodel.data!.tests![0].testName
+                                  //           .toString(),
+                                  //   // "CBC",
+                                  //   fontFamily: FontUtils.interRegular,
+                                  //   fontSize: 1.8.t,
+                                  //   textColor: ColorUtils.black,
+                                  // ),
                                   SizedBox(
                                     height: 1.h,
                                   ),
@@ -229,20 +235,20 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  model.labmodel.data!.tests![0].testReport ==
-                                          null
-                                      ? Text('No test report available')
-                                      : TextButton(
-                                          onPressed: () async {
-                                            final url = serverUrl +
-                                                model.labmodel.data!.tests![0]
-                                                    .testReport
-                                                    .toString();
+                                  // model.labmodel.data!.tests![0].testReport ==
+                                  //         null
+                                  //     ? Text('No test report available')
+                                  //     : TextButton(
+                                  //         onPressed: () async {
+                                  //           final url = serverUrl +
+                                  //               model.labmodel.data!.tests![0]
+                                  //                   .testReport
+                                  //                   .toString();
 
-                                            final file = await loadNetwork(url);
-                                            openPDF(context, file);
-                                          },
-                                          child: Text(' Test Report Pdf')),
+                                  //           final file = await loadNetwork(url);
+                                  //           openPDF(context, file);
+                                  //         },
+                                  //         child: Text(' Test Report Pdf')),
                                   SizedBox(
                                     height: 1.h,
                                   ),
@@ -394,9 +400,9 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                         Row(
                                           children: [
                                             TextWidget(
-                                              textValue:
+                                              textValue: model.labmodel.data!.bStatus.toString(),
                                                   //model.prefService.labId.toString(),
-                                                  "Pending",
+                                                 // "Pending",
                                               //"AB+",
                                               fontFamily:
                                                   FontUtils.interRegular,

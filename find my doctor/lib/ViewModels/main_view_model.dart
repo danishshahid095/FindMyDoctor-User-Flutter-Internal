@@ -37,6 +37,7 @@ import '../App/locator.dart';
 import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
+import '../model/Beneficiaries/get_beneficiaries_model.dart';
 import '../model/Doctor/doc_slots_model.dart';
 import '../model/Doctor/doctor_history_model.dart';
 import '../model/Doctor/doctor_myactive_model.dart';
@@ -46,6 +47,7 @@ import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
 import '../model/login/get_user_meta_model.dart';
 import '../model/login/userLoginModel.dart';
+import '../services/get/get_beneficiaries.dart';
 import '../services/get/get_doctor_myactive.dart';
 import '../services/get/get_doctor_myhistory.dart';
 import '../services/get/get_lab_history_booking.dart';
@@ -1229,6 +1231,7 @@ class MainViewModel extends BaseViewModel {
       activeLabBookingModel = activeLabBookingResponse;
       activeLabBookingLoader = false;
       notifyListeners();
+      print('this is  lab booking id${activeLabBookingModel} ');
     } else {
       activeLabBookingLoader = false;
       notifyListeners();
@@ -1508,9 +1511,16 @@ class MainViewModel extends BaseViewModel {
 
   var labdetails = LabBookingDetails();
   var labmodel = LabModel();
-  Future LabBookDetials(BuildContext context, token,) async {
+  Future LabBookDetials(
+    BuildContext context,
+    token,
+    String orderId
+  ) async {
     loadingWidget = true;
-    var labResponse = await labdetails.labbookingdetails(token!,);
+    var labResponse = await labdetails.labbookingdetails(
+      token!,
+      orderId
+    );
     loadingWidget = false;
     if (labResponse != null && labResponse is LabModel) {
       // Name = labResponse.data!.name;
@@ -1849,6 +1859,32 @@ class MainViewModel extends BaseViewModel {
     }
     getuserLoader = false;
   }
+
+// get benecficy api
+GetBeneficy getBeneficy = GetBeneficy();
+  List<GetBencfyModel>? beneficry =
+      GetBencfyCompleteModel().data;
+  bool beneficryLoader = false;
+
+  Future gettingBencfiy(BuildContext context, String token) async {
+    beneficryLoader = true;
+
+    var BeneficyResponse =
+        await getBeneficy.getbeneficy(token);
+    if (BeneficyResponse != null &&
+        BeneficyResponse is List<GetBencfyModel>) {
+      beneficry = BeneficyResponse;
+      beneficryLoader = false;
+      notifyListeners();
+    } else {
+      beneficryLoader = false;
+      notifyListeners();
+    }
+    beneficryLoader = false;
+  }
+
+
+
   // Future userUpdate(BuildContext context, String token, String fullname,
   //     String email, String phone, String userId) async {
   //   loadingWidget = true;

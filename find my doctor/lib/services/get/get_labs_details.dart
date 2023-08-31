@@ -11,22 +11,22 @@ class LabBookingDetails {
 
   Future labbookingdetails(
     String token,
+   String orderId
   ) async {
     try {
       final response = await _dioService.get(
-        'booking-lab/my-booking-details/146',
+        'booking-lab/my-booking-details/$orderId',
         options: Options(headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           'content-Type': 'application/json'
         }),
-       
       );
       var data = json.decode(response.toString());
       if (response.statusCode == 200) {
         // user found
-         
+
         if (response.data["success"] == 1) {
-          LabModel labbook =LabModel.fromJson( response.data);
+          LabModel labbook = LabModel.fromJson(response.data);
 
           return labbook;
         } else {

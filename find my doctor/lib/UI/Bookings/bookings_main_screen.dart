@@ -193,6 +193,32 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     fontSize:
                                                                         1.6.t,
                                                                   ),
+                                                                  Row(
+                                                                    children: [
+                                                                      TextWidget(
+                                                                        textValue:
+                                                                            "booking id: ",
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                      TextWidget(
+                                                                        textValue: model
+                                                                            .doctormyactive![index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                   // TextWidget(
                                                                   //   textValue:
                                                                   //       "Lab Order",
@@ -266,6 +292,10 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       ),
                                                                     ],
                                                                   ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        0.75.h,
+                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
@@ -336,6 +366,18 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
+                                                      TextWidget(
+                                                        textValue: model
+                                                            .activeLabBookingModel?[
+                                                                index]
+                                                            .id
+                                                            .toString(),
+                                                        textColor: ColorUtils
+                                                            .blackShade,
+                                                        fontFamily: FontUtils
+                                                            .interRegular,
+                                                        fontSize: 1.6.t,
+                                                      ),
                                                       InkWell(
                                                         onTap: () {
                                                           Navigator.push(
@@ -606,7 +648,13 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Lab()));
+                                                                      Appointment_Details_Lab(
+                                                                    oderId: model
+                                                                        .doctormyhistory![
+                                                                            index]
+                                                                        .id
+                                                                        .toString(),
+                                                                  )));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -638,7 +686,32 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     fontSize:
                                                                         1.6.t,
                                                                   ),
-
+                                                                  Row(
+                                                                    children: [
+                                                                      TextWidget(
+                                                                        textValue:
+                                                                            "booking id: ",
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                      TextWidget(
+                                                                        textValue: model
+                                                                            .doctormyhistory![index]
+                                                                            .id
+                                                                            .toString(),
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                   // TextWidget(
                                                                   //   textValue:
                                                                   //       "Lab Order",
@@ -681,8 +754,6 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       ),
                                                                     ],
                                                                   ),
-
-                                                                 
                                                                 ],
                                                               ),
                                                             ),
