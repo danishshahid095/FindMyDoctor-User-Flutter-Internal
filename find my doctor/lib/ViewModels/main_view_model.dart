@@ -1511,16 +1511,9 @@ class MainViewModel extends BaseViewModel {
 
   var labdetails = LabBookingDetails();
   var labmodel = LabModel();
-  Future LabBookDetials(
-    BuildContext context,
-    token,
-    String orderId
-  ) async {
+  Future LabBookDetials(BuildContext context, token, String orderId) async {
     loadingWidget = true;
-    var labResponse = await labdetails.labbookingdetails(
-      token!,
-      orderId
-    );
+    var labResponse = await labdetails.labbookingdetails(token!, orderId);
     loadingWidget = false;
     if (labResponse != null && labResponse is LabModel) {
       // Name = labResponse.data!.name;
@@ -1861,29 +1854,25 @@ class MainViewModel extends BaseViewModel {
   }
 
 // get benecficy api
-GetBeneficy getBeneficy = GetBeneficy();
-  List<GetBencfyModel>? beneficry =
-      GetBencfyCompleteModel().data;
+  GetBeneficy getBeneficy = GetBeneficy();
+  List<GetBencfyModel>? beneficry = GetBencfyCompleteModel().data;
   bool beneficryLoader = false;
 
-  Future gettingBencfiy(BuildContext context, String token) async {
+  Future gettingBencfiy(BuildContext context, String? token) async {
+    // loadingWidget = true;
     beneficryLoader = true;
-
-    var BeneficyResponse =
-        await getBeneficy.getbeneficy(token);
-    if (BeneficyResponse != null &&
-        BeneficyResponse is List<GetBencfyModel>) {
+    var BeneficyResponse = await getBeneficy.getBeneficiaries(token!);
+    // loadingWidget = false;
+    if (BeneficyResponse != null && BeneficyResponse is List<GetBencfyModel>) {
       beneficry = BeneficyResponse;
       beneficryLoader = false;
       notifyListeners();
     } else {
+      // beneficry = null;
       beneficryLoader = false;
       notifyListeners();
     }
-    beneficryLoader = false;
   }
-
-
 
   // Future userUpdate(BuildContext context, String token, String fullname,
   //     String email, String phone, String userId) async {

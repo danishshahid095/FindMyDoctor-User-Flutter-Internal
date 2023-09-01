@@ -33,8 +33,7 @@ class _BookADoctorState extends State<BookADoctor> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -53,7 +52,9 @@ class _BookADoctorState extends State<BookADoctor> {
                       BackSingleText(
                         backText: "Book A Doctor",
                       ),
-                      SizedBox(height: 1.h,),
+                      SizedBox(
+                        height: 1.h,
+                      ),
                     ],
                   ),
                   Expanded(
@@ -67,58 +68,83 @@ class _BookADoctorState extends State<BookADoctor> {
                               height: 60.i,
                             ),
                             TextWidget(
-                              textValue: "Who are you booking this appointment for?",
+                              textValue:
+                                  "Who are you booking this appointment for?",
                               fontFamily: FontUtils.poppinsBold,
                               fontSize: 2.4.t,
                               textColor: ColorUtils.red,
                             ),
-
-                            SizedBox(height: 5.h,),
+                            SizedBox(
+                              height: 5.h,
+                            ),
                             InkWell(
-                              onTap: (){
-                                MyBottomModelSheet.showModelSheet(context,
-                                  MediaQuery.of(context).size.height/1.6,
+                              onTap: () {
+                                MyBottomModelSheet.showModelSheet(
+                                  context,
+                                  MediaQuery.of(context).size.height / 1.6,
                                   "Confirm Address",
                                   Column(
                                     children: [
                                       Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 3.w),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 3.w),
                                         child: TextWidget(
-                                          textValue: "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
+                                          textValue:
+                                              "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
                                           fontFamily: FontUtils.interRegular,
                                           fontSize: 1.8.t,
                                           textColor: ColorUtils.blackShade,
                                         ),
                                       ),
-                                      SizedBox(height: 2.h,),
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
                                       RedButton(
                                         textValue: "Confirm",
-                                        onButtonPressed: (){
-                                          if(model.fromDoctorBook == true){
+                                        onButtonPressed: () {
+                                          if (model.fromDoctorBook == true) {
                                             Navigator.pop(context);
-                                            Navigator.push(context,
-                                                PageTransition(type: PageTransitionType.fade, child: SelectConsultationType()));
-                                          }
-                                          else if(model.fromPharmacy == true){
+                                            Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child:
+                                                        SelectConsultationType()));
+                                          } else if (model.fromPharmacy ==
+                                              true) {
                                             Navigator.pop(context);
-                                            Navigator.push(context,
-                                                PageTransition(type: PageTransitionType.fade, child: SearchMedicine()));
-                                          }
-                                          else{
+                                            Navigator.push(
+                                                context,
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child: SearchMedicine()));
+                                          } else {
                                             Navigator.pop(context);
-                                            Navigator.push(context,
+                                            Navigator.push(
+                                                context,
                                                 // PageTransition(type: PageTransitionType.fade, child: SelectPrescription()));
-                                                PageTransition(type: PageTransitionType.fade, child: SelectCityPharmacy()));
+                                                PageTransition(
+                                                    type:
+                                                        PageTransitionType.fade,
+                                                    child:
+                                                        SelectCityPharmacy()));
                                           }
                                         },
                                       ),
-                                      SizedBox(height: 2.h,),
+                                      SizedBox(
+                                        height: 2.h,
+                                      ),
                                       ButtonWithBorder(
                                         textValue: "Edit",
-                                        onButtonPressed: (){
+                                        onButtonPressed: () {
                                           Navigator.pop(context);
-                                          Navigator.push(context,
-                                              PageTransition(type: PageTransitionType.fade, child: SelectCity()));
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child: SelectCity()));
                                         },
                                         borderColor: ColorUtils.red,
                                         buttonTextColor: ColorUtils.red,
@@ -128,7 +154,8 @@ class _BookADoctorState extends State<BookADoctor> {
                                 );
                               },
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextWidget(
                                     textValue: "Self",
@@ -141,11 +168,12 @@ class _BookADoctorState extends State<BookADoctor> {
                                 ],
                               ),
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
                             Divider(
                               color: ColorUtils.silver,
                             ),
-
                             AppointmentFor(
                               appointmentFor: "Ammi",
                               name: "Tooba Akhtar",
@@ -162,8 +190,9 @@ class _BookADoctorState extends State<BookADoctor> {
                               appointmentFor: "Elder Son",
                               name: "Ismail Hussain",
                             ),
-
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
                             Align(
                               alignment: Alignment.centerLeft,
                               child: TextWidget(
@@ -173,11 +202,15 @@ class _BookADoctorState extends State<BookADoctor> {
                                 fontSize: 1.8.t,
                               ),
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
                             Divider(
                               color: ColorUtils.silver,
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
                           ],
                         ),
                       ),
@@ -194,7 +227,6 @@ class _BookADoctorState extends State<BookADoctor> {
 }
 
 class AppointmentFor extends StatelessWidget {
-
   String? appointmentFor;
   String? name;
 
@@ -204,7 +236,9 @@ class AppointmentFor extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(height: 1.h,),
+        SizedBox(
+          height: 1.h,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -217,7 +251,9 @@ class AppointmentFor extends StatelessWidget {
                   fontFamily: FontUtils.interBold,
                   fontSize: 1.8.t,
                 ),
-                SizedBox(height: 0.75.h,),
+                SizedBox(
+                  height: 0.75.h,
+                ),
                 TextWidget(
                   textValue: name,
                   textColor: ColorUtils.blackShade,
@@ -226,11 +262,12 @@ class AppointmentFor extends StatelessWidget {
                 ),
               ],
             ),
-            ForwardButtonBlack(
-            ),
+            ForwardButtonBlack(),
           ],
         ),
-        SizedBox(height: 1.h,),
+        SizedBox(
+          height: 1.h,
+        ),
         Divider(
           color: ColorUtils.silver,
         ),
@@ -238,4 +275,3 @@ class AppointmentFor extends StatelessWidget {
     );
   }
 }
-

@@ -22,6 +22,8 @@ class GetDoctorMyActive {
       if(response.statusCode == 200){
           List historyData = response.data["data"];
           List<DoctorActiveModel> doctormyactiveModel = historyData.map((e) => DoctorActiveModel.fromJson(e)).toList();
+         
+           print('this is  model data ${doctormyactiveModel}');
           return doctormyactiveModel;
       }
       else{
