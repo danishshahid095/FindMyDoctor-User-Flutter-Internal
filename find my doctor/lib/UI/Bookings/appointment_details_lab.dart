@@ -113,7 +113,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(bookid),
+                                      //Text(bookid),
                                       TextWidget(
                                         textValue: "Lab Booking",
                                         fontFamily: FontUtils.interSemiBold,
@@ -400,9 +400,11 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                         Row(
                                           children: [
                                             TextWidget(
-                                              textValue: model.labmodel.data!.bStatus.toString(),
-                                                  //model.prefService.labId.toString(),
-                                                 // "Pending",
+                                              textValue: model
+                                                  .labmodel.data!.bStatus
+                                                  .toString(),
+                                              //model.prefService.labId.toString(),
+                                              // "Pending",
                                               //"AB+",
                                               fontFamily:
                                                   FontUtils.interRegular,

@@ -1,7 +1,6 @@
 import 'package:find_my_doctor/App/locator.dart';
 import 'package:find_my_doctor/UI/Home/BookDoctor/select_city.dart';
 import 'package:find_my_doctor/UI/Home/BookDoctor/select_consultation_type.dart';
-import 'package:find_my_doctor/UI/Home/LabTest/lab_select_prescription.dart';
 import 'package:find_my_doctor/UI/Home/Pharmacy/search_medicine.dart';
 import 'package:find_my_doctor/UI/Home/Pharmacy/select_city_pharmacy.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';

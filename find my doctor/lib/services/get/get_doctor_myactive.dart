@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:find_my_doctor/model/Lab/activeLabBookingModel.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
 import '../../model/Doctor/doctor_myactive_model.dart';

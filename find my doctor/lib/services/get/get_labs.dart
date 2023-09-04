@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:find_my_doctor/model/Doctor/onlineDoctorModel.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
 import '../../model/Lab/labsModel.dart';

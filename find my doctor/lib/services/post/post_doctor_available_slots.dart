@@ -2,9 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
-
 import '../../model/Doctor/doc_slots_model.dart';
-import '../../model/Doctor/onlineDoctorModel.dart';
 
 class availableSlot {
   var _dioService = DioService.getInstance();

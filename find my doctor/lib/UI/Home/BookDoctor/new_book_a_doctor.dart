@@ -482,7 +482,8 @@ class _BookADoctorNewState extends State<BookADoctorNew> {
                                                     );
                                                   },
                                                   itemCount:
-                                                      model.beneficry!.length),
+                                                      model.beneficry?.length ??
+                                                          0),
                                             ],
                                           ),
                                         ),

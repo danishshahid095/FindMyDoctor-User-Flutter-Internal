@@ -193,32 +193,32 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     fontSize:
                                                                         1.6.t,
                                                                   ),
-                                                                  Row(
-                                                                    children: [
-                                                                      TextWidget(
-                                                                        textValue:
-                                                                            "booking id: ",
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                      TextWidget(
-                                                                        textValue: model
-                                                                            .doctormyactive![index]
-                                                                            .id
-                                                                            .toString(),
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                    ],
-                                                                  ),
+                                                                  // Row(
+                                                                  //   children: [
+                                                                  //     TextWidget(
+                                                                  //       textValue:
+                                                                  //           "booking id: ",
+                                                                  //       textColor:
+                                                                  //           ColorUtils.blackShade,
+                                                                  //       fontFamily:
+                                                                  //           FontUtils.interRegular,
+                                                                  //       fontSize:
+                                                                  //           1.6.t,
+                                                                  //     ),
+                                                                  //     TextWidget(
+                                                                  //       textValue: model
+                                                                  //           .doctormyactive![index]
+                                                                  //           .id
+                                                                  //           .toString(),
+                                                                  //       textColor:
+                                                                  //           ColorUtils.blackShade,
+                                                                  //       fontFamily:
+                                                                  //           FontUtils.interRegular,
+                                                                  //       fontSize:
+                                                                  //           1.6.t,
+                                                                  //     ),
+                                                                  //   ],
+                                                                  // ),
                                                                   // TextWidget(
                                                                   //   textValue:
                                                                   //       "Lab Order",
@@ -686,44 +686,33 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     fontSize:
                                                                         1.6.t,
                                                                   ),
-                                                                  Row(
-                                                                    children: [
-                                                                      TextWidget(
-                                                                        textValue:
-                                                                            "booking id: ",
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                      TextWidget(
-                                                                        textValue: model
-                                                                            .doctormyhistory![index]
-                                                                            .id
-                                                                            .toString(),
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  // TextWidget(
-                                                                  //   textValue:
-                                                                  //       "Lab Order",
-                                                                  //   textColor:
-                                                                  //       ColorUtils
-                                                                  //           .red,
-                                                                  //   fontFamily:
-                                                                  //       FontUtils
-                                                                  //           .interSemiBold,
-                                                                  //   fontSize:
-                                                                  //       1.8.t,
+                                                                  // Row(
+                                                                  //   children: [
+                                                                  //     TextWidget(
+                                                                  //       textValue:
+                                                                  //           "booking id: ",
+                                                                  //       textColor:
+                                                                  //           ColorUtils.blackShade,
+                                                                  //       fontFamily:
+                                                                  //           FontUtils.interRegular,
+                                                                  //       fontSize:
+                                                                  //           1.6.t,
+                                                                  //     ),
+                                                                  //     TextWidget(
+                                                                  //       textValue: model
+                                                                  //           .doctormyhistory![index]
+                                                                  //           .id
+                                                                  //           .toString(),
+                                                                  //       textColor:
+                                                                  //           ColorUtils.blackShade,
+                                                                  //       fontFamily:
+                                                                  //           FontUtils.interRegular,
+                                                                  //       fontSize:
+                                                                  //           1.6.t,
+                                                                  //     ),
+                                                                  //   ],
                                                                   // ),
+
                                                                   SizedBox(
                                                                     height:
                                                                         0.75.h,
