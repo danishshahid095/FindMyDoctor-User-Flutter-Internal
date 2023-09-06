@@ -13,9 +13,16 @@ import 'package:stacked/stacked.dart';
 
 import 'video_call_screen.dart';
 
-class HelpLineChat extends StatelessWidget {
-  const HelpLineChat({Key? key}) : super(key: key);
 
+  class HelpLineChat extends StatefulWidget {
+  const HelpLineChat({Key? key, required this.orderId}) : super(key: key);
+  final String orderId;
+
+  @override
+  _HelpLineChatState createState() => _HelpLineChatState();
+  }
+
+  class _HelpLineChatState extends State<HelpLineChat> {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
@@ -66,7 +73,9 @@ class HelpLineChat extends StatelessWidget {
                                 context,
                                 PageTransition(
                                     type: PageTransitionType.fade,
+                                    // child: VideoCallScreen(callID: widget.orderId,)));
                                     child: VideoCallScreen(callID: "1",)));
+
                           },
                           child: Container(
                             height: 35,

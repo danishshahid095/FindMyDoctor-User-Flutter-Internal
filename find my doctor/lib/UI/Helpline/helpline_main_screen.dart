@@ -190,12 +190,12 @@ class _HelpLineMainScreenState extends State<HelpLineMainScreen> {
                                             textValue: "Instant Chat",
                                             onButtonPressed: () {
                                               Navigator.pop(context);
-                                              Navigator.push(
-                                                  context,
-                                                  PageTransition(
-                                                      type: PageTransitionType
-                                                          .fade,
-                                                      child: HelpLineChat()));
+                                              // Navigator.push(
+                                              //     context,
+                                              //     PageTransition(
+                                              //         type: PageTransitionType
+                                              //             .fade,
+                                              //         child: HelpLineChat()));
                                             },
                                           ),
                                           SizedBox(

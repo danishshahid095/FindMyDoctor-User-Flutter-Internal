@@ -16,6 +16,7 @@ import 'package:stacked/stacked.dart';
 import '../../Utils/whole_page_loader.dart';
 import '../../Widgets/bottom_navigation_bar.dart';
 import 'appointment_details.dart';
+import 'appointment_details_doc.dart';
 import 'appointment_details_lab.dart';
 
 class BookingsMainScreen extends StatefulWidget {
@@ -161,7 +162,10 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Lab()));
+                                                                      Appointment_Details_Doc(oderId: model
+                                                                          .doctormyactive![index]
+                                                                          .id
+                                                                          .toString(),)));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -387,7 +391,11 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Lab()));
+                                                                      Appointment_Details_Lab(oderId: model
+                                                                          .activeLabBookingModel?[
+                                                                      index]
+                                                                          .id
+                                                                          .toString(),)));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -648,7 +656,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Lab(
+                                                                      Appointment_Details_Doc(
                                                                     oderId: model
                                                                         .doctormyhistory![
                                                                             index]

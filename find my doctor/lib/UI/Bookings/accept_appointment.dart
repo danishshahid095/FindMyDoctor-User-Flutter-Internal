@@ -416,8 +416,8 @@ class _Accept_AppointmentState extends State<Accept_Appointment> {
                               ButtonWithBorder(
                                 textValue: "Chat With Patient",
                                 onButtonPressed: (){
-                                  Navigator.push(context,
-                                      PageTransition(type: PageTransitionType.fade, child: HelpLineChat()));
+                                  // Navigator.push(context,
+                                  //     PageTransition(type: PageTransitionType.fade, child: HelpLineChat(orderId:,)));
                                 },
                                 borderColor: ColorUtils.red,
                                 buttonTextColor: ColorUtils.red,

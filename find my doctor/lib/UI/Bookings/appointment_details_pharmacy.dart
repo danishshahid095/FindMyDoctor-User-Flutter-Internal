@@ -221,8 +221,8 @@ class _Appointment_DetailsState extends State<Appointment_Details> {
                           RedButton(
                             textValue: "Chat With Doctor",
                             onButtonPressed: (){
-                               Navigator.push(context,
-                                   PageTransition(type: PageTransitionType.fade, child: HelpLineChat()));
+                               // Navigator.push(context,
+                               //     PageTransition(type: PageTransitionType.fade, child: HelpLineChat()));
                             },
                           ),
                           SizedBox(height: 2.h,),

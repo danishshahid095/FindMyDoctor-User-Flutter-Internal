@@ -23,16 +23,16 @@ import 'package:path/path.dart' as path;
 
 import 'pdf_screen.dart';
 
-class Appointment_Details_Lab extends StatefulWidget {
+class Appointment_Details_Doc extends StatefulWidget {
   final String? oderId;
-  const Appointment_Details_Lab({Key? key, this.oderId}) : super(key: key);
+  const Appointment_Details_Doc({Key? key, this.oderId}) : super(key: key);
 
   @override
-  State<Appointment_Details_Lab> createState() =>
+  State<Appointment_Details_Doc> createState() =>
       _Appointment_Details_LabState();
 }
 
-class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
+class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
   static Future<File> loadNetwork(String url) async {
     final response = await http.get(Uri.parse(url));
     final bytes = response.bodyBytes;
@@ -63,7 +63,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onViewModelReady: (model) async {
-        await model.LabBookDetials(
+        await model.DocBookDetials(
             context, model.prefService.userToken.toString(), bookid);
         //await model.gettingLabBookingDetail(context, model.token!, orderID);
       },
@@ -547,7 +547,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                           context,
                                           PageTransition(
                                               type: PageTransitionType.fade,
-                                              child: HelpLineChat(orderId: widget.oderId.toString() ,)));
+                                              child: HelpLineChat(orderId: widget.oderId.toString(),)));
                                     },
                                   ),
                                   SizedBox(

@@ -48,6 +48,7 @@ import '../model/Pharmacy/pharmacyCategoryModel.dart';
 import '../model/login/get_user_meta_model.dart';
 import '../model/login/userLoginModel.dart';
 import '../services/get/get_beneficiaries.dart';
+import '../services/get/get_doc_details.dart';
 import '../services/get/get_doctor_myactive.dart';
 import '../services/get/get_doctor_myhistory.dart';
 import '../services/get/get_lab_history_booking.dart';
@@ -1506,6 +1507,32 @@ class MainViewModel extends BaseViewModel {
 
   //########################################################################  Add Lab Booking ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+  // ############   lab booking details api  Start ################
+
+  var docdetails = DocBookingDetails();
+  var docmodel = LabModel();
+  Future DocBookDetials(
+      BuildContext context,
+      token,
+      String orderId
+      ) async {
+    loadingWidget = true;
+    var labResponse = await docdetails.docbookingdetails(
+        token!,
+        orderId
+    );
+    loadingWidget = false;
+    if (labResponse != null && labResponse is LabModel) {
+      // Name = labResponse.data!.name;
+      // print(Name);
+      labmodel = labResponse;
+      notifyListeners();
+    } else {
+      notifyListeners();
+    }
+  }
+  // ############   lab booking details api  end ################
 
 // ############   lab booking details api  Start ################
 
