@@ -14,6 +14,8 @@ import 'package:flutter_svg/svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
+import 'BookDoctor/new_book_a_doctor.dart';
+
 class HomeMainScreen extends StatefulWidget {
   const HomeMainScreen({Key? key}) : super(key: key);
 
@@ -95,8 +97,8 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TextWidget(
-                                    textValue: 'Hello .' +
-                                        model.fullname.toString(),
+                                    textValue:
+                                        'Hello .' + model.fullname.toString(),
                                     //textValue: "Hello Hussain,",
                                     fontFamily: FontUtils.poppinsBold,
                                     fontSize: 2.4.t,
@@ -190,7 +192,10 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                             context,
                                             PageTransition(
                                                 type: PageTransitionType.fade,
-                                                child: BookADoctor()));
+                                                child: BookADoctorNew()
+                                                //BookADoctor()
+
+                                                ));
                                       } else if (index == 1) {
                                         model.fromDoctorBook = false;
                                         model.fromPharmacy = true;
@@ -201,7 +206,9 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                             context,
                                             PageTransition(
                                                 type: PageTransitionType.fade,
-                                                child: BookADoctor()));
+                                                child: BookADoctorNew()
+                                                //BookADoctor()
+                                                ));
                                       } else if (index == 2) {
                                         model.fromDoctorBook = false;
                                         model.fromPharmacy = false;
@@ -212,7 +219,10 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                             context,
                                             PageTransition(
                                                 type: PageTransitionType.fade,
-                                                child: BookADoctor()));
+                                                child: BookADoctorNew()
+                                                //BookADoctor()
+
+                                                ));
                                       } else {
                                         model.fromDoctorBook = false;
                                         model.fromPharmacy = false;

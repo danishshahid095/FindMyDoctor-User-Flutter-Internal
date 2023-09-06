@@ -1,10 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Home/BookDoctor/physical_visit_confirm_details.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
@@ -21,8 +17,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../../modules/dio_service.dart';
 import '../../../modules/navigation_service.dart' as my_nav_service;
 import 'online_visit_confirm_details.dart';
 

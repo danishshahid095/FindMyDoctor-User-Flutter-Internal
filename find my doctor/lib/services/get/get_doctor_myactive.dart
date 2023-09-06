@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:dio/dio.dart';
-import 'package:find_my_doctor/model/Lab/activeLabBookingModel.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
 import '../../model/Doctor/doctor_myactive_model.dart';
@@ -22,6 +20,8 @@ class GetDoctorMyActive {
       if(response.statusCode == 200){
           List historyData = response.data["data"];
           List<DoctorActiveModel> doctormyactiveModel = historyData.map((e) => DoctorActiveModel.fromJson(e)).toList();
+         
+           print('this is  model data ${doctormyactiveModel}');
           return doctormyactiveModel;
       }
       else{

@@ -1,9 +1,8 @@
 import 'package:dio/dio.dart';
-import 'package:find_my_doctor/model/Doctor/onlineDoctorModel.dart';
 import 'package:find_my_doctor/model/Lab/testsModel.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
-import '../../model/Lab/labsModel.dart';
+
 
 class GetTests {
   var _dioService = DioService.getInstance();

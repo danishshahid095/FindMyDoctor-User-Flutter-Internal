@@ -14,10 +14,10 @@ class GetBencfyModel {
   String? dob;
   String? phone;
   String? city;
-  double? address;
+  String? address;
   String? policyno;
   String? cnic;
-
+ String? self;
   factory GetBencfyModel.fromJson(Map<String, dynamic> json) =>
       _$GetBencfyModelFromJson(json);
 
@@ -25,7 +25,7 @@ class GetBencfyModel {
 
   @override
   String toString() {
-    return 'GetBencfyModel{id: $id, fullname: $fullname, relation: $relation, nick: $nick, gender:$gender, dob: $dob, phone: $phone, city: $city,address:$address,policyno:$policyno,cnic:$cnic}';
+    return 'GetBencfyModel{id: $id, fullname: $fullname, relation: $relation, nick: $nick, gender:$gender, dob: $dob, phone: $phone, city: $city, address:$address,policyno:$policyno,cnic:$cnic,self:$self';
   }
 }
 
