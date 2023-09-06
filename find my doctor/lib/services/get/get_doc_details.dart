@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
+import '../../model/Doctor/booking_details_model.dart';
 import '../../model/Lab/get_labs_details_model.dart';
 import '../../modules/dio_service.dart';
 
@@ -26,9 +27,9 @@ class DocBookingDetails {
         // user found
 
         if (response.data["success"] == 1) {
-          LabModel labbook = LabModel.fromJson(response.data);
+          BookingDetailsModel docbook = BookingDetailsModel.fromJson(response.data);
 
-          return labbook;
+          return docbook;
         } else {
           return response.data['data'];
         }

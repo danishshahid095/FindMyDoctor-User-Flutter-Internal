@@ -113,7 +113,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      //Text(bookid),
+                                     // Text(bookid),
                                       TextWidget(
                                         textValue: "Lab Booking",
                                         fontFamily: FontUtils.interSemiBold,
@@ -202,20 +202,20 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  // TextWidget(
-                                  //   textValue: model
-                                  //           .labmodel.data!.tests![0].testName
-                                  //           .toString()
-                                  //           .isEmpty
-                                  //       ? 'No Test avaiable'
-                                  //       : model
-                                  //           .labmodel.data!.tests![0].testName
-                                  //           .toString(),
-                                  //   // "CBC",
-                                  //   fontFamily: FontUtils.interRegular,
-                                  //   fontSize: 1.8.t,
-                                  //   textColor: ColorUtils.black,
-                                  // ),
+                                  TextWidget(
+                                    textValue: model
+                                            .labmodel.data!.tests![0].testName
+                                            .toString()
+                                            .isEmpty
+                                        ? 'No Test avaiable'
+                                        : model
+                                            .labmodel.data!.tests![0].testName
+                                            .toString(),
+                                    // "CBC",
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.black,
+                                  ),
                                   SizedBox(
                                     height: 1.h,
                                   ),
@@ -235,20 +235,20 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  // model.labmodel.data!.tests![0].testReport ==
-                                  //         null
-                                  //     ? Text('No test report available')
-                                  //     : TextButton(
-                                  //         onPressed: () async {
-                                  //           final url = serverUrl +
-                                  //               model.labmodel.data!.tests![0]
-                                  //                   .testReport
-                                  //                   .toString();
+                                  model.labmodel.data!.tests![0].testReport ==
+                                          null
+                                      ? Text('No test report available')
+                                      : TextButton(
+                                          onPressed: () async {
+                                            final url = serverUrl +
+                                                model.labmodel.data!.tests![0]
+                                                    .testReport
+                                                    .toString();
 
-                                  //           final file = await loadNetwork(url);
-                                  //           openPDF(context, file);
-                                  //         },
-                                  //         child: Text(' Test Report Pdf')),
+                                            final file = await loadNetwork(url);
+                                            openPDF(context, file);
+                                          },
+                                          child: Text(' Test Report Pdf')),
                                   SizedBox(
                                     height: 1.h,
                                   ),
@@ -549,7 +549,10 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                           context,
                                           PageTransition(
                                               type: PageTransitionType.fade,
-                                              child: HelpLineChat(orderId: widget.oderId.toString() ,)));
+                                              child: HelpLineChat(
+                                                orderId:
+                                                    widget.oderId.toString(),
+                                              )));
                                     },
                                   ),
                                   SizedBox(
@@ -562,7 +565,10 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                           context,
                                           PageTransition(
                                               type: PageTransitionType.fade,
-                                              child: HelpLineChat(orderId: widget.oderId.toString(),)));
+                                              child: HelpLineChat(
+                                                orderId:
+                                                    widget.oderId.toString(),
+                                              )));
                                     },
                                     borderColor: ColorUtils.red,
                                     buttonTextColor: ColorUtils.red,

@@ -162,10 +162,13 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Doc(oderId: model
-                                                                          .doctormyactive![index]
-                                                                          .id
-                                                                          .toString(),)));
+                                                                      Appointment_Details_Doc(
+                                                                    oderId: model
+                                                                        .doctormyactive![
+                                                                            index]
+                                                                        .id
+                                                                        .toString(),
+                                                                  )));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -370,18 +373,18 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                         CrossAxisAlignment
                                                             .start,
                                                     children: [
-                                                      TextWidget(
-                                                        textValue: model
-                                                            .activeLabBookingModel?[
-                                                                index]
-                                                            .id
-                                                            .toString(),
-                                                        textColor: ColorUtils
-                                                            .blackShade,
-                                                        fontFamily: FontUtils
-                                                            .interRegular,
-                                                        fontSize: 1.6.t,
-                                                      ),
+                                                      // TextWidget(
+                                                      //   textValue: model
+                                                      //       .activeLabBookingModel?[
+                                                      //           index]
+                                                      //       .id
+                                                      //       .toString(),
+                                                      //   textColor: ColorUtils
+                                                      //       .blackShade,
+                                                      //   fontFamily: FontUtils
+                                                      //       .interRegular,
+                                                      //   fontSize: 1.6.t,
+                                                      // ),
                                                       InkWell(
                                                         onTap: () {
                                                           Navigator.push(
@@ -391,11 +394,13 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Lab(oderId: model
-                                                                          .activeLabBookingModel?[
-                                                                      index]
-                                                                          .id
-                                                                          .toString(),)));
+                                                                      Appointment_Details_Lab(
+                                                                    oderId: model
+                                                                        .activeLabBookingModel?[
+                                                                            index]
+                                                                        .id
+                                                                        .toString(),
+                                                                  )));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -968,7 +973,13 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details_Lab()));
+                                                                      Appointment_Details_Lab(
+                                                                    oderId: model
+                                                                        .historyLabBookingModel?[
+                                                                            index]
+                                                                        .id
+                                                                        .toString(),
+                                                                  )));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:

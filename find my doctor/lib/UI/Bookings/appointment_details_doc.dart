@@ -113,9 +113,9 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(bookid),
+                                      //Text(bookid),
                                       TextWidget(
-                                        textValue: "Lab Booking",
+                                        textValue: "Doctor Booking",
                                         fontFamily: FontUtils.interSemiBold,
                                         fontSize: 2.t,
                                         textColor: ColorUtils.red,
@@ -177,7 +177,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   ),
                                   TextWidget(
                                     textValue:
-                                        model.labmodel.data!.name.toString(),
+                                        model.docmodel.data!.name.toString(),
                                     //"Farah Hussain",
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
@@ -194,13 +194,27 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Test",
+                                    textValue: "is_beneficiary",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
                                     textColor: ColorUtils.black,
                                   ),
+                                  // TextWidget(
+                                  //   textValue: "Test",
+                                  //   fontFamily: FontUtils.interMedium,
+                                  //   fontSize: 1.9.t,
+                                  //   textColor: ColorUtils.black,
+                                  // ),
                                   SizedBox(
                                     height: 1.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model
+                                        .docmodel.data!.isBeneficiary
+                                        .toString(),
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.black,
                                   ),
                                   // TextWidget(
                                   //   textValue: model
@@ -227,13 +241,22 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Test_report",
+                                    textValue: "Consultation_Type",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
                                     textColor: ColorUtils.black,
                                   ),
                                   SizedBox(
                                     height: 1.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model
+                                        .docmodel.data!.consultationType
+                                        .toString(),
+                                    //  "It is a long established fact that a reader will be\ndistracted by the readable content of a page.",
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.black,
                                   ),
                                   // model.labmodel.data!.tests![0].testReport ==
                                   //         null
@@ -260,7 +283,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Status",
+                                    textValue: "specialist_category",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
                                     textColor: ColorUtils.black,
@@ -269,10 +292,13 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 1.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Tue, 29 Nov 2022 At 02:30 pm",
+                                    textValue: model
+                                        .docmodel.data!.specialistCategory
+                                        .toString(),
+                                    //  "It is a long established fact that a reader will be\ndistracted by the readable content of a page.",
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
-                                    textColor: ColorUtils.lightGreen,
+                                    textColor: ColorUtils.black,
                                   ),
                                   SizedBox(
                                     height: 1.h,
@@ -285,7 +311,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Call",
+                                    textValue: "Status",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
                                     textColor: ColorUtils.black,
@@ -293,30 +319,38 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   SizedBox(
                                     height: 1.h,
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      TextWidget(
-                                        textValue: model.labmodel.data!.phone
-                                            .toString(),
-                                        //"+92 300 25 52 125",
-                                        fontFamily: FontUtils.interRegular,
-                                        fontSize: 1.8.t,
-                                        textColor: ColorUtils.black,
-                                      ),
-                                      ExpandTapWidget(
-                                        onTap: () {
-                                          // _launchCaller();
-                                        },
-                                        tapPadding: EdgeInsets.all(50),
-                                        child: Icon(
-                                          Icons.call,
-                                          color: ColorUtils.red,
-                                        ),
-                                      )
-                                    ],
+                                  TextWidget(
+                                    textValue:
+                                        model.docmodel.data!.bStatus.toString(),
+                                    //"Tue, 29 Nov 2022 At 02:30 pm",
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.lightGreen,
                                   ),
+                                  // Row(
+                                  //   mainAxisAlignment:
+                                  //       MainAxisAlignment.spaceBetween,
+                                  //   children: [
+                                  //     // TextWidget(
+                                  //     //   textValue: model.docmodel.data!.phone
+                                  //     //       .toString(),
+                                  //     //   //"+92 300 25 52 125",
+                                  //     //   fontFamily: FontUtils.interRegular,
+                                  //     //   fontSize: 1.8.t,
+                                  //     //   textColor: ColorUtils.black,
+                                  //     // ),
+                                  //     ExpandTapWidget(
+                                  //       onTap: () {
+                                  //         // _launchCaller();
+                                  //       },
+                                  //       tapPadding: EdgeInsets.all(50),
+                                  //       child: Icon(
+                                  //         Icons.call,
+                                  //         color: ColorUtils.red,
+                                  //       ),
+                                  //     )
+                                  //   ],
+                                  // ),
                                   SizedBox(
                                     height: 1.h,
                                   ),
@@ -356,7 +390,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   ),
                                   TextWidget(
                                     textValue:
-                                        model.labmodel.data!.address.toString(),
+                                        model.docmodel.data!.address.toString(),
                                     // "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
@@ -400,9 +434,11 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                         Row(
                                           children: [
                                             TextWidget(
-                                              textValue: model.labmodel.data!.bStatus.toString(),
-                                                  //model.prefService.labId.toString(),
-                                                 // "Pending",
+                                              textValue: model
+                                                  .docmodel.data!.bStatus
+                                                  .toString(),
+                                              //model.prefService.labId.toString(),
+                                              // "Pending",
                                               //"AB+",
                                               fontFamily:
                                                   FontUtils.interRegular,
@@ -462,7 +498,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   ),
                                   TextWidget(
                                     textValue: model
-                                        .labmodel.data!.paymentMethod
+                                        .docmodel.data!.paymentMethod
                                         .toString(),
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
@@ -488,6 +524,34 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
+                                    textValue: "Appointment_Type",
+                                    fontFamily: FontUtils.interMedium,
+                                    fontSize: 1.9.t,
+                                    textColor: ColorUtils.black,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model
+                                        .docmodel.data!.appointmentType
+                                        .toString(),
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.lightGreen,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(
+                                    height: 0.5.h,
+                                    color: ColorUtils.silver,
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+
+                                  TextWidget(
                                     textValue: "Amount",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
@@ -498,11 +562,72 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   ),
                                   TextWidget(
                                     textValue:
-                                        model.labmodel.data!.amount.toString(),
+                                        model.docmodel.data!.amount.toString(),
                                     //"Rs. 1,500",
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
                                     textColor: ColorUtils.lightGreen,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(
+                                    height: 0.5.h,
+                                    color: ColorUtils.silver,
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+
+                                  TextWidget(
+                                    textValue: "Medicines",
+                                    fontFamily: FontUtils.interMedium,
+                                    fontSize: 1.9.t,
+                                    textColor: ColorUtils.black,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.docmodel.data!
+                                            .prescriptions!.isEmpty
+                                        ? ' No mdeiciencs '
+                                        : model.docmodel.data!.prescriptions![0]
+                                            .medicines
+                                            .toString(),
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.black,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  Divider(
+                                    height: 0.5.h,
+                                    color: ColorUtils.silver,
+                                  ),
+                                  SizedBox(
+                                    height: 2.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: "Prescriptions",
+                                    fontFamily: FontUtils.interMedium,
+                                    fontSize: 1.9.t,
+                                    textColor: ColorUtils.black,
+                                  ),
+                                  SizedBox(
+                                    height: 1.h,
+                                  ),
+                                  TextWidget(
+                                    textValue: model.docmodel.data!
+                                            .prescriptions!.isEmpty
+                                        ? ' No prescriptions '
+                                        : model.docmodel.data!.prescriptions![0]
+                                            .prescriptions
+                                            .toString(),
+                                    fontFamily: FontUtils.interRegular,
+                                    fontSize: 1.8.t,
+                                    textColor: ColorUtils.black,
                                   ),
                                   SizedBox(
                                     height: 1.h,
@@ -547,7 +672,10 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                           context,
                                           PageTransition(
                                               type: PageTransitionType.fade,
-                                              child: HelpLineChat(orderId: widget.oderId.toString(),)));
+                                              child: HelpLineChat(
+                                                orderId:
+                                                    widget.oderId.toString(),
+                                              )));
                                     },
                                   ),
                                   SizedBox(
@@ -560,7 +688,10 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                           context,
                                           PageTransition(
                                               type: PageTransitionType.fade,
-                                              child: HelpLineChat(orderId: widget.oderId.toString(),)));
+                                              child: HelpLineChat(
+                                                orderId:
+                                                    widget.oderId.toString(),
+                                              )));
                                     },
                                     borderColor: ColorUtils.red,
                                     buttonTextColor: ColorUtils.red,

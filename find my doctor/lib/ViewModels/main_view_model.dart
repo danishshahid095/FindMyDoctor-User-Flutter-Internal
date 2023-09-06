@@ -38,6 +38,7 @@ import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
 import '../model/Beneficiaries/get_beneficiaries_model.dart';
+import '../model/Doctor/booking_details_model.dart';
 import '../model/Doctor/doc_slots_model.dart';
 import '../model/Doctor/doctor_history_model.dart';
 import '../model/Doctor/doctor_myactive_model.dart';
@@ -1508,25 +1509,25 @@ class MainViewModel extends BaseViewModel {
   //########################################################################  Add Lab Booking ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
 
-  // ############   lab booking details api  Start ################
+  // ############   doc booking details api  Start ################
 
   var docdetails = DocBookingDetails();
-  var docmodel = LabModel();
+  var docmodel = BookingDetailsModel();
   Future DocBookDetials(
       BuildContext context,
       token,
       String orderId
       ) async {
     loadingWidget = true;
-    var labResponse = await docdetails.docbookingdetails(
+    var docResponse = await docdetails.docbookingdetails(
         token!,
         orderId
     );
     loadingWidget = false;
-    if (labResponse != null && labResponse is LabModel) {
+    if (docResponse != null && docResponse is BookingDetailsModel) {
       // Name = labResponse.data!.name;
       // print(Name);
-      labmodel = labResponse;
+      docmodel = docResponse;
       notifyListeners();
     } else {
       notifyListeners();
