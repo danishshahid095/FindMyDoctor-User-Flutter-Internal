@@ -35,10 +35,11 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onViewModelReady: (model) async {
+         await model.gettingDoctorActive(context, model.token!);
+        await model.gettingDoctorMyhistory(context, model.token!);
         await model.gettingActiveLabBooking(context, model.token!);
         await model.gettingHistoryLabBooking(context, model.token!);
-        await model.gettingDoctorActive(context, model.token!);
-        await model.gettingDoctorMyhistory(context, model.token!);
+       
       },
       builder: (context, model, child) {
         return model.activeLabBookingLoader || model.historyLabBookingLoader
