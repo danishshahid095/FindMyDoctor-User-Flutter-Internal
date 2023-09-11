@@ -377,12 +377,15 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = P66RG6HZQ6;
 				ENABLE_BITCODE = NO;
+				FLUTTER_APPLICATION_PATH = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor";
+				FLUTTER_TARGET = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor/lib/main.dart";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PACKAGE_CONFIG = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor/.dart_tool/package_config.json";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techdrive.findmydoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -518,12 +521,15 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = P66RG6HZQ6;
 				ENABLE_BITCODE = NO;
+				FLUTTER_APPLICATION_PATH = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor";
+				FLUTTER_TARGET = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor/lib/main.dart";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PACKAGE_CONFIG = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor/.dart_tool/package_config.json";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techdrive.findmydoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -551,12 +557,15 @@
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
 				DEVELOPMENT_TEAM = P66RG6HZQ6;
 				ENABLE_BITCODE = NO;
+				FLUTTER_APPLICATION_PATH = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor";
+				FLUTTER_TARGET = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor/lib/main.dart";
 				INFOPLIST_FILE = Runner/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				PACKAGE_CONFIG = "/Users/danishshahid/Desktop/Danish/PP/findmydoctor-y/find-my-doctor/.dart_tool/package_config.json";
 				PRODUCT_BUNDLE_IDENTIFIER = com.techdrive.findmydoctor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

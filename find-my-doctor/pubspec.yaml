@@ -62,7 +62,8 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.3.47
   flutter_downloader: ^1.5.0
   http: ^0.13.6
-  zego_uikit_prebuilt_call: ^3.12.3
+  #zego_uikit_prebuilt_call: ^3.12.3
+  zego_uikit_prebuilt_call: ^3.13.5
 
 
 dev_dependencies:
