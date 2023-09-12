@@ -17,13 +17,24 @@ import 'package:stacked/stacked.dart';
 import '../../../Widgets/bottom_navigation_bar.dart';
 
 class PaymentSuccess extends StatefulWidget {
-
+  String? date;
+  String? bookid;
+  String? time;
   bool? fromPharmacy = false;
   bool? fromInsurance = false;
   bool? fromLabTest = false;
   bool? fromPhysicalVisit = false;
 
-  PaymentSuccess({Key? key, this.fromPharmacy, this.fromInsurance, this.fromLabTest, this.fromPhysicalVisit}) : super(key: key);
+  PaymentSuccess(
+      {Key? key,
+      this.date,
+      this.time,
+      this.bookid,
+      this.fromPharmacy,
+      this.fromInsurance,
+      this.fromLabTest,
+      this.fromPhysicalVisit})
+      : super(key: key);
 
   @override
   State<PaymentSuccess> createState() => _PaymentSuccessState();
@@ -32,11 +43,12 @@ class PaymentSuccess extends StatefulWidget {
 class _PaymentSuccessState extends State<PaymentSuccess> {
   @override
   Widget build(BuildContext context) {
+    var newdate = widget.date.toString();
+    var nebookid = widget.bookid.toString();
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -49,12 +61,17 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 children: [
                   Column(
                     children: [
+                      // Text(newdate.toString()),
+                      // Text(nebookid.toString()),
                       SizedBox(
                         height: context.getPadding().top,
                       ),
-                      SizedBox(height: 2.h,),
+                      SizedBox(
+                        height: 2.h,
+                      ),
                       Center(
-                        child: Image.asset(ImageUtils.maleDoctor,
+                        child: Image.asset(
+                          ImageUtils.maleDoctor,
                           width: 60.i,
                           height: 60.i,
                         ),
@@ -71,7 +88,9 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                         fontSize: 1.6.t,
                         textColor: ColorUtils.blackShade,
                       ),
-                      SizedBox(height: 4.h,),
+                      SizedBox(
+                        height: 4.h,
+                      ),
                     ],
                   ),
                   Expanded(
@@ -90,12 +109,16 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                               ),
 
                               // Date and Id
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         textValue: "Date & Time",
@@ -103,9 +126,12 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black1,
                                       ),
-                                      SizedBox(height: 1.h,),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
                                       TextWidget(
-                                        textValue: "5th June 2022 • 03:45 PM",
+                                        textValue: newdate,
+                                        // "5th June 2022 • 03:45 PM",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,
                                         textColor: ColorUtils.black1,
@@ -113,7 +139,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                     ],
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         textValue: "Booking ID",
@@ -121,9 +148,14 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black1,
                                       ),
-                                      SizedBox(height: 1.h,),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
                                       TextWidget(
-                                        textValue: "PLC#123456",
+                                        textValue:
+                                            nebookid.isEmpty ? '' : nebookid,
+                                        //widget.bookid.toString(),
+                                        //"PLC#123456",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,
                                         textColor: ColorUtils.black1,
@@ -132,28 +164,40 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Divider(
                                 color: ColorUtils.silver,
                               ),
 
                               // Provider and Status
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
-                                        textValue: widget.fromInsurance == true ? "Provider" : "Patient",
+                                        textValue: widget.fromInsurance == true
+                                            ? "Provider"
+                                            : "Patient",
                                         fontFamily: FontUtils.poppinsSemiBold,
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black1,
                                       ),
-                                      SizedBox(height: 1.h,),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
                                       TextWidget(
-                                        textValue:widget.fromInsurance == true ? "Provider 1 | Insurance" : "Self",
+                                        textValue: widget.fromInsurance == true
+                                            ? "Provider 1 | Insurance"
+                                            : "Self",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,
                                         textColor: ColorUtils.black1,
@@ -161,7 +205,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                     ],
                                   ),
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         textValue: "Status",
@@ -169,14 +214,19 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black1,
                                       ),
-                                      SizedBox(height: 1.h,),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
                                       Row(
                                         children: [
-                                          Icon(Icons.circle,
-                                          size: 2.i,
+                                          Icon(
+                                            Icons.circle,
+                                            size: 2.i,
                                             color: ColorUtils.yellow,
                                           ),
-                                          SizedBox(width: 1.w,),
+                                          SizedBox(
+                                            width: 1.w,
+                                          ),
                                           TextWidget(
                                             textValue: "In Process",
                                             fontFamily: FontUtils.interRegular,
@@ -189,18 +239,24 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Divider(
                                 color: ColorUtils.silver,
                               ),
 
                               // Plan
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         textValue: "Plan",
@@ -208,7 +264,9 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black1,
                                       ),
-                                      SizedBox(height: 1.h,),
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
                                       TextWidget(
                                         textValue: "Basic Plan",
                                         fontFamily: FontUtils.interRegular,
@@ -220,13 +278,17 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                   SvgPicture.asset(ImageUtils.forwardIcon),
                                 ],
                               ),
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Divider(
                                 color: ColorUtils.silver,
                               ),
 
                               // Address
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -236,18 +298,23 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                     fontSize: 1.6.t,
                                     textColor: ColorUtils.black1,
                                   ),
-                                  SizedBox(height: 0.5.h,),
-                                  Text("F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
-                                  style: TextStyle(
-                                    height: 0.2.h,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                    color: ColorUtils.black1,
+                                  SizedBox(
+                                    height: 0.5.h,
                                   ),
+                                  Text(
+                                    "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
+                                    style: TextStyle(
+                                      height: 0.2.h,
+                                      fontFamily: FontUtils.interRegular,
+                                      fontSize: 1.8.t,
+                                      color: ColorUtils.black1,
+                                    ),
                                   ),
                                 ],
                               ),
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                               Divider(
                                 color: ColorUtils.silver,
                               ),
@@ -259,14 +326,18 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                 fontSize: 2.2.t,
                                 textColor: ColorUtils.red,
                               ),
-                              SizedBox(height: 2.h,),
+                              SizedBox(
+                                height: 2.h,
+                              ),
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 5.w),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextWidget(
                                           textValue: "Payment Method",
@@ -274,29 +345,37 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                           fontSize: 1.6.t,
                                           textColor: ColorUtils.black1,
                                         ),
-                                        if(widget.fromPhysicalVisit == false)
-                                        Row(
-                                          children: [
-                                            SvgPicture.asset(ImageUtils.masterCard),
-                                            SizedBox(width: 1.5.w,),
-                                            TextWidget(
-                                              textValue: "Card",
-                                              fontFamily: FontUtils.poppinsSemiBold,
-                                              fontSize: 1.6.t,
-                                              textColor: ColorUtils.black1,
-                                            ),
-                                          ],
-                                        ),
-                                        if(widget.fromPhysicalVisit == true)
+                                        if (widget.fromPhysicalVisit == false)
+                                          Row(
+                                            children: [
+                                              SvgPicture.asset(
+                                                  ImageUtils.masterCard),
+                                              SizedBox(
+                                                width: 1.5.w,
+                                              ),
+                                              TextWidget(
+                                                textValue: "Card",
+                                                fontFamily:
+                                                    FontUtils.poppinsSemiBold,
+                                                fontSize: 1.6.t,
+                                                textColor: ColorUtils.black1,
+                                              ),
+                                            ],
+                                          ),
+                                        if (widget.fromPhysicalVisit == true)
                                           Row(
                                             children: [
                                               SizedBox(
-                                                width: 10.i,
-                                                  child: Image.asset(ImageUtils.cash)),
-                                              SizedBox(width: 1.5.w,),
+                                                  width: 10.i,
+                                                  child: Image.asset(
+                                                      ImageUtils.cash)),
+                                              SizedBox(
+                                                width: 1.5.w,
+                                              ),
                                               TextWidget(
                                                 textValue: "Cash on Delivery",
-                                                fontFamily: FontUtils.poppinsSemiBold,
+                                                fontFamily:
+                                                    FontUtils.poppinsSemiBold,
                                                 fontSize: 1.6.t,
                                                 textColor: ColorUtils.black1,
                                               ),
@@ -305,7 +384,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                       ],
                                     ),
                                     Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         TextWidget(
                                           textValue: "Total Test Charges",
@@ -325,31 +405,45 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                 ),
                               ),
 
-                              SizedBox(height: 3.h,),
-                              if(widget.fromPharmacy == true)
+                              SizedBox(
+                                height: 3.h,
+                              ),
+                              if (widget.fromPharmacy == true)
                                 RedButton(
                                   textValue: "Track Order",
-                                  onButtonPressed: (){
-                                    Navigator.push(context,
-                                        PageTransition(type: PageTransitionType.fade, child:  PharmacyTrackOrder()));
+                                  onButtonPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: PharmacyTrackOrder()));
                                   },
                                 ),
-                              if(widget.fromInsurance == true || widget.fromLabTest == true || widget.fromPhysicalVisit == true)
-                              RedButton(
-                                textValue: "Back to Home",
-                                onButtonPressed: (){
-                                  Navigator.push(context,
-                                      PageTransition(type: PageTransitionType.fade, child:  MyBottomNavBar()));
-                                },
+                              if (widget.fromInsurance == true ||
+                                  widget.fromLabTest == true ||
+                                  widget.fromPhysicalVisit == true)
+                                RedButton(
+                                  textValue: "Back to Home",
+                                  onButtonPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            type: PageTransitionType.fade,
+                                            child: MyBottomNavBar()));
+                                  },
+                                ),
+                              SizedBox(
+                                height: 2.h,
                               ),
-                              SizedBox(height: 2.h,),
                               ButtonWithBorder(
                                 textValue: "Save To Gallery",
                                 buttonTextColor: ColorUtils.red,
                                 borderColor: ColorUtils.red,
-                                onButtonPressed: (){},
+                                onButtonPressed: () {},
                               ),
-                              SizedBox(height: 1.h,),
+                              SizedBox(
+                                height: 1.h,
+                              ),
                             ],
                           ),
                         ),
