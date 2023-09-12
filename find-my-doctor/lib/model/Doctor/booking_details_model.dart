@@ -26,23 +26,23 @@ class Data {
   String? address;
   String? foruser;
   int? type;
-  String? dateTime;
+  String? date_time;
   int? promo;
   int? amount;
-  int? paymentMethod;
-  String? isBeneficiary;
-  String? bStatus;
+  int? payment_method;
+  String? is_beneficiary;
+  String? b_status;
   int? status;
   int? isdeleted;
   String? addedat;
   String? updatedat;
   String? recepient_name;
   String? name;
-  String? appointmentType;
-  String? consultationType;
-  Null? specialistCategory;
-  String? cardDetails;
-  int? bookedDoctor;
+  String? Appointment_Type;
+  String? consultation_type;
+  Null specialist_category;
+  String? card_details;
+  int? booked_doctor;
   List<Prescriptions>? prescriptions;
 
   Data(
@@ -52,23 +52,23 @@ class Data {
       this.address,
       this.foruser,
       this.type,
-      this.dateTime,
+      this.date_time,
       this.promo,
       this.amount,
-      this.paymentMethod,
-      this.isBeneficiary,
-      this.bStatus,
+      this.payment_method,
+      this.is_beneficiary,
+      this.b_status,
       this.status,
       this.isdeleted,
       this.addedat,
       this.updatedat,
       this.recepient_name,
       this.name,
-      this.appointmentType,
-      this.consultationType,
-      this.specialistCategory,
-      this.cardDetails,
-      this.bookedDoctor,
+      this.Appointment_Type,
+      this.consultation_type,
+      this.specialist_category,
+      this.card_details,
+      this.booked_doctor,
       this.prescriptions});
 
   Data.fromJson(Map<String, dynamic> json) {
@@ -78,23 +78,23 @@ class Data {
     address = json['address'];
     foruser = json['foruser'];
     type = json['type'];
-    dateTime = json['date_time'];
+    date_time = json['date_time'];
     promo = json['promo'];
     amount = json['amount'];
-    paymentMethod = json['payment_method'];
-    isBeneficiary = json['is_beneficiary'];
-    bStatus = json['b_status'];
+    payment_method = json['payment_method'];
+    is_beneficiary = json['is_beneficiary'];
+    b_status = json['b_status'];
     status = json['status'];
     isdeleted = json['isdeleted'];
     addedat = json['addedat'];
     updatedat = json['updatedat'];
     recepient_name = json['recepient_name'];
     name = json['name'];
-    appointmentType = json['Appointment_Type'];
-    consultationType = json['consultation_type'];
-    specialistCategory = json['specialist_category'];
-    cardDetails = json['card_details'];
-    bookedDoctor = json['booked_doctor'];
+    Appointment_Type = json['Appointment_Type'];
+    consultation_type = json['consultation_type'];
+    specialist_category = json['specialist_category'];
+    card_details = json['card_details'];
+    booked_doctor = json['booked_doctor'];
     if (json['prescriptions'] != null) {
       prescriptions = <Prescriptions>[];
       json['prescriptions'].forEach((v) {
@@ -111,23 +111,23 @@ class Data {
     data['address'] = this.address;
     data['foruser'] = this.foruser;
     data['type'] = this.type;
-    data['date_time'] = this.dateTime;
+    data['date_time'] = this.date_time;
     data['promo'] = this.promo;
     data['amount'] = this.amount;
-    data['payment_method'] = this.paymentMethod;
-    data['is_beneficiary'] = this.isBeneficiary;
-    data['b_status'] = this.bStatus;
+    data['payment_method'] = this.payment_method;
+    data['is_beneficiary'] = this.is_beneficiary;
+    data['b_status'] = this.b_status;
     data['status'] = this.status;
     data['isdeleted'] = this.isdeleted;
     data['addedat'] = this.addedat;
     data['updatedat'] = this.updatedat;
     data['recepient_name'] = this.recepient_name;
     data['name'] = this.name;
-    data['Appointment_Type'] = this.appointmentType;
-    data['consultation_type'] = this.consultationType;
-    data['specialist_category'] = this.specialistCategory;
-    data['card_details'] = this.cardDetails;
-    data['booked_doctor'] = this.bookedDoctor;
+    data['Appointment_Type'] = this.Appointment_Type;
+    data['consultation_type'] = this.consultation_type;
+    data['specialist_category'] = this.specialist_category;
+    data['card_details'] = this.card_details;
+    data['booked_doctor'] = this.booked_doctor;
     if (this.prescriptions != null) {
       data['prescriptions'] =
           this.prescriptions!.map((v) => v.toJson()).toList();

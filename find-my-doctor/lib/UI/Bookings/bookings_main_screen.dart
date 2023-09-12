@@ -35,11 +35,12 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onViewModelReady: (model) async {
-         await model.gettingDoctorActive(context, model.token!);
+        await model.gettingDoctorActive(context, model.token!);
         await model.gettingDoctorMyhistory(context, model.token!);
         await model.gettingActiveLabBooking(context, model.token!);
         await model.gettingHistoryLabBooking(context, model.token!);
-       
+        await model.gettingPharmacyActive(context, model.token!);
+        await model.gettingPharmacyHistory(context, model.token!);
       },
       builder: (context, model, child) {
         return model.activeLabBookingLoader || model.historyLabBookingLoader
@@ -520,6 +521,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                             SizedBox(
                                               height: 3.h,
                                             ),
+
                                             ListView.separated(
                                                 shrinkWrap: true,
                                                 physics:
@@ -539,7 +541,15 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details()));
+                                                                      Appointment_Details()
+                                                                  //     Appointment_Details_Doc(
+                                                                  //   oderId: model
+                                                                  //       .doctormyactive![
+                                                                  //           index]
+                                                                  //       .id
+                                                                  //       .toString(),
+                                                                  // )
+                                                                  ));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -556,37 +566,86 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  TextWidget(
-                                                                    textValue: model
-                                                                            .activeBookings[index]
-                                                                        [
-                                                                        "orderType"],
-                                                                    textColor:
-                                                                        ColorUtils
-                                                                            .red,
-                                                                    fontFamily:
-                                                                        FontUtils
-                                                                            .interSemiBold,
-                                                                    fontSize:
-                                                                        1.8.t,
+                                                                  // TextWidget(
+                                                                  //   textValue: model
+                                                                  //       .doctormyactive![
+                                                                  //           index]
+                                                                  //       .appoint_type
+                                                                  //       .toString(),
+                                                                  //   textColor:
+                                                                  //       ColorUtils
+                                                                  //           .blackShade,
+                                                                  //   fontFamily:
+                                                                  //       FontUtils
+                                                                  //           .interRegular,
+                                                                  //   fontSize:
+                                                                  //       1.6.t,
+                                                                  // ),
+
+                                                                  SizedBox(
+                                                                    height:
+                                                                        0.75.h,
+                                                                  ),
+
+                                                                  Row(
+                                                                    children: [
+                                                                      TextWidget(
+                                                                        textValue:
+                                                                            "Patient: ",
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                      TextWidget(
+                                                                        textValue: model
+                                                                            .pharmacymyactive![index]
+                                                                            .name
+                                                                            .toString(),
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                   SizedBox(
                                                                     height:
                                                                         0.75.h,
                                                                   ),
-                                                                  TextWidget(
-                                                                    textValue: model
-                                                                            .activeBookings[index]
-                                                                        [
-                                                                        "patient"],
-                                                                    textColor:
-                                                                        ColorUtils
-                                                                            .blackShade,
-                                                                    fontFamily:
-                                                                        FontUtils
-                                                                            .interRegular,
-                                                                    fontSize:
-                                                                        1.6.t,
+                                                                  Row(
+                                                                    children: [
+                                                                      TextWidget(
+                                                                        textValue:
+                                                                            "Delivery_status: ",
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                      TextWidget(
+                                                                        textValue: model
+                                                                            .pharmacymyactive![index]
+                                                                            .delivery_status
+                                                                            .toString(),
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        0.75.h,
                                                                   ),
                                                                 ],
                                                               ),
@@ -594,11 +653,23 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                             Row(
                                                               children: [
                                                                 TextWidget(
+                                                                  textValue:
+                                                                      "Rs. ",
+                                                                  textColor:
+                                                                      ColorUtils
+                                                                          .lightGreen,
+                                                                  fontFamily:
+                                                                      FontUtils
+                                                                          .interSemiBold,
+                                                                  fontSize:
+                                                                      1.8.t,
+                                                                ),
+                                                                TextWidget(
                                                                   textValue: model
-                                                                              .activeBookings[
+                                                                      .pharmacymyactive?[
                                                                           index]
-                                                                      [
-                                                                      "amount"],
+                                                                      .amount
+                                                                      .toString(),
                                                                   textColor:
                                                                       ColorUtils
                                                                           .lightGreen,
@@ -622,7 +693,112 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                   return Divider();
                                                 },
                                                 itemCount: model
-                                                    .activeBookings.length),
+                                                        .pharmacymyactive
+                                                        ?.length ??
+                                                    0),
+                                            // ListView.separated(
+                                            //     shrinkWrap: true,
+                                            //     physics:
+                                            //         NeverScrollableScrollPhysics(),
+                                            //     itemBuilder: (context, index) {
+                                            //       return Column(
+                                            //         crossAxisAlignment:
+                                            //             CrossAxisAlignment
+                                            //                 .start,
+                                            //         children: [
+                                            //           InkWell(
+                                            //             onTap: () {
+                                            //               Navigator.push(
+                                            //                   context,
+                                            //                   PageTransition(
+                                            //                       type:
+                                            //                           PageTransitionType
+                                            //                               .fade,
+                                            //                       child:
+                                            //                           Appointment_Details()));
+                                            //             },
+                                            //             child: Row(
+                                            //               mainAxisAlignment:
+                                            //                   MainAxisAlignment
+                                            //                       .spaceBetween,
+                                            //               children: [
+                                            //                 Padding(
+                                            //                   padding: EdgeInsets
+                                            //                       .only(
+                                            //                           left:
+                                            //                               2.w),
+                                            //                   child: Column(
+                                            //                     crossAxisAlignment:
+                                            //                         CrossAxisAlignment
+                                            //                             .start,
+                                            //                     children: [
+                                            //                       TextWidget(
+                                            //                         textValue: model
+                                            //                                 .activeBookings[index]
+                                            //                             [
+                                            //                             "orderType"],
+                                            //                         textColor:
+                                            //                             ColorUtils
+                                            //                                 .red,
+                                            //                         fontFamily:
+                                            //                             FontUtils
+                                            //                                 .interSemiBold,
+                                            //                         fontSize:
+                                            //                             1.8.t,
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         height:
+                                            //                             0.75.h,
+                                            //                       ),
+                                            //                       TextWidget(
+                                            //                         textValue: model
+                                            //                                 .activeBookings[index]
+                                            //                             [
+                                            //                             "patient"],
+                                            //                         textColor:
+                                            //                             ColorUtils
+                                            //                                 .blackShade,
+                                            //                         fontFamily:
+                                            //                             FontUtils
+                                            //                                 .interRegular,
+                                            //                         fontSize:
+                                            //                             1.6.t,
+                                            //                       ),
+                                            //                     ],
+                                            //                   ),
+                                            //                 ),
+                                            //                 Row(
+                                            //                   children: [
+                                            //                     TextWidget(
+                                            //                       textValue: model
+                                            //                                   .activeBookings[
+                                            //                               index]
+                                            //                           [
+                                            //                           "amount"],
+                                            //                       textColor:
+                                            //                           ColorUtils
+                                            //                               .lightGreen,
+                                            //                       fontFamily:
+                                            //                           FontUtils
+                                            //                               .interSemiBold,
+                                            //                       fontSize:
+                                            //                           1.8.t,
+                                            //                     ),
+                                            //                     ForwardButtonBlack(),
+                                            //                   ],
+                                            //                 ),
+                                            //               ],
+                                            //             ),
+                                            //           ),
+                                            //         ],
+                                            //       );
+                                            //     },
+                                            //     separatorBuilder:
+                                            //         (context, index) {
+                                            //       return Divider();
+                                            //     },
+                                            //     itemCount: model
+                                            //         .activeBookings.length),
                                           ],
                                         ),
                                       ),
@@ -1013,6 +1189,20 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     height:
                                                                         0.75.h,
                                                                   ),
+                                                                  // TextWidget(
+                                                                  //   textValue: model
+                                                                  //       .historyLabBookingModel?[
+                                                                  //           index]
+                                                                  //       .id.toString(),
+                                                                  //   textColor:
+                                                                  //       ColorUtils
+                                                                  //           .blackShade,
+                                                                  //   fontFamily:
+                                                                  //       FontUtils
+                                                                  //           .interRegular,
+                                                                  //   fontSize:
+                                                                  //       1.6.t,
+                                                                  // ),
                                                                   Row(
                                                                     children: [
                                                                       TextWidget(
@@ -1118,7 +1308,15 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       PageTransitionType
                                                                           .fade,
                                                                   child:
-                                                                      Appointment_Details()));
+                                                                      Appointment_Details()
+                                                                  //     Appointment_Details_Doc(
+                                                                  //   oderId: model
+                                                                  //       .doctormyactive![
+                                                                  //           index]
+                                                                  //       .id
+                                                                  //       .toString(),
+                                                                  // )
+                                                                  ));
                                                         },
                                                         child: Row(
                                                           mainAxisAlignment:
@@ -1135,37 +1333,86 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     CrossAxisAlignment
                                                                         .start,
                                                                 children: [
-                                                                  TextWidget(
-                                                                    textValue: model
-                                                                            .activeBookings[index]
-                                                                        [
-                                                                        "orderType"],
-                                                                    textColor:
-                                                                        ColorUtils
-                                                                            .red,
-                                                                    fontFamily:
-                                                                        FontUtils
-                                                                            .interSemiBold,
-                                                                    fontSize:
-                                                                        1.8.t,
+                                                                  // TextWidget(
+                                                                  //   textValue: model
+                                                                  //       .doctormyactive![
+                                                                  //           index]
+                                                                  //       .appoint_type
+                                                                  //       .toString(),
+                                                                  //   textColor:
+                                                                  //       ColorUtils
+                                                                  //           .blackShade,
+                                                                  //   fontFamily:
+                                                                  //       FontUtils
+                                                                  //           .interRegular,
+                                                                  //   fontSize:
+                                                                  //       1.6.t,
+                                                                  // ),
+
+                                                                  SizedBox(
+                                                                    height:
+                                                                        0.75.h,
+                                                                  ),
+
+                                                                  Row(
+                                                                    children: [
+                                                                      TextWidget(
+                                                                        textValue:
+                                                                            "Patient: ",
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                      TextWidget(
+                                                                        textValue: model
+                                                                            .pharmacymyhistory![index]
+                                                                            .name
+                                                                            .toString(),
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                    ],
                                                                   ),
                                                                   SizedBox(
                                                                     height:
                                                                         0.75.h,
                                                                   ),
-                                                                  TextWidget(
-                                                                    textValue: model
-                                                                            .activeBookings[index]
-                                                                        [
-                                                                        "patient"],
-                                                                    textColor:
-                                                                        ColorUtils
-                                                                            .blackShade,
-                                                                    fontFamily:
-                                                                        FontUtils
-                                                                            .interRegular,
-                                                                    fontSize:
-                                                                        1.6.t,
+                                                                  Row(
+                                                                    children: [
+                                                                      TextWidget(
+                                                                        textValue:
+                                                                            "Delivery_status: ",
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                      TextWidget(
+                                                                        textValue: model
+                                                                            .pharmacymyhistory![index]
+                                                                            .delivery_status
+                                                                            .toString(),
+                                                                        textColor:
+                                                                            ColorUtils.blackShade,
+                                                                        fontFamily:
+                                                                            FontUtils.interRegular,
+                                                                        fontSize:
+                                                                            1.6.t,
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        0.75.h,
                                                                   ),
                                                                 ],
                                                               ),
@@ -1173,11 +1420,23 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                             Row(
                                                               children: [
                                                                 TextWidget(
+                                                                  textValue:
+                                                                      "Rs. ",
+                                                                  textColor:
+                                                                      ColorUtils
+                                                                          .lightGreen,
+                                                                  fontFamily:
+                                                                      FontUtils
+                                                                          .interSemiBold,
+                                                                  fontSize:
+                                                                      1.8.t,
+                                                                ),
+                                                                TextWidget(
                                                                   textValue: model
-                                                                              .activeBookings[
+                                                                      .pharmacymyhistory?[
                                                                           index]
-                                                                      [
-                                                                      "amount"],
+                                                                      .amount
+                                                                      .toString(),
                                                                   textColor:
                                                                       ColorUtils
                                                                           .lightGreen,
@@ -1201,7 +1460,112 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                   return Divider();
                                                 },
                                                 itemCount: model
-                                                    .activeBookings.length),
+                                                        .pharmacymyhistory
+                                                        ?.length ??
+                                                    0),
+                                            // ListView.separated(
+                                            //     shrinkWrap: true,
+                                            //     physics:
+                                            //         NeverScrollableScrollPhysics(),
+                                            //     itemBuilder: (context, index) {
+                                            //       return Column(
+                                            //         crossAxisAlignment:
+                                            //             CrossAxisAlignment
+                                            //                 .start,
+                                            //         children: [
+                                            //           InkWell(
+                                            //             onTap: () {
+                                            //               Navigator.push(
+                                            //                   context,
+                                            //                   PageTransition(
+                                            //                       type:
+                                            //                           PageTransitionType
+                                            //                               .fade,
+                                            //                       child:
+                                            //                           Appointment_Details()));
+                                            //             },
+                                            //             child: Row(
+                                            //               mainAxisAlignment:
+                                            //                   MainAxisAlignment
+                                            //                       .spaceBetween,
+                                            //               children: [
+                                            //                 Padding(
+                                            //                   padding: EdgeInsets
+                                            //                       .only(
+                                            //                           left:
+                                            //                               2.w),
+                                            //                   child: Column(
+                                            //                     crossAxisAlignment:
+                                            //                         CrossAxisAlignment
+                                            //                             .start,
+                                            //                     children: [
+                                            //                       TextWidget(
+                                            //                         textValue: model
+                                            //                                 .activeBookings[index]
+                                            //                             [
+                                            //                             "orderType"],
+                                            //                         textColor:
+                                            //                             ColorUtils
+                                            //                                 .red,
+                                            //                         fontFamily:
+                                            //                             FontUtils
+                                            //                                 .interSemiBold,
+                                            //                         fontSize:
+                                            //                             1.8.t,
+                                            //                       ),
+                                            //                       SizedBox(
+                                            //                         height:
+                                            //                             0.75.h,
+                                            //                       ),
+                                            //                       TextWidget(
+                                            //                         textValue: model
+                                            //                                 .activeBookings[index]
+                                            //                             [
+                                            //                             "patient"],
+                                            //                         textColor:
+                                            //                             ColorUtils
+                                            //                                 .blackShade,
+                                            //                         fontFamily:
+                                            //                             FontUtils
+                                            //                                 .interRegular,
+                                            //                         fontSize:
+                                            //                             1.6.t,
+                                            //                       ),
+                                            //                     ],
+                                            //                   ),
+                                            //                 ),
+                                            //                 Row(
+                                            //                   children: [
+                                            //                     TextWidget(
+                                            //                       textValue: model
+                                            //                                   .activeBookings[
+                                            //                               index]
+                                            //                           [
+                                            //                           "amount"],
+                                            //                       textColor:
+                                            //                           ColorUtils
+                                            //                               .lightGreen,
+                                            //                       fontFamily:
+                                            //                           FontUtils
+                                            //                               .interSemiBold,
+                                            //                       fontSize:
+                                            //                           1.8.t,
+                                            //                     ),
+                                            //                     ForwardButtonBlack(),
+                                            //                   ],
+                                            //                 ),
+                                            //               ],
+                                            //             ),
+                                            //           ),
+                                            //         ],
+                                            //       );
+                                            //     },
+                                            //     separatorBuilder:
+                                            //         (context, index) {
+                                            //       return Divider();
+                                            //     },
+                                            //     itemCount: model
+                                            //         .activeBookings.length),
                                           ],
                                         ),
                                       ),

@@ -46,6 +46,8 @@ import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
+import '../model/Pharmacy/pharmacyMyActiveModel.dart';
+import '../model/Pharmacy/pharmacyMyHistoryModel.dart';
 import '../model/login/get_user_meta_model.dart';
 import '../model/login/userLoginModel.dart';
 import '../services/get/get_beneficiaries.dart';
@@ -56,6 +58,8 @@ import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
+import '../services/get/get_pharmacy_myactive.dart';
+import '../services/get/get_pharmacy_myhistory.dart';
 import '../services/get/get_user_meta.dart';
 import '../services/patch/user_meta_update.dart';
 import '../services/patch/user_update.dart';
@@ -1921,6 +1925,9 @@ class MainViewModel extends BaseViewModel {
   //   notifyListeners();
   // }
 
+
+
+
   // Show Error Message
   void showErrorMessage(BuildContext context, String error) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -1943,4 +1950,49 @@ class MainViewModel extends BaseViewModel {
       duration: Duration(seconds: 2),
     ));
   }
+
+  //####### Pharmacy my active api start  ###########
+
+  GetPharmacyMyActive getpharmacyactive = GetPharmacyMyActive();
+  List<PharmacyActiveModel>? pharmacymyactive = PharmacyMyActiveCompleteModel().data;
+  //bool doctoractiveLoader = false;
+  Future gettingPharmacyActive(BuildContext context, String token) async {
+   // doctoractiveLoader = true;
+
+    var pharmacyActiveResponse = await getpharmacyactive.getpharmacyMyActive(token);
+    if (pharmacyActiveResponse != null &&
+        pharmacyActiveResponse is List<PharmacyActiveModel>) {
+      pharmacymyactive = pharmacyActiveResponse;
+      //doctoractiveLoader = false;
+      notifyListeners();
+    } else {
+      //doctoractiveLoader = false;
+      notifyListeners();
+    }
+    //doctoractiveLoader = false;
+  }
+  //####### pharmacy my  active  api end  ###########
+
+
+  //####### Pharmacy my History api start  ###########
+
+  GetPharmacyMyHistory getpharmacymyhistory = GetPharmacyMyHistory();
+  List<PharmacyHistoryModel>? pharmacymyhistory = PharmacyMyHistoryCompleteModel().data;
+  //bool doctoractiveLoader = false;
+  Future gettingPharmacyHistory(BuildContext context, String token) async {
+   // doctoractiveLoader = true;
+
+    var pharmacyHistoryResponse = await getpharmacymyhistory.getpharmacyMyHistory(token);
+    if (pharmacyHistoryResponse != null &&
+        pharmacyHistoryResponse is List<PharmacyHistoryModel>) {
+      pharmacymyhistory = pharmacyHistoryResponse;
+      //doctoractiveLoader = false;
+      notifyListeners();
+    } else {
+      //doctoractiveLoader = false;
+      notifyListeners();
+    }
+    //doctoractiveLoader = false;
+  }
+  //####### pharmacy my  active  api end  ###########
 }

@@ -20,6 +20,7 @@ GetBencfyModel _$GetBencfyModelFromJson(Map<String, dynamic> json) =>
       ..policyno = json['policyno'] as String?
       ..cnic = json['cnic'] as String?
       ..self = json['self'] as String?;
+
 Map<String, dynamic> _$GetBencfyModelToJson(GetBencfyModel instance) =>
     <String, dynamic>{
       'id': instance.id,
@@ -33,7 +34,7 @@ Map<String, dynamic> _$GetBencfyModelToJson(GetBencfyModel instance) =>
       'address': instance.address,
       'policyno': instance.policyno,
       'cnic': instance.cnic,
-      'self':instance.self
+      'self': instance.self,
     };
 
 GetBencfyCompleteModel _$GetBencfyCompleteModelFromJson(

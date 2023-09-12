@@ -59,13 +59,14 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
   @override
   Widget build(BuildContext context) {
     var bookid = widget.oderId.toString();
+    print(bookid);
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
       onViewModelReady: (model) async {
         await model.LabBookDetials(
             context, model.prefService.userToken.toString(), bookid);
-        //await model.gettingLabBookingDetail(context, model.token!, orderID);
+        // await model.gettingLabBookingDetail(context, model.token!, orderID);
       },
       builder: (context, model, child) {
         return GestureDetector(
@@ -113,7 +114,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                     // Text(bookid),
+                                      // Text(bookid),
                                       TextWidget(
                                         textValue: "Lab Booking",
                                         fontFamily: FontUtils.interSemiBold,

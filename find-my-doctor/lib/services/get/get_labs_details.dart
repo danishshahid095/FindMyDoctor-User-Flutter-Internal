@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -9,10 +8,7 @@ import '../../modules/dio_service.dart';
 class LabBookingDetails {
   var _dioService = DioService.getInstance();
 
-  Future labbookingdetails(
-    String token,
-   String orderId
-  ) async {
+  Future labbookingdetails(String token, String orderId) async {
     try {
       final response = await _dioService.get(
         'booking-lab/my-booking-details/$orderId',
@@ -21,13 +17,13 @@ class LabBookingDetails {
           'content-Type': 'application/json'
         }),
       );
-      var data = json.decode(response.toString());
+      //var data = json.decode(response.toString());
       if (response.statusCode == 200) {
         // user found
 
         if (response.data["success"] == 1) {
           LabModel labbook = LabModel.fromJson(response.data);
-
+          //print(labbook);
           return labbook;
         } else {
           return response.data['data'];
