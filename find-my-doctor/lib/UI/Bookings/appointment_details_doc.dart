@@ -113,7 +113,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(bookid),
+                                      //Text(bookid),
                                       TextWidget(
                                         textValue: "Doctor Booking",
                                         fontFamily: FontUtils.interSemiBold,
@@ -230,34 +230,35 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   //   fontSize: 1.8.t,
                                   //   textColor: ColorUtils.black,
                                   // ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  Divider(
-                                    height: 0.5.h,
-                                    color: ColorUtils.silver,
-                                  ),
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "Consultation_Type",
-                                    fontFamily: FontUtils.interMedium,
-                                    fontSize: 1.9.t,
-                                    textColor: ColorUtils.black,
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: model
-                                        .docmodel.data!.consultation_type
-                                        .toString(),
-                                    //  "It is a long established fact that a reader will be\ndistracted by the readable content of a page.",
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                    textColor: ColorUtils.black,
-                                  ),
+                                  // SizedBox(
+                                  //   height: 1.h,
+                                  // ),
+                                  // Divider(
+                                  //   height: 0.5.h,
+                                  //   color: ColorUtils.silver,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 2.h,
+                                  // ),
+
+                                  // TextWidget(
+                                  //   textValue: "Consultation_Type",
+                                  //   fontFamily: FontUtils.interMedium,
+                                  //   fontSize: 1.9.t,
+                                  //   textColor: ColorUtils.black,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 1.h,
+                                  // ),
+                                  // TextWidget(
+                                  //   textValue: model
+                                  //       .docmodel.data!.consultation_type
+                                  //       .toString(),
+                                  //   //  "It is a long established fact that a reader will be\ndistracted by the readable content of a page.",
+                                  //   fontFamily: FontUtils.interRegular,
+                                  //   fontSize: 1.8.t,
+                                  //   textColor: ColorUtils.black,
+                                  // ),
                                   // model.labmodel.data!.tests![0].testReport ==
                                   //         null
                                   //     ? Text('No test report available')
@@ -396,87 +397,56 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     fontSize: 1.8.t,
                                     textColor: ColorUtils.black,
                                   ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  Divider(
-                                    height: 0.5.h,
-                                    color: ColorUtils.silver,
-                                  ),
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
-                                  // TextWidget(
-                                  //   textValue: "Blood Group",
-                                  //   fontFamily: FontUtils.interMedium,
-                                  //   fontSize: 1.9.t,
-                                  //   textColor: ColorUtils.black,
+                                  // SizedBox(
+                                  //   height: 1.h,
                                   // ),
-                                  InkWell(
-                                    onTap: () {
-                                      // _show_Statusbox(context);
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Row(
-                                          children: [
-                                            TextWidget(
-                                              textValue: "Status",
-                                              fontFamily: FontUtils.interMedium,
-                                              fontSize: 1.9.t,
-                                              textColor: ColorUtils.black,
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 1.h,
-                                        ),
-                                        Row(
-                                          children: [
-                                            TextWidget(
-                                              textValue: model
-                                                  .docmodel.data!.b_status
-                                                  .toString(),
-                                              //model.prefService.labId.toString(),
-                                              // "Pending",
-                                              //"AB+",
-                                              fontFamily:
-                                                  FontUtils.interRegular,
-                                              fontSize: 1.8.t,
-                                              textColor: ColorUtils.black,
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // Divider(
+                                  //   height: 0.5.h,
+                                  //   color: ColorUtils.silver,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 2.h,
+                                  // ),
+
                                   // InkWell(
                                   //   onTap: () {
-                                  //     _show_Statusbox(context);
+                                  //     // _show_Statusbox(context);
                                   //   },
-                                  //   child: Row(
+                                  //   child: Column(
                                   //     children: [
-                                  //       TextWidget(
-                                  //         textValue: "Status",
-                                  //         fontFamily: FontUtils.interMedium,
-                                  //         fontSize: 1.9.t,
-                                  //         textColor: ColorUtils.black,
+                                  //       Row(
+                                  //         children: [
+                                  //           TextWidget(
+                                  //             textValue: "Status",
+                                  //             fontFamily: FontUtils.interMedium,
+                                  //             fontSize: 1.9.t,
+                                  //             textColor: ColorUtils.black,
+                                  //           ),
+                                  //         ],
+                                  //       ),
+                                  //       SizedBox(
+                                  //         height: 1.h,
+                                  //       ),
+                                  //       Row(
+                                  //         children: [
+                                  //           TextWidget(
+                                  //             textValue: model
+                                  //                 .docmodel.data!.b_status
+                                  //                 .toString(),
+                                  //             //model.prefService.labId.toString(),
+                                  //             // "Pending",
+                                  //             //"AB+",
+                                  //             fontFamily:
+                                  //                 FontUtils.interRegular,
+                                  //             fontSize: 1.8.t,
+                                  //             textColor: ColorUtils.black,
+                                  //           ),
+                                  //         ],
                                   //       ),
                                   //     ],
                                   //   ),
                                   // ),
-                                  // SizedBox(
-                                  //   height: 1.h,
-                                  // ),
-                                  // TextWidget(
-                                  //   textValue:
-                                  //       //model.prefService.labId.toString(),
-                                  //       "Pending",
-                                  //   //"AB+",
-                                  //   fontFamily: FontUtils.interRegular,
-                                  //   fontSize: 1.8.t,
-                                  //   textColor: ColorUtils.black,
-                                  // ),
+
                                   SizedBox(
                                     height: 1.h,
                                   ),

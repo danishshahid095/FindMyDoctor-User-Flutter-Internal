@@ -1,4 +1,3 @@
-
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:find_my_doctor/App/locator.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
@@ -397,13 +396,14 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                                     .format(selectedDate);
 
                                 // Format the selectedTime
-                                String formattedTime = selectedTime
-                                    .format(context)
-                                    .substring(0, 4);
+                                String formattedTime =
+                                    selectedTime.format(context);
+                                // .substring(0, 4);
 
                                 // Combine the formatted date and time
                                 String combinedDateTime =
-                                    "$formattedDate $formattedTime:00";
+                                    "$formattedDate $formattedTime";
+                                //  "$formattedDate $formattedTime:00";
 
                                 print(
                                     "Selected Date and Time: $combinedDateTime");

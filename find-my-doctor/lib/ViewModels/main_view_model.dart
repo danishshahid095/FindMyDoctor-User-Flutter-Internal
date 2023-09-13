@@ -1403,16 +1403,16 @@ class MainViewModel extends BaseViewModel {
     if (response != null && response is BookingDocModel) {
       print(
           "this is  physical  book doc respone insertId: ${response.data!.insertId.toString()}");
-      Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.fade,
-              child: PaymentSuccess(
-                fromInsurance: false,
-                fromPharmacy: false,
-                fromLabTest: true,
-                fromPhysicalVisit: true,
-              )));
+      // Navigator.push(
+      //     context,
+      //     PageTransition(
+      //         type: PageTransitionType.fade,
+      //         child: PaymentSuccess(
+      //           fromInsurance: false,
+      //           fromPharmacy: false,
+      //           fromLabTest: true,
+      //           fromPhysicalVisit: true,
+      //         )));
 
       loadingWidget = false;
     } else {
@@ -1456,16 +1456,16 @@ class MainViewModel extends BaseViewModel {
     if (response != null && response is BookingDocModel) {
       print(
           "this is  onlie book doc respone insertId: ${response.data!.insertId.toString()}");
-      Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.fade,
-              child: PaymentSuccess(
-                fromInsurance: false,
-                fromPharmacy: false,
-                fromLabTest: true,
-                fromPhysicalVisit: true,
-              )));
+      // Navigator.push(
+      //     context,
+      //     PageTransition(
+      //         type: PageTransitionType.fade,
+      //         child: PaymentSuccess(
+      //           fromInsurance: false,
+      //           fromPharmacy: false,
+      //           fromLabTest: true,
+      //           fromPhysicalVisit: true,
+      //         )));
 
       loadingWidget = false;
       //notifyListeners();
@@ -1496,15 +1496,15 @@ class MainViewModel extends BaseViewModel {
     var response = await addLabBooking.addLabBooking(token, test_for, recepient,
         lab_id, date_time, promo, beneficiary, tests);
     if (response != null && response == 1) {
-      Navigator.push(
-          context,
-          PageTransition(
-              type: PageTransitionType.fade,
-              child: PaymentSuccess(
-                fromInsurance: false,
-                fromPharmacy: false,
-                fromLabTest: true,
-              )));
+      // Navigator.push(
+      //     context,
+      //     PageTransition(
+      //         type: PageTransitionType.fade,
+      //         child: PaymentSuccess(
+      //           fromInsurance: false,
+      //           fromPharmacy: false,
+      //           fromLabTest: true,
+      //         )));
     }
     loadingWidget = false;
     notifyListeners();

@@ -21,24 +21,26 @@ class LabTestConfirmDetails extends StatefulWidget {
   final List<Map<String, int>> selectedTests;
   int labId;
   String dateTime;
-  LabTestConfirmDetails({required this.selectedTests,required this.labId,required this.dateTime, Key? key}) : super(key: key);
+  LabTestConfirmDetails(
+      {required this.selectedTests,
+      required this.labId,
+      required this.dateTime,
+      Key? key})
+      : super(key: key);
 
   @override
   State<LabTestConfirmDetails> createState() => _LabTestConfirmDetailsState();
 }
 
 class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
-
   bool switchValue = true;
 
   @override
   Widget build(BuildContext context) {
-
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -58,7 +60,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                       BackSingleText(
                         backText: "Confirm Details",
                       ),
-                      SizedBox(height: 1.h,),
+                      SizedBox(
+                        height: 1.h,
+                      ),
                     ],
                   ),
                   Expanded(
@@ -74,7 +78,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
 
                             // Date & Time
                             Row(
@@ -89,7 +95,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
                                       textValue: widget.dateTime,
                                       textColor: ColorUtils.blackShade,
@@ -107,7 +115,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                             ),
 
                             //Recipient
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -120,7 +130,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
                                       textValue: "Self",
                                       textColor: ColorUtils.blackShade,
@@ -138,7 +150,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                             ),
 
                             //Address
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -151,9 +165,12 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                       fontFamily: FontUtils.interSemiBold,
                                       fontSize: 1.6.t,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
-                                      textValue: "F18, 5th Floor, XYZ Towers, St II, Block A, Kha...",
+                                      textValue:
+                                          "F18, 5th Floor, XYZ Towers, St II, Block A, Kha...",
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
@@ -169,13 +186,16 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                             ),
 
                             //Reminder
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       TextWidget(
                                         textValue: "Reminder",
@@ -183,19 +203,22 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                         fontFamily: FontUtils.interSemiBold,
                                         fontSize: 1.6.t,
                                       ),
-                                      SizedBox(height: 1.h,),
-                                      Text("10 mins befor time",
+                                      SizedBox(
+                                        height: 1.h,
+                                      ),
+                                      Text(
+                                        "10 mins befor time",
                                         style: TextStyle(
                                             fontFamily: FontUtils.interRegular,
                                             fontSize: 1.8.t,
-                                            color: ColorUtils.blackShade
-                                        ),
+                                            color: ColorUtils.blackShade),
                                       ),
                                     ],
                                   ),
                                 ),
                                 Switch(
-                                  materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                                  materialTapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
                                   activeColor: ColorUtils.red,
                                   value: switchValue,
                                   onChanged: (value) {
@@ -212,26 +235,29 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                             ),
 
                             //Promo Code / Policy Number
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             TextWidget(
                               textValue: "Promo Code / Policy Number",
                               fontFamily: FontUtils.poppinsSemiBold,
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Container(
-                              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 4.w, vertical: 2.h),
                               decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                      color: ColorUtils.red,
-                                      width: 1
-                                  ),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                      color: ColorUtils.red, width: 1),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   TextWidget(
                                     textValue: "EFU12345-07",
@@ -239,7 +265,8 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                     fontSize: 1.8.t,
                                     textColor: ColorUtils.blackShade,
                                   ),
-                                  Icon(Icons.check_circle,
+                                  Icon(
+                                    Icons.check_circle,
                                     color: ColorUtils.red,
                                   )
                                 ],
@@ -247,14 +274,18 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                             ),
 
                             //Payment Details
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             TextWidget(
                               textValue: "Payment Details",
                               fontFamily: FontUtils.poppinsSemiBold,
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -267,7 +298,9 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                       fontSize: 1.6.t,
                                       textColor: ColorUtils.blackShade,
                                     ),
-                                    SizedBox(height: 1.h,),
+                                    SizedBox(
+                                      height: 1.h,
+                                    ),
                                     TextWidget(
                                       textValue: "Rs. 3,800",
                                       fontFamily: FontUtils.interSemiBold,
@@ -277,7 +310,7 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                   ],
                                 ),
                                 GestureDetector(
-                                  onTap: (){
+                                  onTap: () {
                                     showModalBottomSheet(
                                       isScrollControlled: true,
                                       shape: RoundedRectangleBorder(
@@ -286,89 +319,149 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                           topRight: Radius.circular(24.0),
                                         ),
                                       ),
-                                      backgroundColor: Colors.white, context: context, builder: (BuildContext context) {
-                                      return PageHorizontalMargin(
-                                        widget: Container(
-                                          height: MediaQuery.of(context).size.height/2.8,
-                                          child: Column(
-                                            children: [
-                                              SizedBox(height: 2.h,),
-                                              Align(
-                                                alignment: Alignment.centerLeft,
-                                                child: TextWidget(
-                                                  textValue: "Booked Test",
-                                                  fontFamily: FontUtils.poppinsBold,
-                                                  fontSize: 2.8.t,
-                                                  textColor: ColorUtils.red,
+                                      backgroundColor: Colors.white,
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return PageHorizontalMargin(
+                                          widget: Container(
+                                            height: MediaQuery.of(context)
+                                                    .size
+                                                    .height /
+                                                2.8,
+                                            child: Column(
+                                              children: [
+                                                SizedBox(
+                                                  height: 2.h,
                                                 ),
-                                              ),
-                                              SizedBox(height: 2.h,),
-                                              SizedBox(
-                                            height: 25.h,
-                                            child: ListView.separated(
-                                              padding: EdgeInsets.zero,
-                                              itemBuilder: (context, index) {
-                                                return Row(
-                                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                  children: [
-                                                    Row(
-                                                      children: [
-                                                        SizedBox(
-                                                            height: 15.i,
-                                                            width: 15.i,
-                                                            child: Image.asset(model.selectedTestsList[index]["testLabImage"])),
-                                                        SizedBox(width: 2.w,),
-                                                        Column(
-                                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                                          children: [
-                                                            TextWidget(
-                                                              textValue: model.selectedTestsList[index]["name"],
-                                                              fontFamily: FontUtils.poppinsBold,
-                                                              fontSize: 1.8.t,
-                                                              textColor: ColorUtils.red,
-                                                            ),
-                                                            SizedBox(height: 0.5.h,),
-                                                            TextWidget(
-                                                              textValue: model.selectedTestsList[index]["labDetails"],
-                                                              fontFamily: FontUtils.interRegular,
-                                                              fontSize: 1.6.t,
-                                                              textColor: ColorUtils.blackShade,
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Row(
-                                                      children: [
-                                                        TextWidget(
-                                                          textValue: model.selectedTestsList[index]["charges"],
-                                                          fontFamily: FontUtils.interSemiBold,
-                                                          fontSize: 2.t,
-                                                          textColor: ColorUtils.lightGreen,
-                                                        ),
-                                                        SizedBox(width: 2.w,),
-                                                        Icon(Icons.cancel_outlined,
-                                                          color: ColorUtils.red,
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                              separatorBuilder: (context, index) {
-                                                return Divider(
-                                                  color: ColorUtils.silver,
-                                                );
-                                              },
-                                              itemCount: model.selectedTestsList.length,
+                                                Align(
+                                                  alignment:
+                                                      Alignment.centerLeft,
+                                                  child: TextWidget(
+                                                    textValue: "Booked Test",
+                                                    fontFamily:
+                                                        FontUtils.poppinsBold,
+                                                    fontSize: 2.8.t,
+                                                    textColor: ColorUtils.red,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 2.h,
+                                                ),
+                                                SizedBox(
+                                                  height: 25.h,
+                                                  child: ListView.separated(
+                                                    padding: EdgeInsets.zero,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              SizedBox(
+                                                                  height: 15.i,
+                                                                  width: 15.i,
+                                                                  child: Image.asset(
+                                                                      model.selectedTestsList[
+                                                                              index]
+                                                                          [
+                                                                          "testLabImage"])),
+                                                              SizedBox(
+                                                                width: 2.w,
+                                                              ),
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  TextWidget(
+                                                                    textValue: model
+                                                                            .selectedTestsList[index]
+                                                                        [
+                                                                        "name"],
+                                                                    fontFamily:
+                                                                        FontUtils
+                                                                            .poppinsBold,
+                                                                    fontSize:
+                                                                        1.8.t,
+                                                                    textColor:
+                                                                        ColorUtils
+                                                                            .red,
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height:
+                                                                        0.5.h,
+                                                                  ),
+                                                                  TextWidget(
+                                                                    textValue: model
+                                                                            .selectedTestsList[index]
+                                                                        [
+                                                                        "labDetails"],
+                                                                    fontFamily:
+                                                                        FontUtils
+                                                                            .interRegular,
+                                                                    fontSize:
+                                                                        1.6.t,
+                                                                    textColor:
+                                                                        ColorUtils
+                                                                            .blackShade,
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              TextWidget(
+                                                                textValue: model
+                                                                            .selectedTestsList[
+                                                                        index]
+                                                                    ["charges"],
+                                                                fontFamily:
+                                                                    FontUtils
+                                                                        .interSemiBold,
+                                                                fontSize: 2.t,
+                                                                textColor:
+                                                                    ColorUtils
+                                                                        .lightGreen,
+                                                              ),
+                                                              SizedBox(
+                                                                width: 2.w,
+                                                              ),
+                                                              Icon(
+                                                                Icons
+                                                                    .cancel_outlined,
+                                                                color:
+                                                                    ColorUtils
+                                                                        .red,
+                                                              )
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      );
+                                                    },
+                                                    separatorBuilder:
+                                                        (context, index) {
+                                                      return Divider(
+                                                        color:
+                                                            ColorUtils.silver,
+                                                      );
+                                                    },
+                                                    itemCount: model
+                                                        .selectedTestsList
+                                                        .length,
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  height: 2.h,
+                                                ),
+                                              ],
                                             ),
                                           ),
-                                              SizedBox(height: 2.h,),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
+                                        );
+                                      },
                                     );
                                   },
                                   child: TextWidget(
@@ -380,11 +473,15 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
                             Divider(
                               color: ColorUtils.silver,
                             ),
-                            SizedBox(height: 1.h,),
+                            SizedBox(
+                              height: 1.h,
+                            ),
 
                             // Payment Method
                             TextWidget(
@@ -393,9 +490,11 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                               fontSize: 1.6.t,
                               textColor: ColorUtils.blackShade,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             GestureDetector(
-                              onTap: (){
+                              onTap: () {
                                 showModalBottomSheet(
                                   isScrollControlled: true,
                                   shape: RoundedRectangleBorder(
@@ -404,100 +503,139 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                                       topRight: Radius.circular(24.0),
                                     ),
                                   ),
-                                  backgroundColor: Colors.white, context: context, builder: (BuildContext context) {
-                                  return PageHorizontalMargin(
-                                    widget: Container(
-                                      height: MediaQuery.of(context).size.height/1.5,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: 2.h,),
-                                          SvgPicture.asset(ImageUtils.greyHandle),
-                                          SizedBox(height: 1.h,),
-                                          Align(
-                                            alignment: Alignment.centerLeft,
-                                            child: TextWidget(
-                                              textValue: "Select Payment Method",
-                                              fontFamily: FontUtils.poppinsBold,
-                                              fontSize: 2.4.t,
+                                  backgroundColor: Colors.white,
+                                  context: context,
+                                  builder: (BuildContext context) {
+                                    return PageHorizontalMargin(
+                                      widget: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height /
+                                                1.5,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            SvgPicture.asset(
+                                                ImageUtils.greyHandle),
+                                            SizedBox(
+                                              height: 1.h,
+                                            ),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: TextWidget(
+                                                textValue:
+                                                    "Select Payment Method",
+                                                fontFamily:
+                                                    FontUtils.poppinsBold,
+                                                fontSize: 2.4.t,
+                                                textColor: ColorUtils.red,
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            LabTestPayment(),
+                                            Divider(
+                                              color: ColorUtils.silver,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Image.asset(
+                                                  ImageUtils.bankTransfer,
+                                                  width: 30.i,
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      right: 9.w),
+                                                  child: ForwardButtonBlack(),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Divider(
+                                              color: ColorUtils.silver,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            TextWidget(
+                                              textValue:
+                                                  "+ Add new card Members",
+                                              fontFamily:
+                                                  FontUtils.interSemiBold,
+                                              fontSize: 1.8.t,
                                               textColor: ColorUtils.red,
                                             ),
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          LabTestPayment(),
-                                          Divider(
-                                            color: ColorUtils.silver,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Image.asset(ImageUtils.bankTransfer,
-                                                width: 30.i,
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsets.only(right: 9.w),
-                                                child: ForwardButtonBlack(),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Divider(
-                                            color: ColorUtils.silver,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          TextWidget(
-                                            textValue: "+ Add new card Members",
-                                            fontFamily: FontUtils.interSemiBold,
-                                            fontSize: 1.8.t,
-                                            textColor: ColorUtils.red,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          Divider(
-                                            color: ColorUtils.silver,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                          TextWidget(
-                                            textValue: "+ Add Pay Pro Account",
-                                            fontFamily: FontUtils.interSemiBold,
-                                            fontSize: 1.8.t,
-                                            textColor: ColorUtils.red,
-                                          ),
-                                          SizedBox(height: 2.h,),
-                                        ],
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Divider(
+                                              color: ColorUtils.silver,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            TextWidget(
+                                              textValue:
+                                                  "+ Add Pay Pro Account",
+                                              fontFamily:
+                                                  FontUtils.interSemiBold,
+                                              fontSize: 1.8.t,
+                                              textColor: ColorUtils.red,
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
                                 );
                               },
                               child: Container(
-                                padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: 4.w, vertical: 2.h),
                                 decoration: BoxDecoration(
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
-                                        color: ColorUtils.blackShade.withOpacity(0.5),
-                                        width: 1
-                                    ),
-                                    borderRadius: BorderRadius.circular(10)
-                                ),
+                                        color: ColorUtils.blackShade
+                                            .withOpacity(0.5),
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(10)),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    if(model.pharmacyPaymentMethodSelected == false)
+                                    if (model.pharmacyPaymentMethodSelected ==
+                                        false)
                                       TextWidget(
                                         textValue: "Select Method",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.silver,
                                       ),
-                                    if(model.pharmacyPaymentMethodSelected == true)
+                                    if (model.pharmacyPaymentMethodSelected ==
+                                        true)
                                       Row(
                                         children: [
-                                          SvgPicture.asset(ImageUtils.masterCard),
+                                          SvgPicture.asset(
+                                              ImageUtils.masterCard),
                                           TextWidget(
                                             textValue: "Card",
-                                            fontFamily: FontUtils.poppinsSemiBold,
+                                            fontFamily:
+                                                FontUtils.poppinsSemiBold,
                                             fontSize: 1.6.t,
                                             textColor: ColorUtils.black1,
                                           ),
@@ -509,16 +647,42 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
                               ),
                             ),
 
-                            SizedBox(height: 3.h,),
+                            SizedBox(
+                              height: 3.h,
+                            ),
                             GreyBackGroundButton(
                               text: "Confirm",
                               buttonTextColor: ColorUtils.white,
-                              buttonColor:  model.labPaySelected == true ? ColorUtils.red : ColorUtils.white1,
-                              onButtonPressed: (){
-                                model.addingLabBooking(context, model.token!, model.userID!, model.userID!, widget.labId, widget.dateTime, 1, "no", widget.selectedTests);
+                              buttonColor: model.labPaySelected == true
+                                  ? ColorUtils.red
+                                  : ColorUtils.white1,
+                              onButtonPressed: () {
+                                model.addingLabBooking(
+                                    context,
+                                    model.token!,
+                                    model.userID!,
+                                    model.userID!,
+                                    widget.labId,
+                                    widget.dateTime,
+                                    1,
+                                    "no",
+                                    widget.selectedTests);
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: PaymentSuccess(
+                                          date: widget.dateTime,
+                                          bookid: widget.labId.toString(),
+                                          fromInsurance: false,
+                                          fromPharmacy: false,
+                                          fromLabTest: true,
+                                        )));
                               },
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                           ],
                         ),
                       ),
@@ -531,7 +695,6 @@ class _LabTestConfirmDetailsState extends State<LabTestConfirmDetails> {
         );
       },
     );
-
   }
 }
 
@@ -543,7 +706,6 @@ class LabTestPayment extends StatefulWidget {
 }
 
 class _LabTestPaymentState extends State<LabTestPayment> {
-
   int? value;
 
   @override
@@ -551,8 +713,7 @@ class _LabTestPaymentState extends State<LabTestPayment> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
-      },
+      onModelReady: (model) {},
       builder: (context, model, child) {
         return SizedBox(
           height: 15.h,
@@ -569,7 +730,8 @@ class _LabTestPaymentState extends State<LabTestPayment> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                          child: Image.asset(model.paymentType[index],
+                          child: Image.asset(
+                            model.paymentType[index],
                             width: index == 0 ? 12.i : 30.i,
                           ),
                         ),
@@ -586,8 +748,7 @@ class _LabTestPaymentState extends State<LabTestPayment> {
                           model.labPaySelected = true;
                           model.notifyListeners();
                           return setState(() => value = ind as int?);
-                        }
-                    ),
+                        }),
                   ),
                 ],
               );
@@ -604,4 +765,3 @@ class _LabTestPaymentState extends State<LabTestPayment> {
     );
   }
 }
-

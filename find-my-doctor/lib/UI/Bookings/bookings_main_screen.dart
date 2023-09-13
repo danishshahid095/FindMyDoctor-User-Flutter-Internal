@@ -275,23 +275,25 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     height:
                                                                         0.75.h,
                                                                   ),
+
                                                                   Row(
                                                                     children: [
+                                                                      // TextWidget(
+                                                                      //   textValue:
+                                                                      //       "Doctor Consultation Type: ",
+                                                                      //   textColor:
+                                                                      //       ColorUtils.blackShade,
+                                                                      //   fontFamily:
+                                                                      //       FontUtils.interRegular,
+                                                                      //   fontSize:
+                                                                      //       1.6.t,
+                                                                      // ),
                                                                       TextWidget(
-                                                                        textValue:
-                                                                            "Doctor Consultation Type: ",
-                                                                        textColor:
-                                                                            ColorUtils.blackShade,
-                                                                        fontFamily:
-                                                                            FontUtils.interRegular,
-                                                                        fontSize:
-                                                                            1.6.t,
-                                                                      ),
-                                                                      TextWidget(
-                                                                        textValue: model
-                                                                            .doctormyactive![index]
-                                                                            .doctor_consultation_type
-                                                                            .toString(),
+                                                                        textValue: model.doctormyactive![index].doctor_consultation_type ==
+                                                                                null
+                                                                            ? ''
+                                                                            : "Doctor Consultation Type: " +
+                                                                                model.doctormyactive![index].doctor_consultation_type.toString(),
                                                                         textColor:
                                                                             ColorUtils.blackShade,
                                                                         fontFamily:
@@ -980,22 +982,34 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                 left: 2.w),
                                                         child: Row(
                                                           children: [
-                                                            TextWidget(
-                                                              textValue:
-                                                                  "Doctor Consultation Type: ",
-                                                              textColor:
-                                                                  ColorUtils
-                                                                      .blackShade,
-                                                              fontFamily: FontUtils
-                                                                  .interRegular,
-                                                              fontSize: 1.6.t,
-                                                            ),
+                                                            // TextWidget(
+                                                            //   textValue:
+                                                            //       "Doctor Consultation Type: ",
+                                                            //   textColor:
+                                                            //       ColorUtils
+                                                            //           .blackShade,
+                                                            //   fontFamily: FontUtils
+                                                            //       .interRegular,
+                                                            //   fontSize: 1.6.t,
+                                                            // ),
                                                             TextWidget(
                                                               textValue: model
-                                                                  .doctormyhistory![
-                                                                      index]
-                                                                  .doctor_consultation_type
-                                                                  .toString(),
+                                                                          .doctormyhistory![
+                                                                              index]
+                                                                          .doctor_consultation_type ==
+                                                                      null
+                                                                  ? ''
+                                                                  : "Doctor Consultation Type: " +
+                                                                      model
+                                                                          .doctormyhistory![
+                                                                              index]
+                                                                          .doctor_consultation_type
+                                                                          .toString(),
+                                                              // model
+                                                              //     .doctormyhistory![
+                                                              //         index]
+                                                              //     .doctor_consultation_type
+                                                              //     .toString(),
                                                               textColor:
                                                                   ColorUtils
                                                                       .blackShade,

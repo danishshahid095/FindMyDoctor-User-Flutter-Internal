@@ -1,7 +1,6 @@
 import 'package:find_my_doctor/UI/Bookings/accept_appointment_detail.dart';
 import 'package:find_my_doctor/UI/Bookings/patient_appointment_history.dart';
 import 'package:find_my_doctor/UI/Bookings/patient_rx_details.dart';
-import 'package:find_my_doctor/UI/Helpline/chat.dart';
 import 'package:flutter/material.dart';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:find_my_doctor/App/locator.dart';

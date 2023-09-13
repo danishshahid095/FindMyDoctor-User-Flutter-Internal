@@ -514,16 +514,19 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                     widget.consultationId.toString(),
                                     76);
                                 print('online dco api ');
-                                // Navigator.push(
-                                //     context,
-                                //     PageTransition(
-                                //         type: PageTransitionType.fade,
-                                //         child: PaymentSuccess(
-                                //           fromInsurance: false,
-                                //           fromPharmacy: false,
-                                //           fromLabTest: true,
-                                //           fromPhysicalVisit: true,
-                                //         )));
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: PaymentSuccess(
+                                          date: widget.date!,
+                                          bookid:
+                                              widget.consultationId!.toString(),
+                                          fromInsurance: false,
+                                          fromPharmacy: false,
+                                          fromLabTest: true,
+                                          fromPhysicalVisit: true,
+                                        )));
                               },
                             ),
                             SizedBox(

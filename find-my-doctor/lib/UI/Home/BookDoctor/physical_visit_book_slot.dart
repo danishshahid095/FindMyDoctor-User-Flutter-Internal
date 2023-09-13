@@ -101,11 +101,7 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
     //   print(entry);
     // });
     print(timeEntries);
-
-    
   }
-
-  
 
   String _addMinutesToTime(String timeStr, int minutes) {
     // Convert the time string to a DateTime object
@@ -120,8 +116,6 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
 
     return newTimeStr;
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -415,13 +409,13 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                     .format(selectedDate);
 
                                 // Format the selectedTime
-                                String formattedTime = selectedTime
-                                    .format(context)
-                                    .substring(0, 4);
+                                String formattedTime =
+                                    selectedTime.format(context);
+                                //.substring(0, 5);
 
                                 // Combine the formatted date and time
                                 String combinedDateTime =
-                                    "$formattedDate $formattedTime:00";
+                                    "$formattedDate $formattedTime";
                                 Navigator.push(
                                     context,
                                     PageTransition(
@@ -431,6 +425,9 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                           time: selectedTime.toString(),
                                           consultationId: widget.id,
                                         )));
+                                print('select date' + date);
+                                print(
+                                    'select date and time' + combinedDateTime);
                                 // Navigator.push(
                                 //     context,
                                 //     PageTransition(

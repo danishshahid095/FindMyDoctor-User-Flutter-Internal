@@ -12,10 +12,7 @@ import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
-
-import '../Helpline/chat.dart';
 
 class Appointment_Details extends StatefulWidget {
   const Appointment_Details({Key? key}) : super(key: key);

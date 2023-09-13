@@ -19,7 +19,7 @@ import '../../../Widgets/bottom_navigation_bar.dart';
 class PaymentSuccess extends StatefulWidget {
   String? date;
   String? bookid;
-  String? time;
+  //String? time;
   bool? fromPharmacy = false;
   bool? fromInsurance = false;
   bool? fromLabTest = false;
@@ -28,7 +28,7 @@ class PaymentSuccess extends StatefulWidget {
   PaymentSuccess(
       {Key? key,
       this.date,
-      this.time,
+      //this.time,
       this.bookid,
       this.fromPharmacy,
       this.fromInsurance,
@@ -43,8 +43,9 @@ class PaymentSuccess extends StatefulWidget {
 class _PaymentSuccessState extends State<PaymentSuccess> {
   @override
   Widget build(BuildContext context) {
-    var newdate = widget.date.toString();
-    var nebookid = widget.bookid.toString();
+    var newdate = widget.date!.toString();
+    var newbookid = widget.bookid!.toString();
+
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
@@ -61,8 +62,6 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                 children: [
                   Column(
                     children: [
-                      // Text(newdate.toString()),
-                      // Text(nebookid.toString()),
                       SizedBox(
                         height: context.getPadding().top,
                       ),
@@ -131,6 +130,10 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                       ),
                                       TextWidget(
                                         textValue: newdate,
+                                        //widget.date!.toString(),
+                                        //newdate,
+
+                                        //widget.date!.toString(),
                                         // "5th June 2022 • 03:45 PM",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,
@@ -152,9 +155,8 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                         height: 1.h,
                                       ),
                                       TextWidget(
-                                        textValue:
-                                            nebookid.isEmpty ? '' : nebookid,
-                                        //widget.bookid.toString(),
+                                        textValue: newbookid,
+                                        //widget.bookid!.toString(),
                                         //"PLC#123456",
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,

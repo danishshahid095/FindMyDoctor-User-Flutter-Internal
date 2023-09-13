@@ -21,15 +21,15 @@ import 'package:intl/intl.dart';
 class LabTestBookSlot extends StatefulWidget {
   final List<Map<String, int>> selectedTests;
   int labId;
-  
-  LabTestBookSlot({required this.selectedTests,required this.labId,  Key? key}) : super(key: key);
-  
+
+  LabTestBookSlot({required this.selectedTests, required this.labId, Key? key})
+      : super(key: key);
+
   @override
   State<LabTestBookSlot> createState() => _LabTestBookSlotState();
 }
 
 class _LabTestBookSlotState extends State<LabTestBookSlot> {
-
   bool pmTapped = true;
   bool amTapped = false;
   bool doneTapped = false;
@@ -59,27 +59,31 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                       ),
                       TopMarginHome(),
                       SizedBox(
-                        child:  Padding(
+                        child: Padding(
                           padding: EdgeInsets.only(left: 10),
                           child: Row(
                             children: [
                               ExpandTapWidget(
-                                onTap: (){
+                                onTap: () {
                                   Navigator.pop(context);
                                 },
                                 tapPadding: EdgeInsets.all(50),
-                                child:SvgPicture.asset(ImageUtils.backArrowRed),
+                                child:
+                                    SvgPicture.asset(ImageUtils.backArrowRed),
                               ),
-                              Expanded(child: Center(
-                                child: TextWidget(
-                                  textValue: "Book your slot",
-                                  fontFamily: FontUtils.poppinsBold,
-                                  fontSize: 2.8.t,
-                                  textColor: ColorUtils.red,
+                              Expanded(
+                                child: Center(
+                                  child: TextWidget(
+                                    textValue: "Book your slot",
+                                    fontFamily: FontUtils.poppinsBold,
+                                    fontSize: 2.8.t,
+                                    textColor: ColorUtils.red,
+                                  ),
                                 ),
                               ),
+                              SizedBox(
+                                width: 2.w,
                               ),
-                              SizedBox(width: 2.w,),
                             ],
                           ),
                         ),
@@ -91,25 +95,35 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                       child: PageHorizontalMargin(
                         widget: Column(
                           children: [
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             TextWidget(
-                              textValue: "Select preffered date & time, to get the service at your convinence.",
+                              textValue:
+                                  "Select preffered date & time, to get the service at your convinence.",
                               fontFamily: FontUtils.interRegular,
                               fontSize: 1.6.t,
                               textColor: ColorUtils.silver2,
                             ),
-                            SizedBox(height: 2.h,),
                             SizedBox(
-                              width: 60.i,
+                              height: 2.h,
+                            ),
+                            SizedBox(
+                                width: 60.i,
                                 height: 60.i,
-                                child: Image.asset(ImageUtils.labTestFemaleDoctor,
+                                child: Image.asset(
+                                  ImageUtils.labTestFemaleDoctor,
                                 )),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             // visit Date
                             Row(
                               children: [
                                 SvgPicture.asset(ImageUtils.addContainer),
-                                SizedBox(width: 2.w,),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
                                 TextWidget(
                                   textValue: "Enter Visit Date",
                                   fontFamily: FontUtils.poppinsBold,
@@ -118,14 +132,20 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectDate(context),
-                                    hint: doneTapped == false ? "00" : selectedDate.toString().substring(8,10),
+                                    hint: doneTapped == false
+                                        ? "00"
+                                        : selectedDate
+                                            .toString()
+                                            .substring(8, 10),
                                     unit: "DD",
                                   ),
                                 ),
@@ -133,7 +153,11 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectDate(context),
-                                    hint: doneTapped == false ? "00" : selectedDate.toString().substring(5,7),
+                                    hint: doneTapped == false
+                                        ? "00"
+                                        : selectedDate
+                                            .toString()
+                                            .substring(5, 7),
                                     unit: "MM",
                                   ),
                                 ),
@@ -141,18 +165,26 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectDate(context),
-                                    hint: doneTapped == false ? "0000" : selectedDate.toString().substring(0,4),
+                                    hint: doneTapped == false
+                                        ? "0000"
+                                        : selectedDate
+                                            .toString()
+                                            .substring(0, 4),
                                     unit: "YYYY",
                                   ),
                                 ),
                               ],
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             // visit Time
                             Row(
                               children: [
                                 SvgPicture.asset(ImageUtils.visitClock),
-                                SizedBox(width: 2.w,),
+                                SizedBox(
+                                  width: 2.w,
+                                ),
                                 TextWidget(
                                   textValue: "Enter Visit Time",
                                   fontFamily: FontUtils.poppinsBold,
@@ -161,14 +193,18 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectTime(context),
-                                    hint: doneTapped == false ? "00" : selectedTime.hourOfPeriod.toString(),
+                                    hint: doneTapped == false
+                                        ? "00"
+                                        : selectedTime.hourOfPeriod.toString(),
                                     unit: "HH",
                                   ),
                                 ),
@@ -176,7 +212,9 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _selectTime(context),
-                                    hint: doneTapped == false ? "00" : selectedTime.minute.toString(),
+                                    hint: doneTapped == false
+                                        ? "00"
+                                        : selectedTime.minute.toString(),
                                     unit: "MM",
                                   ),
                                 ),
@@ -184,7 +222,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                   child: Column(
                                     children: [
                                       GestureDetector(
-                                        onTap: (){
+                                        onTap: () {
                                           setState(() {
                                             pmTapped = true;
                                             amTapped = false;
@@ -195,23 +233,24 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                               shape: BoxShape.rectangle,
                                               borderRadius: BorderRadius.only(
                                                   topLeft: Radius.circular(8),
-                                                  topRight: Radius.circular(8)
-                                              ),
-                                              color: ColorUtils.silver1
-                                          ),
+                                                  topRight: Radius.circular(8)),
+                                              color: ColorUtils.silver1),
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 1.h),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 4.w, vertical: 1.h),
                                             child: TextWidget(
                                               textValue: "PM",
                                               fontFamily: FontUtils.poppinsBold,
                                               fontSize: 2.2.t,
-                                              textColor: pmTapped == true ? ColorUtils.red : ColorUtils.blackShade,
+                                              textColor: pmTapped == true
+                                                  ? ColorUtils.red
+                                                  : ColorUtils.blackShade,
                                             ),
                                           ),
                                         ),
                                       ),
                                       GestureDetector(
-                                        onTap: (){
+                                        onTap: () {
                                           setState(() {
                                             pmTapped = false;
                                             amTapped = true;
@@ -221,18 +260,21 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                           decoration: BoxDecoration(
                                               shape: BoxShape.rectangle,
                                               borderRadius: BorderRadius.only(
-                                                  bottomLeft: Radius.circular(8),
-                                                  bottomRight: Radius.circular(8)
-                                              ),
-                                              color: ColorUtils.white1
-                                          ),
+                                                  bottomLeft:
+                                                      Radius.circular(8),
+                                                  bottomRight:
+                                                      Radius.circular(8)),
+                                              color: ColorUtils.white1),
                                           child: Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: 4.w,vertical: 1.h),
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 4.w, vertical: 1.h),
                                             child: TextWidget(
                                               textValue: "AM",
                                               fontFamily: FontUtils.poppinsBold,
                                               fontSize: 2.2.t,
-                                              textColor: amTapped == true ? ColorUtils.red : ColorUtils.blackShade,
+                                              textColor: amTapped == true
+                                                  ? ColorUtils.red
+                                                  : ColorUtils.blackShade,
                                             ),
                                           ),
                                         ),
@@ -240,29 +282,46 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 2.h,),
+                                SizedBox(
+                                  height: 2.h,
+                                ),
                               ],
                             ),
-                            SizedBox(height: 4.h,),
+                            SizedBox(
+                              height: 4.h,
+                            ),
                             RedButton(
                               textValue: "Next",
-                              onButtonPressed: (){
+                              onButtonPressed: () {
                                 // Format the selectedDate
-                                String formattedDate = DateFormat("yyyy-MM-dd").format(selectedDate);
+                                String formattedDate = DateFormat("yyyy-MM-dd")
+                                    .format(selectedDate);
 
                                 // Format the selectedTime
-                                String formattedTime = selectedTime.format(context).substring(0, 4);
+                                String formattedTime =
+                                    selectedTime.format(context);
+                                //.substring(0, 4);
 
                                 // Combine the formatted date and time
-                                String combinedDateTime = "$formattedDate $formattedTime:00";
+                                String combinedDateTime =
+                                    "$formattedDate $formattedTime";
 
-                                print("Selected Date and Time: $combinedDateTime");
+                                print(
+                                    "Selected Date and Time: $combinedDateTime");
 
-                                Navigator.push(context,
-                                    PageTransition(type: PageTransitionType.fade, child:  LabTestConfirmDetails(selectedTests: widget.selectedTests,labId: widget.labId,dateTime: combinedDateTime)));
+                                Navigator.push(
+                                    context,
+                                    PageTransition(
+                                        type: PageTransitionType.fade,
+                                        child: LabTestConfirmDetails(
+                                            selectedTests: widget.selectedTests,
+                                            labId: widget.labId,
+                                            dateTime: combinedDateTime)));
                               },
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(
+                              height: 2.h,
+                            ),
                           ],
                         ),
                       ),
@@ -348,7 +407,7 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
                 print(selectedTime);
                 setState(() {
                   doneTapped = true;
-                  if(selectedTime.hour > 12) {
+                  if (selectedTime.hour > 12) {
                     pmTapped = true;
                     amTapped = false;
                   } else {
@@ -371,8 +430,4 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
       });
     }
   }
-
 }
-
-
-

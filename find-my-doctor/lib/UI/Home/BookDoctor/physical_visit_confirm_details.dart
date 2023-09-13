@@ -536,9 +536,9 @@ class _PhysicalVisitConfirmDetailsState
                                     PageTransition(
                                         type: PageTransitionType.fade,
                                         child: PaymentSuccess(
-                                          date: widget.date.toString(),
+                                          date: widget.date!,
                                           bookid:
-                                              widget.consultationId.toString(),
+                                              widget.consultationId!.toString(),
                                           fromInsurance: false,
                                           fromPharmacy: false,
                                           fromLabTest: true,
