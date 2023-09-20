@@ -281,7 +281,6 @@ class MainViewModel extends BaseViewModel {
     print(userID);
     await prefService.getUserName();
     fullname = prefService.userName;
-
     await prefService.getUserEmail();
     email = prefService.userEmail;
     await prefService.getUserPhone();
