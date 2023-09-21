@@ -145,7 +145,7 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                           width: 35.i,
                                           height: 35.i,
                                           fit: BoxFit.cover,
-                                          imageUrl: model.pharmacyProductByCategoryModel?[index].featuredImg != null ? Constants.imageUrl + model.pharmacyProductByCategoryModel![index].featuredImg! : '',
+                                          imageUrl: model.pharmacyProductByCategoryModel?[index].featured_img != null ? Constants.imageUrl + model.pharmacyProductByCategoryModel![index].featured_img! : '',
                                           errorWidget: (context, url, error) => Image.asset(ImageUtils.tablets),
                                         ),
                                         InkWell(
@@ -156,7 +156,7 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                                     type: PageTransitionType
                                                         .fade,
                                                     child:
-                                                    MedicineDetails()));
+                                                    MedicineDetails(prodcutId: model.pharmacyProductByCategoryModel![index].id.toString())));
                                           },
                                           child: Container(
                                             decoration: BoxDecoration(

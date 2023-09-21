@@ -12,6 +12,21 @@ class PreferencesViewModel extends BaseViewModel {
   String? userAge;
   String? userHeight;
   String? userWeight;
+  String? prodId;
+  int? count;
+
+  Future saveProdID(String ProdID) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString("ProdID", ProdID);
+    prodId = ProdID;
+    notifyListeners();
+  }
+
+  Future getProdID() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    prodId = await sharedPreferences.getString("ProdID");
+    notifyListeners();
+  }
 
   Future saveUserToken(String tokenValue) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

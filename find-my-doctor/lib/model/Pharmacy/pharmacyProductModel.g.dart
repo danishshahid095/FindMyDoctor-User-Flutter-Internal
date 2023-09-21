@@ -12,7 +12,7 @@ PharmacyProductModel _$PharmacyProductModelFromJson(
       ..id = json['id'] as int?
       ..name = json['name'] as String?
       ..title = json['title'] as String?
-      ..featuredImg = json['featuredImg'] as String?
+      ..featured_img = json['featured_img'] as String?
       ..brandName = json['brandName'] as String?
       ..catName = json['catName'] as String?
       ..price = (json['price'] as num?)?.toDouble()
@@ -38,7 +38,7 @@ Map<String, dynamic> _$PharmacyProductModelToJson(
       'id': instance.id,
       'name': instance.name,
       'title': instance.title,
-      'featuredImg': instance.featuredImg,
+      'featured_img': instance.featured_img,
       'brandName': instance.brandName,
       'catName': instance.catName,
       'price': instance.price,

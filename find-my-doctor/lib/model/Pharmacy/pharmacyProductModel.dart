@@ -9,7 +9,7 @@ class PharmacyProductModel {
   int? id;
   String? name;
   String? title;
-  String? featuredImg;
+  String? featured_img;
   String? brandName;
   String? catName;
   double? price;
