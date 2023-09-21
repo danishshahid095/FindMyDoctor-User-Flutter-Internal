@@ -48,6 +48,7 @@ import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
 import '../model/Pharmacy/pharmacyMyActiveModel.dart';
 import '../model/Pharmacy/pharmacyMyHistoryModel.dart';
+import '../model/Pharmacy/product_details.dart';
 import '../model/login/get_user_meta_model.dart';
 import '../model/login/userLoginModel.dart';
 import '../services/get/get_beneficiaries.dart';
@@ -60,6 +61,7 @@ import '../services/get/get_pharmacy_brands.dart';
 import '../services/get/get_pharmacy_category.dart';
 import '../services/get/get_pharmacy_myactive.dart';
 import '../services/get/get_pharmacy_myhistory.dart';
+import '../services/get/get_product_details.dart';
 import '../services/get/get_user_meta.dart';
 import '../services/patch/user_meta_update.dart';
 import '../services/patch/user_update.dart';
@@ -1516,16 +1518,9 @@ class MainViewModel extends BaseViewModel {
 
   var docdetails = DocBookingDetails();
   var docmodel = BookingDetailsModel();
-  Future DocBookDetials(
-      BuildContext context,
-      token,
-      String orderId
-      ) async {
+  Future DocBookDetials(BuildContext context, token, String orderId) async {
     loadingWidget = true;
-    var docResponse = await docdetails.docbookingdetails(
-        token!,
-        orderId
-    );
+    var docResponse = await docdetails.docbookingdetails(token!, orderId);
     loadingWidget = false;
     if (docResponse != null && docResponse is BookingDetailsModel) {
       // Name = labResponse.data!.name;
@@ -1924,9 +1919,6 @@ class MainViewModel extends BaseViewModel {
   //   notifyListeners();
   // }
 
-
-
-
   // Show Error Message
   void showErrorMessage(BuildContext context, String error) async {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -1953,12 +1945,14 @@ class MainViewModel extends BaseViewModel {
   //####### Pharmacy my active api start  ###########
 
   GetPharmacyMyActive getpharmacyactive = GetPharmacyMyActive();
-  List<PharmacyActiveModel>? pharmacymyactive = PharmacyMyActiveCompleteModel().data;
+  List<PharmacyActiveModel>? pharmacymyactive =
+      PharmacyMyActiveCompleteModel().data;
   //bool doctoractiveLoader = false;
   Future gettingPharmacyActive(BuildContext context, String token) async {
-   // doctoractiveLoader = true;
+    // doctoractiveLoader = true;
 
-    var pharmacyActiveResponse = await getpharmacyactive.getpharmacyMyActive(token);
+    var pharmacyActiveResponse =
+        await getpharmacyactive.getpharmacyMyActive(token);
     if (pharmacyActiveResponse != null &&
         pharmacyActiveResponse is List<PharmacyActiveModel>) {
       pharmacymyactive = pharmacyActiveResponse;
@@ -1972,16 +1966,17 @@ class MainViewModel extends BaseViewModel {
   }
   //####### pharmacy my  active  api end  ###########
 
-
   //####### Pharmacy my History api start  ###########
 
   GetPharmacyMyHistory getpharmacymyhistory = GetPharmacyMyHistory();
-  List<PharmacyHistoryModel>? pharmacymyhistory = PharmacyMyHistoryCompleteModel().data;
+  List<PharmacyHistoryModel>? pharmacymyhistory =
+      PharmacyMyHistoryCompleteModel().data;
   //bool doctoractiveLoader = false;
   Future gettingPharmacyHistory(BuildContext context, String token) async {
-   // doctoractiveLoader = true;
+    // doctoractiveLoader = true;
 
-    var pharmacyHistoryResponse = await getpharmacymyhistory.getpharmacyMyHistory(token);
+    var pharmacyHistoryResponse =
+        await getpharmacymyhistory.getpharmacyMyHistory(token);
     if (pharmacyHistoryResponse != null &&
         pharmacyHistoryResponse is List<PharmacyHistoryModel>) {
       pharmacymyhistory = pharmacyHistoryResponse;
@@ -1994,4 +1989,24 @@ class MainViewModel extends BaseViewModel {
     //doctoractiveLoader = false;
   }
   //####### pharmacy my  active  api end  ###########
+
+  // ############   Product details api  Start ################
+
+  var productList = productDetails();
+  var prodmodel = ProductDetails();
+  Future prodDetials(BuildContext context, token, String Id) async {
+    loadingWidget = true;
+    var productResponse = await productList.ProductDetail(token!, Id);
+    loadingWidget = false;
+    if (productResponse != null && productResponse is ProductDetails) {
+      // Name = labResponse.data!.name;
+      // print(Name);
+      prodmodel = productResponse;
+     // print(prodmodel.name.toString());
+      notifyListeners();
+    } else {
+      notifyListeners();
+    }
+  }
+  // ############   preoduct details api  end ################
 }
