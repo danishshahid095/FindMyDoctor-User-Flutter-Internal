@@ -10,9 +10,11 @@ import 'package:find_my_doctor/Widgets/space_below_doctors.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_registration.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 import '../Utils/widget_loader.dart';
+import 'Signup/signup_main.dart';
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
@@ -114,14 +116,39 @@ class Login extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    TextWidget(
-                      textValue: "Forgot your password?",
-                      fontFamily: FontUtils.poppinsBold,
-                      fontSize: 1.6.t,
-                      textColor: ColorUtils.red,
-                    ),
+              // GestureDetector(
+              //   onTap: () {
+              //     // Define the action you want to perform when the text is clicked
+              //     // For example, you can navigate to a different screen.
+              //   },
+              //   child: TextWidget(
+              //     textValue: "Forgot your password?",
+              //     fontFamily: FontUtils.poppinsBold,
+              //     fontSize: 1.6.t,
+              //     textColor: ColorUtils.red,
+              //   ),
+              // ),
                     SizedBox(
                       height: 1.h,
+                    ),
+                    MaterialButton(
+                      padding: EdgeInsets.zero,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(25)),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            PageTransition(
+                                type: PageTransitionType.fade,
+                                child: Signup()));
+                      },
+                      child: Text(
+                        "Sign Up",
+                        style: TextStyle(
+                            fontFamily: FontUtils.interSemiBold,
+                            fontSize: 1.8.t,
+                            color: Colors.black),
+                      ),
                     ),
                   ],
                 ),

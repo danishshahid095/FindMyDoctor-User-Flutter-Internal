@@ -9,14 +9,17 @@ import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/space_below_doctors.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_registration.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../App/locator.dart';
 import '../../Utils/widget_loader.dart';
 import '../../ViewModels/main_view_model.dart';
+import '../login.dart';
 
 class Signup extends StatefulWidget {
   const Signup({Key? key}) : super(key: key);
@@ -245,6 +248,14 @@ class _SignupState extends State<Signup> {
                                       fontSize: 1.6.t,
                                       color: ColorUtils.lightGreen,
                                     ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child: Login()));
+                                      },
                                   ),
                                 ],
                               ),

@@ -98,7 +98,7 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                 children: [
                                   TextWidget(
                                     textValue:
-                                        'Hello .' + model.fullname.toString(),
+                                        'Hello ' + model.fullname.toString(),
                                     //textValue: "Hello Hussain,",
                                     fontFamily: FontUtils.poppinsBold,
                                     fontSize: 2.4.t,
@@ -112,24 +112,24 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                   ),
                                 ],
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    searchTapped = true;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: ColorUtils.silver1,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child:
-                                        SvgPicture.asset(ImageUtils.searchIcon),
-                                  ),
-                                ),
-                              ),
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     setState(() {
+                              //       searchTapped = true;
+                              //     });
+                              //   },
+                              //   child: Container(
+                              //     decoration: BoxDecoration(
+                              //       shape: BoxShape.circle,
+                              //       color: ColorUtils.silver1,
+                              //     ),
+                              //     child: Padding(
+                              //       padding: const EdgeInsets.all(8.0),
+                              //       child:
+                              //           SvgPicture.asset(ImageUtils.searchIcon),
+                              //     ),
+                              //   ),
+                              // ),
                             ],
                           ),
                         SizedBox(
@@ -279,71 +279,75 @@ class _HomeMainScreenState extends State<HomeMainScreen> {
                                 },
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                TextWidget(
-                                  textValue: "Blogs",
-                                  fontFamily: FontUtils.poppinsBold,
-                                  fontSize: 2.4.t,
-                                  textColor: ColorUtils.red,
-                                ),
-                                TextWidget(
-                                  textValue: "View All",
-                                  fontFamily: FontUtils.interSemiBold,
-                                  fontSize: 1.8.t,
-                                  textColor: ColorUtils.red,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            SizedBox(
-                              height: 25.h,
-                              child: ListView.separated(
-                                separatorBuilder: (context, index) {
-                                  return SizedBox(width: 4.w);
-                                },
-                                itemCount: model.blogs.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(8),
-                                        child: Image.asset(
-                                          model.blogs[index]["blogImage"],
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width /
-                                              2,
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      TextWidget(
-                                        textValue: model.blogs[index]
-                                            ["blogName"],
-                                        fontSize: 1.4.t,
-                                        fontFamily: FontUtils.interBold,
-                                        textColor: ColorUtils.black1,
-                                      ),
-                                      TextWidget(
-                                        textValue: model.blogs[index]
-                                            ["details"],
-                                        fontSize: 1.4.t,
-                                        fontFamily: FontUtils.interRegular,
-                                        textColor: ColorUtils.black1,
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
+                            // Blog Section
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     TextWidget(
+                            //       textValue: "Blogs",
+                            //       fontFamily: FontUtils.poppinsBold,
+                            //       fontSize: 2.4.t,
+                            //       textColor: ColorUtils.red,
+                            //     ),
+                            //     TextWidget(
+                            //       textValue: "View All",
+                            //       fontFamily: FontUtils.interSemiBold,
+                            //       fontSize: 1.8.t,
+                            //       textColor: ColorUtils.red,
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(
+                            //   height: 2.h,
+                            // ),
+                            // SizedBox(
+                            //   height: 25.h,
+                            //   child: ListView.separated(
+                            //     separatorBuilder: (context, index) {
+                            //       return SizedBox(width: 4.w);
+                            //     },
+                            //     itemCount: model.blogs.length,
+                            //     scrollDirection: Axis.horizontal,
+                            //     itemBuilder: (context, index) {
+                            //       return Column(
+                            //         crossAxisAlignment:
+                            //             CrossAxisAlignment.start,
+                            //         children: [
+                            //           ClipRRect(
+                            //             borderRadius: BorderRadius.circular(8),
+                            //             child: Image.asset(
+                            //               model.blogs[index]["blogImage"],
+                            //               width: MediaQuery.of(context)
+                            //                       .size
+                            //                       .width /
+                            //                   2,
+                            //             ),
+                            //           ),
+                            //           SizedBox(
+                            //             height: 2.h,
+                            //           ),
+                            //           TextWidget(
+                            //             textValue: model.blogs[index]
+                            //                 ["blogName"],
+                            //             fontSize: 1.4.t,
+                            //             fontFamily: FontUtils.interBold,
+                            //             textColor: ColorUtils.black1,
+                            //           ),
+                            //           TextWidget(
+                            //             textValue: model.blogs[index]
+                            //                 ["details"],
+                            //             fontSize: 1.4.t,
+                            //             fontFamily: FontUtils.interRegular,
+                            //             textColor: ColorUtils.black1,
+                            //           ),
+                            //         ],
+                            //       );
+                            //     },
+                            //   ),
+                            // ),
+                            ClipRRect(
+                                borderRadius: BorderRadius.circular(16.0),
+                                child: Image.asset(ImageUtils.callbanner)),
                           ],
                         ),
                       ),

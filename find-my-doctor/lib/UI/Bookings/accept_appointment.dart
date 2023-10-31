@@ -426,8 +426,6 @@ class _Accept_AppointmentState extends State<Accept_Appointment> {
                           ),
                         ),
                       ),
-
-
                     ],
                   ),
                 ),

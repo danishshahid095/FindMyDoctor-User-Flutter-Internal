@@ -83,4 +83,5 @@ class ImageUtils {
   static String menuIcon = "assets/images/menu_icon.svg";
   static String edit = "assets/images/edit.svg";
   static String location = "assets/images/location.svg";
+  static String callbanner = "assets/images/call_banner.png";
 }
