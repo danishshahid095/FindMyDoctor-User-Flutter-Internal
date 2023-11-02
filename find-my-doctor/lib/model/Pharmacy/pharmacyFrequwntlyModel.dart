@@ -1,11 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-
-part 'pharmacyProductModel.g.dart';
+part 'pharmacyFrequwntlyModel.g.dart';
 
 @JsonSerializable()
-class PharmacyProductModel {
-  PharmacyProductModel();
-
+class PharmacyFrequentlyModel {
+  PharmacyFrequentlyModel();
   int? id;
   String? name;
   String? title;
@@ -28,11 +26,13 @@ class PharmacyProductModel {
   String? dosage;
   int? activity;
   double? rating;
+  int? isFeatured;
+  int? totalCount;
 
-  factory PharmacyProductModel.fromJson(Map<String, dynamic> json) =>
-      _$PharmacyProductModelFromJson(json);
+  factory PharmacyFrequentlyModel.fromJson(Map<String, dynamic> json) =>
+      _$PharmacyFrequentlyModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PharmacyProductModelToJson(this);
+  Map<String, dynamic> toJson() => _$PharmacyFrequentlyModelToJson(this);
 
   // @override
   // String toString() {
@@ -41,22 +41,22 @@ class PharmacyProductModel {
 }
 
 @JsonSerializable()
-class PharmacyProductCompleteModel {
+class PharmacyFrequentlyModelCompleteModel {
   int? success;
-  List<PharmacyProductModel>? data;
+  List<PharmacyFrequentlyModel>? data;
 
-  PharmacyProductCompleteModel({
+  PharmacyFrequentlyModelCompleteModel({
     this.success,
     this.data,
   });
 
-  factory PharmacyProductCompleteModel.fromJson(Map<String, dynamic> json) =>
-      _$PharmacyProductCompleteModelFromJson(json);
+  factory PharmacyFrequentlyModelCompleteModel.fromJson(Map<String, dynamic> json) =>
+      _$PharmacyFrequentlyModelCompleteModelFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PharmacyProductCompleteModelToJson(this);
+  Map<String, dynamic> toJson() => _$PharmacyFrequentlyModelCompleteModelToJson(this);
 
   @override
   String toString() {
-    return 'PharmacyProductCompleteModel{success: $success, data: $data}';
+    return 'PharmacyFrequentlyModelCompleteModel{success: $success, data: $data}';
   }
 }

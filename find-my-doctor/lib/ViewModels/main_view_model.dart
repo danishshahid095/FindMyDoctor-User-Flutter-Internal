@@ -46,6 +46,7 @@ import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
 import '../model/Pharmacy/pharmacyCategoryModel.dart';
+import '../model/Pharmacy/pharmacyFrequwntlyModel.dart';
 import '../model/Pharmacy/pharmacyMyActiveModel.dart';
 import '../model/Pharmacy/pharmacyMyHistoryModel.dart';
 import '../model/Pharmacy/product_details.dart';
@@ -55,6 +56,7 @@ import '../services/get/get_beneficiaries.dart';
 import '../services/get/get_doc_details.dart';
 import '../services/get/get_doctor_myactive.dart';
 import '../services/get/get_doctor_myhistory.dart';
+import '../services/get/get_frequently.dart';
 import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
@@ -1113,6 +1115,45 @@ class MainViewModel extends BaseViewModel {
 
 //######################################################################## Pharmacy Best Seller ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+ //######################################################################## Pharmacy Frequntly ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
+
+  GetFrequently getPharmacyFrequntly = GetFrequently();
+  List<PharmacyFrequentlyModel>? pharmacyFreqModel =
+      PharmacyFrequentlyModelCompleteModel().data;
+  bool pharmacyFreq = false;
+
+  Future gettingPharmacyFrequntly(BuildContext context) async {
+    pharmacyFreq = true;
+
+    var pharmacyfreqResponse =
+        await getPharmacyFrequntly.getpharmacyfrequntly();
+    if (pharmacyfreqResponse != null &&
+        pharmacyfreqResponse is List<PharmacyFrequentlyModel>) {
+      pharmacyFreqModel = pharmacyfreqResponse;
+      pharmacyFreq = false;
+      notifyListeners();
+    } else {
+      pharmacyFreq = false;
+      notifyListeners();
+    }
+    pharmacyFreq = false;
+  }
+
+//######################################################################## Pharmacy Best Seller ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
 
   //######################################################################## Pharmacy Product By Category ###############################################################################//
 /////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////

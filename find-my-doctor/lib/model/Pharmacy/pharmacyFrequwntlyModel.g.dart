@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'pharmacyProductModel.dart';
+part of 'pharmacyFrequwntlyModel.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-PharmacyProductModel _$PharmacyProductModelFromJson(
+PharmacyFrequentlyModel _$PharmacyFrequentlyModelFromJson(
         Map<String, dynamic> json) =>
-    PharmacyProductModel()
+    PharmacyFrequentlyModel()
       ..id = json['id'] as int?
       ..name = json['name'] as String?
       ..title = json['title'] as String?
@@ -30,10 +30,12 @@ PharmacyProductModel _$PharmacyProductModelFromJson(
       ..warning = json['warning'] as String?
       ..dosage = json['dosage'] as String?
       ..activity = json['activity'] as int?
-      ..rating = (json['rating'] as num?)?.toDouble();
+      ..rating = (json['rating'] as num?)?.toDouble()
+      ..isFeatured = json['isFeatured'] as int?
+      ..totalCount = json['totalCount'] as int?;
 
-Map<String, dynamic> _$PharmacyProductModelToJson(
-        PharmacyProductModel instance) =>
+Map<String, dynamic> _$PharmacyFrequentlyModelToJson(
+        PharmacyFrequentlyModel instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
@@ -57,19 +59,22 @@ Map<String, dynamic> _$PharmacyProductModelToJson(
       'dosage': instance.dosage,
       'activity': instance.activity,
       'rating': instance.rating,
+      'isFeatured': instance.isFeatured,
+      'totalCount': instance.totalCount,
     };
 
-PharmacyProductCompleteModel _$PharmacyProductCompleteModelFromJson(
-        Map<String, dynamic> json) =>
-    PharmacyProductCompleteModel(
-      success: json['success'] as int?,
-      data: (json['data'] as List<dynamic>?)
-          ?.map((e) => PharmacyProductModel.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+PharmacyFrequentlyModelCompleteModel
+    _$PharmacyFrequentlyModelCompleteModelFromJson(Map<String, dynamic> json) =>
+        PharmacyFrequentlyModelCompleteModel(
+          success: json['success'] as int?,
+          data: (json['data'] as List<dynamic>?)
+              ?.map((e) =>
+                  PharmacyFrequentlyModel.fromJson(e as Map<String, dynamic>))
+              .toList(),
+        );
 
-Map<String, dynamic> _$PharmacyProductCompleteModelToJson(
-        PharmacyProductCompleteModel instance) =>
+Map<String, dynamic> _$PharmacyFrequentlyModelCompleteModelToJson(
+        PharmacyFrequentlyModelCompleteModel instance) =>
     <String, dynamic>{
       'success': instance.success,
       'data': instance.data,

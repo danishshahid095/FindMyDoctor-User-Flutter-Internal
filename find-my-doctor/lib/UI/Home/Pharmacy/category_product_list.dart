@@ -19,252 +19,305 @@ import '../../../Utils/constants.dart';
 import '../../../Utils/whole_page_loader.dart';
 
 class CategoryProductList extends StatefulWidget {
-
   int categoryId;
-  CategoryProductList({required this.categoryId,  Key? key}) : super(key: key);
+  CategoryProductList({required this.categoryId, Key? key}) : super(key: key);
 
   @override
   State<CategoryProductList> createState() => _CategoryProductListState();
 }
 
-
 class _CategoryProductListState extends State<CategoryProductList> {
-
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onViewModelReady: (model) async{
-        await model.gettingPharmacyProductByCategory(context, widget.categoryId);
+      onViewModelReady: (model) async {
+        await model.gettingPharmacyProductByCategory(
+            context, widget.categoryId);
       },
       builder: (context, model, child) {
-        return model.pharmacyProductByCategoryLoader == true ? WholePageLoader() : GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: SafeArea(
-            top: false,
-            bottom: false,
-            child: Scaffold(
-              backgroundColor: Colors.white,
-              body: Column(
-                children: [
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: context.getPadding().top,
-                      ),
-                      Container(
-                        height: 10.h,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.grey.withOpacity(0.5),
-                              spreadRadius: 3,
-                              blurRadius: 7,
-                              offset:
-                              Offset(0, 3), // changes position of shadow
+        return model.pharmacyProductByCategoryLoader == true
+            ? WholePageLoader()
+            : GestureDetector(
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SafeArea(
+                  top: false,
+                  bottom: false,
+                  child: Scaffold(
+                    backgroundColor: Colors.white,
+                    body: Column(
+                      children: [
+                        Column(
+                          children: [
+                            SizedBox(
+                              height: context.getPadding().top,
                             ),
-                          ],
-                        ),
-                        child: Padding(
-                          padding:
-                          EdgeInsets.only(left: 3.w, top: 2.h, right: 3.w),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Row(
-                                children: [
-                                  ExpandTapWidget(
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    tapPadding: EdgeInsets.all(50),
-                                    child: SvgPicture.asset(
-                                        ImageUtils.backArrowRed),
-                                  ),
-                                  SizedBox(
-                                    width: 4.w,
-                                  ),
-                                  TextWidget(
-                                    textValue: "Product List",
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 2.t,
-                                    textColor: ColorUtils.red,
+                            Container(
+                              height: 10.h,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 3,
+                                    blurRadius: 7,
+                                    offset: Offset(
+                                        0, 3), // changes position of shadow
                                   ),
                                 ],
                               ),
-                              GestureDetector(
-                                  onTap: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: PharmacyConfirmDetails()));
-                                  },
-                                  child: SvgPicture.asset(ImageUtils.basket)),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          TopMarginHome(),
-                          SizedBox(
-                            height: 4.h,
-                          ),
-                          GridView.builder(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            primary: false,
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 2,
-                                crossAxisSpacing: 10.0,
-                                mainAxisSpacing: 10.0,
-                                childAspectRatio: 0.8),
-                            itemBuilder: (context, index) {
-                              return Container(
-                                margin: EdgeInsets.only(left: 3.w),
-                                child: Column(
-                                  crossAxisAlignment:
-                                  CrossAxisAlignment.start,
+                              child: Padding(
+                                padding: EdgeInsets.only(
+                                    left: 3.w, top: 2.h, right: 3.w),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.end,
                                       children: [
-                                        CachedNetworkImage(
-                                          placeholder: (context, url) {
-                                            return Image.asset(ImageUtils.tablets);
-                                          },
-                                          width: 35.i,
-                                          height: 35.i,
-                                          fit: BoxFit.cover,
-                                          imageUrl: model.pharmacyProductByCategoryModel?[index].featured_img != null ? Constants.imageUrl + model.pharmacyProductByCategoryModel![index].featured_img! : '',
-                                          errorWidget: (context, url, error) => Image.asset(ImageUtils.tablets),
-                                        ),
-                                        InkWell(
+                                        ExpandTapWidget(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
-                                                PageTransition(
-                                                    type: PageTransitionType
-                                                        .fade,
-                                                    child:
-                                                    MedicineDetails(prodcutId: model.pharmacyProductByCategoryModel![index].id.toString())));
+                                            Navigator.pop(context);
                                           },
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: ColorUtils.red,
-                                            ),
-                                            child: Icon(
-                                              Icons.add,
-                                              color: ColorUtils.white,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(
-                                      height: 2.h,
-                                    ),
-                                    Row(
-                                      crossAxisAlignment:
-                                      CrossAxisAlignment.start,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                          children: [
-                                            TextWidget(
-                                              textValue:
-                                              model.pharmacyProductByCategoryModel?[
-                                              index].name,
-                                              fontFamily:
-                                              FontUtils.interSemiBold,
-                                              fontSize: 1.8.t,
-                                              textColor:
-                                              ColorUtils.blackShade,
-                                            ),
-                                            TextWidget(
-                                              textValue:
-                                              model.pharmacyProductByCategoryModel?[index].quantity.toString(),
-                                              fontFamily:
-                                              FontUtils.interMedium,
-                                              fontSize: 1.6.t,
-                                              textColor: ColorUtils.silver2,
-                                            ),
-                                            SizedBox(
-                                              height: 1.h,
-                                            ),
-                                            TextWidget(
-                                              textValue:
-                                              model.pharmacyProductByCategoryModel?[
-                                              index].discountedPrice.toString(),
-                                              fontFamily:
-                                              FontUtils.interBold,
-                                              fontSize: 2.2.t,
-                                              textColor: ColorUtils.red,
-                                            ),
-                                            // Text(
-                                            //   "\PKR 900",
-                                            //   style: TextStyle(
-                                            //     fontFamily:
-                                            //         FontUtils.interMedium,
-                                            //     fontSize: 1.4.t,
-                                            //     color: ColorUtils.silver2,
-                                            //     decoration: TextDecoration
-                                            //         .lineThrough,
-                                            //   ),
-                                            // ),
-                                          ],
+                                          tapPadding: EdgeInsets.all(50),
+                                          child: SvgPicture.asset(
+                                              ImageUtils.backArrowRed),
                                         ),
                                         SizedBox(
-                                          width: 8.w,
+                                          width: 4.w,
                                         ),
-                                        SvgPicture.asset(
-                                            ImageUtils.redHeartBorder),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          model.pharmacyProductByCategoryModel?[index].price.toString() ?? "0",
-                                          style: TextStyle(
-                                            fontFamily:
-                                            FontUtils.interMedium,
-                                            fontSize: 1.4.t,
-                                            color: ColorUtils.silver2,
-                                            decoration:
-                                            TextDecoration.lineThrough,
-                                          ),
+                                        TextWidget(
+                                          textValue: "Product List",
+                                          fontFamily: FontUtils.interSemiBold,
+                                          fontSize: 2.t,
+                                          textColor: ColorUtils.red,
                                         ),
                                       ],
                                     ),
+                                    GestureDetector(
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                  type: PageTransitionType.fade,
+                                                  child:
+                                                      PharmacyConfirmDetails()));
+                                        },
+                                        child: SvgPicture.asset(
+                                            ImageUtils.basket)),
                                   ],
                                 ),
-                              );
-                            },
-                            itemCount: model.pharmacyProductByCategoryModel?.length ?? 0,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Expanded(
+                          child: SingleChildScrollView(
+                            child: Column(
+                              children: [
+                                TopMarginHome(),
+                                SizedBox(
+                                  height: 4.h,
+                                ),
+                                GridView.builder(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  primary: false,
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                          childAspectRatio: 0.8),
+                                  itemBuilder: (context, index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child: MedicineDetails(
+                                                    prodcutId: model
+                                                        .pharmacyProductByCategoryModel![
+                                                            index]
+                                                        .id
+                                                        .toString())));
+                                      },
+                                      child: Container(
+                                        margin: EdgeInsets.only(left: 3.w),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                CachedNetworkImage(
+                                                  placeholder: (context, url) {
+                                                    return Image.asset(
+                                                        ImageUtils.tablets);
+                                                  },
+                                                  width: 35.i,
+                                                  height: 35.i,
+                                                  fit: BoxFit.cover,
+                                                  imageUrl: model
+                                                              .pharmacyProductByCategoryModel?[
+                                                                  index]
+                                                              .featured_img !=
+                                                          null
+                                                      ? Constants.imageUrl +
+                                                          model
+                                                              .pharmacyProductByCategoryModel![
+                                                                  index]
+                                                              .featured_img!
+                                                      : '',
+                                                  errorWidget: (context, url,
+                                                          error) =>
+                                                      Image.asset(
+                                                          ImageUtils.tablets),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Navigator.push(
+                                                        context,
+                                                        PageTransition(
+                                                            type:
+                                                                PageTransitionType
+                                                                    .fade,
+                                                            child: MedicineDetails(
+                                                                prodcutId: model
+                                                                    .pharmacyProductByCategoryModel![
+                                                                        index]
+                                                                    .id
+                                                                    .toString())));
+                                                  },
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                      color: ColorUtils.red,
+                                                    ),
+                                                    child: Icon(
+                                                      Icons.add,
+                                                      color: ColorUtils.white,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: 2.h,
+                                            ),
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    TextWidget(
+                                                      textValue: model
+                                                          .pharmacyProductByCategoryModel?[
+                                                              index]
+                                                          .name,
+                                                      fontFamily: FontUtils
+                                                          .interSemiBold,
+                                                      fontSize: 1.8.t,
+                                                      textColor:
+                                                          ColorUtils.blackShade,
+                                                    ),
+                                                    TextWidget(
+                                                      textValue: model
+                                                          .pharmacyProductByCategoryModel?[
+                                                              index]
+                                                          .quantity
+                                                          .toString(),
+                                                      fontFamily:
+                                                          FontUtils.interMedium,
+                                                      fontSize: 1.6.t,
+                                                      textColor:
+                                                          ColorUtils.silver2,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 1.h,
+                                                    ),
+                                                    TextWidget(
+                                                      textValue: 'PKR ' +
+                                                              model
+                                                                  .pharmacyProductByCategoryModel![
+                                                                      index]
+                                                                  .price
+                                                                  .toString() ??
+                                                          "0",
+                                                      fontFamily:
+                                                          FontUtils.interBold,
+                                                      fontSize: 2.2.t,
+                                                      textColor: ColorUtils.red,
+                                                    ),
+                                                    // Text(
+                                                    //   "\PKR 900",
+                                                    //   style: TextStyle(
+                                                    //     fontFamily:
+                                                    //         FontUtils.interMedium,
+                                                    //     fontSize: 1.4.t,
+                                                    //     color: ColorUtils.silver2,
+                                                    //     decoration: TextDecoration
+                                                    //         .lineThrough,
+                                                    //   ),
+                                                    // ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  width: 8.w,
+                                                ),
+                                                SvgPicture.asset(
+                                                    ImageUtils.redHeartBorder),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  model
+                                                      .pharmacyProductByCategoryModel![
+                                                          index]
+                                                      .discounted_price
+                                                      .toString(),
+                                                  style: TextStyle(
+                                                    fontFamily:
+                                                        FontUtils.interMedium,
+                                                    fontSize: 1.4.t,
+                                                    color: ColorUtils.silver2,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  itemCount: model
+                                          .pharmacyProductByCategoryModel
+                                          ?.length ??
+                                      0,
+                                ),
+                                // SizedBox(
+                                //   height: 1.5.h,
+                                // ),
+                              ],
+                            ),
                           ),
-                          // SizedBox(
-                          //   height: 1.5.h,
-                          // ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
-        );
+                ),
+              );
       },
     );
   }

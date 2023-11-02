@@ -64,6 +64,7 @@ dependencies:
   http: ^0.13.6
   #zego_uikit_prebuilt_call: ^3.12.3
   zego_uikit_prebuilt_call: ^3.13.5
+  zego_express_engine: ^3.9.0
 
 
 dev_dependencies:
