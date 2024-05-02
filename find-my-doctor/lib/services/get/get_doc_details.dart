@@ -4,7 +4,6 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 
 import '../../model/Doctor/booking_details_model.dart';
-import '../../model/Lab/get_labs_details_model.dart';
 import '../../modules/dio_service.dart';
 
 class DocBookingDetails {

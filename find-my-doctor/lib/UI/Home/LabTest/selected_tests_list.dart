@@ -14,7 +14,6 @@ import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectedTestsList extends StatelessWidget {

@@ -15,10 +15,11 @@ class AddBookingDoctorOnline {
       String is_beneficiary,
       int type,
       String date_time,
-      int promo,
+      String promo,
       int payment_method,
-      String consultation_type,
+      int consultation_type,
       int booked_doctor) async {
+    print("Consulation Dan" + consultation_type.toString());
     var bookingdoconlineJson = {
       "foruser": foruser,
       "recepient": recepient,
@@ -27,7 +28,7 @@ class AddBookingDoctorOnline {
       "date_time": date_time,
       "promo": promo,
       "payment_method": payment_method,
-      "consultation_type": consultation_type,
+      "consultation_type": consultation_type.toString(),
       "booked_doctor": booked_doctor,
     };
     try {

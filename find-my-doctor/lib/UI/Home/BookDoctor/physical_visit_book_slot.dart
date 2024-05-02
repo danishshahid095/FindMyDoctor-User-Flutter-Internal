@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:find_my_doctor/App/locator.dart';
 import 'package:find_my_doctor/UI/Home/BookDoctor/physical_visit_confirm_details.dart';
@@ -21,10 +18,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
-
-import '../../../modules/dio_service.dart';
-import '../../../modules/navigation_service.dart' as my_nav_service;
-import 'online_visit_confirm_details.dart';
 
 class PhysicalVisitBookSlot extends StatefulWidget {
   int? id;
@@ -416,18 +409,22 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
                                 // Combine the formatted date and time
                                 String combinedDateTime =
                                     "$formattedDate $formattedTime";
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child: PhysicalVisitConfirmDetails(
-                                          date: combinedDateTime.toString(),
-                                          time: selectedTime.toString(),
-                                          consultationId: widget.id,
-                                        )));
-                                print('select date' + date);
-                                print(
-                                    'select date and time' + combinedDateTime);
+                                if (doneTapped == true) {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: PhysicalVisitConfirmDetails(
+                                            date: combinedDateTime.toString(),
+                                            time: selectedTime.toString(),
+                                            consultationId: widget.id,
+                                          )));
+                                  print('select date' + date);
+                                  print('select date and time' +
+                                      combinedDateTime);
+                                } else {
+                                  model.showErrorMessage(context, "Select your date and time");
+                                }
                                 // Navigator.push(
                                 //     context,
                                 //     PageTransition(
@@ -565,52 +562,4 @@ class _PhysicalVisitBookSlotState extends State<PhysicalVisitBookSlot> {
       });
     }
   }
-
-  // void _showTimePicker(BuildContext context) {
-  //   showModalBottomSheet(
-  //     context: context,
-  //     builder: (BuildContext builder) {
-  //       return Container(
-  //         height: 200,
-  //         child: Column(
-  //           children: [
-  //             Expanded(
-  //               child: ListView.builder(
-  //                 itemCount: timeEntries.length,
-  //                 itemBuilder: (context, index) {
-  //                   return ListTile(
-  //                     title: Text(timeEntries[index]),
-  //                     onTap: () {
-  //                       setState(() {
-  //                         List<String> timeParts =
-  //                             timeEntries[index].split(':');
-  //                         int hour = int.parse(timeParts[0]);
-  //                         int minute = int.parse(timeParts[1]);
-  //                         selectedTime = TimeOfDay(hour: hour, minute: minute);
-  //                         //selectedTime = timeEntries[index];
-  //                       });
-  //                     },
-  //                   );
-  //                 },
-  //               ),
-  //             ),
-  //             ElevatedButton(
-  //               onPressed: () {
-  //                 // _showTimePicker(context);
-  //                 Navigator.pop(context, selectedTime);
-  //                 print(selectedTime);
-  //               },
-  //               child: Text('Done'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //     },
-  //   ).then((value) {
-  //     if (value != null) {
-  //       // Do something with the selected time
-  //       print('Selected time: $value');
-  //     }
-  //   });
-  // }
 }

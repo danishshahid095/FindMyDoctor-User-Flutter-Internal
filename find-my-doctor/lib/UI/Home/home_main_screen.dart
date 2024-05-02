@@ -1,5 +1,4 @@
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Home/BookDoctor/book_a_doctor.dart';
 import 'package:find_my_doctor/UI/Home/Insurance/insurance_main_screen.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';

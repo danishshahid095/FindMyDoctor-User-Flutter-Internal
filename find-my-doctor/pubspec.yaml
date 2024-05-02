@@ -23,7 +23,7 @@ dependencies:
   flutter_svg: ^2.0.6
   #flutter_svg: ^1.1.6
   # for providing stack services
-  stacked_services: ^0.9.8
+  stacked_services: ^1.5.0
   # for json serialization:
   json_annotation: ^4.8.1
   # code generator for get_it:
@@ -35,11 +35,11 @@ dependencies:
   # for restarting and losing states:
   flutter_phoenix: ^1.1.0
   #image picker
-  image_picker: ^0.8.6
+  image_picker: ^1.1.1
   #phone country code picker
   intl_phone_field: ^3.1.0
   #for date picking
-  intl: ^0.17.0
+  intl: ^0.18.1
   #for pin code
   pin_code_text_field: ^1.8.0
   #for path provider
@@ -56,15 +56,15 @@ dependencies:
   # Firebase Integration
   firebase_core: ^2.14.0
   firebase_messaging: ^14.6.4
-  flutter_local_notifications: ^13.0.0
+  flutter_local_notifications: ^17.1.1
   cupertino_date_textbox: ^1.0.1
   pdf: ^3.9.0
-  syncfusion_flutter_pdfviewer: ^20.3.47
+  syncfusion_flutter_pdfviewer: ^24.2.8
   flutter_downloader: ^1.5.0
-  http: ^0.13.6
+  http: ^1.2.1
   #zego_uikit_prebuilt_call: ^3.12.3
-  zego_uikit_prebuilt_call: ^3.13.5
-  zego_express_engine: ^3.9.0
+  #zego_uikit_prebuilt_call: ^4.9.0
+  #zego_express_engine: ^3.9.0
 
 
 dev_dependencies:

@@ -55,7 +55,6 @@ class _SelectSpecialistCategoryState extends State<SelectSpecialistCategory> {
                   PageHorizontalMargin(
                     widget: Column(
                       children: [
-                        MarginBelowAppBar(),
                         // TextField(
                         //   style: TextStyle(color: ColorUtils.silver2),
                         //   decoration: InputDecoration(
@@ -91,72 +90,66 @@ class _SelectSpecialistCategoryState extends State<SelectSpecialistCategory> {
                         // ),
                         //
                         SizedBox(height: 3.h,),
-                        SizedBox(
-                          height: 40.h,
-                          child: SizedBox(
-                            height: 28.5.h,
-                            child: GridView.builder(
-                              itemCount: model.specialistCategoryModel != null ? model.specialistCategoryModel!.length : 0,
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              primary: false,
-                              gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 10.0,
-                                  mainAxisSpacing: 10.0,
-                                  childAspectRatio: 1.7),
-                              itemBuilder: (context, index) {
-                                return GestureDetector(
-                                  onTap: (){
-                                    Navigator.push(context,
-                                        PageTransition(type: PageTransitionType.fade, child:  SelectDoctor(categoryId: model.specialistCategoryModel?[index].id ?? 0,)));
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.rectangle,
-                                      borderRadius: BorderRadius.circular(8),
-                                      color: ColorUtils.silver1,
-                                    ),
-                                    child: Padding(
-                                      padding:
-                                      EdgeInsets.symmetric(horizontal: 1.w),
-                                      child: Row(
-                                        children: [
-                                          CachedNetworkImage(
-                                              placeholder: (context, url) {
-                                                return Image.asset(ImageUtils.stetescope);
-                                              },
-                                              width: 16.i,
-                                              //height: MediaQuery.of(context).size.height / 3,
-                                              fit: BoxFit.cover,
-                                              imageUrl: Constants.imageUrl+model.specialistCategoryModel![index].image!,
-                                              errorWidget: (context, url, error) => Image.asset(ImageUtils.stetescope)
-                                          ),
-                                          SizedBox(
-                                            width: 1.w,
-                                          ),
-                                          Expanded(
-                                            child: Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: Text(
-                                                model.specialistCategoryModel![index].title!,
-                                                style: TextStyle(
-                                                    fontFamily:
-                                                    FontUtils.poppinsBold,
-                                                    fontSize: 2.t,
-                                                    color: ColorUtils.blackShade),
-                                              ),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                );
+                        GridView.builder(
+                          itemCount: model.specialistCategoryModel != null ? model.specialistCategoryModel!.length : 0,
+                          padding: EdgeInsets.zero,
+                          shrinkWrap: true,
+                          primary: false,
+                          gridDelegate:
+                          SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              crossAxisSpacing: 10.0,
+                              mainAxisSpacing: 10.0,
+                              childAspectRatio: 1.7),
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: (){
+                                Navigator.push(context,
+                                    PageTransition(type: PageTransitionType.fade, child:  SelectDoctor(categoryId: model.specialistCategoryModel?[index].id ?? 0,)));
                               },
-                            ),
-                          ),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: ColorUtils.silver1,
+                                ),
+                                child: Padding(
+                                  padding:
+                                  EdgeInsets.symmetric(horizontal: 1.w),
+                                  child: Row(
+                                    children: [
+                                      CachedNetworkImage(
+                                          placeholder: (context, url) {
+                                            return Image.asset(ImageUtils.stetescope);
+                                          },
+                                          width: 16.i,
+                                          //height: MediaQuery.of(context).size.height / 3,
+                                          fit: BoxFit.cover,
+                                          imageUrl: Constants.imageUrl+model.specialistCategoryModel![index].image!,
+                                          errorWidget: (context, url, error) => Image.asset(ImageUtils.stetescope)
+                                      ),
+                                      SizedBox(
+                                        width: 1.w,
+                                      ),
+                                      Expanded(
+                                        child: Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            model.specialistCategoryModel![index].title!,
+                                            style: TextStyle(
+                                                fontFamily:
+                                                FontUtils.poppinsBold,
+                                                fontSize: 2.t,
+                                                color: ColorUtils.blackShade),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),

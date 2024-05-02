@@ -67,7 +67,7 @@ class _AddNewBeneficiaryState extends State<AddNewBeneficiary> {
                             CustomTextField(
                               suffixRequired: true,
                               svgImage: ImageUtils.forwardIcon,
-                              hintText: "Select Gender",
+                              hintText: "Enter Gender",
                               controller: model.newBeneficiaryGenderController,
                               suffixImageHeight: 1.5.i,
                               suffixImageWidth: 1.5.i,
@@ -76,7 +76,7 @@ class _AddNewBeneficiaryState extends State<AddNewBeneficiary> {
                             CustomTextField(
                               suffixRequired: true,
                               svgImage: ImageUtils.forwardIcon,
-                              hintText: "Select Date of Birth",
+                              hintText: "Enter Date of Birth",
                               controller: model.newBeneficiaryDOBController,
                               suffixImageHeight: 1.5.i,
                               suffixImageWidth: 1.5.i,
@@ -85,7 +85,7 @@ class _AddNewBeneficiaryState extends State<AddNewBeneficiary> {
                             CustomTextField(
                               suffixRequired: true,
                               svgImage: ImageUtils.forwardIcon,
-                              hintText: "Select Relation",
+                              hintText: "Enter Relation",
                               controller: model.newBeneficiaryRelationController,
                               suffixImageHeight: 1.5.i,
                               suffixImageWidth: 1.5.i,
@@ -117,7 +117,7 @@ class _AddNewBeneficiaryState extends State<AddNewBeneficiary> {
                             CustomTextField(
                               suffixRequired: true,
                               svgImage: ImageUtils.forwardIcon,
-                              hintText: "Select City",
+                              hintText: "Enter City",
                               controller: model.newBeneficiaryCityController,
                               suffixImageHeight: 1.5.i,
                               suffixImageWidth: 1.5.i,

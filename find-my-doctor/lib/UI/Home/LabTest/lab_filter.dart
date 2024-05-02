@@ -30,30 +30,10 @@ class AllLabFilter extends StatefulWidget {
 
 class _AllLabFilterState extends State<AllLabFilter> {
 
-  List allLabs = [
-    {
-      "labImage" : ImageUtils.dowHospital,
-      "testName" : "Test ABC",
-      "time" : "Dow Lab | 48 hours",
-      "money" : "Rs. 1,500"
-    },
-    {
-      "labImage" : ImageUtils.aghaKhan,
-      "testName" : "Test ABC",
-      "time" : "AKUH Lab | 36 hours",
-      "money" : "Rs. 1,700"
-    },
-    {
-      "labImage" : ImageUtils.esaLab,
-      "testName" : "Test ABC",
-      "time" : "ESSA Lab | 40 hours",
-      "money" : "Rs. 1,100"
-    },
-  ];
-
   List<Map<String, int>> selectedTests = [];
   List<bool>? _isChecked;
   bool labSelected = false;
+  double price = 0;
 
   @override
   void initState() {
@@ -137,42 +117,9 @@ class _AllLabFilterState extends State<AllLabFilter> {
                             widget: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                TextField(
-                                  style: TextStyle(color: ColorUtils.silver2),
-                                  decoration: InputDecoration(
-                                    fillColor: ColorUtils.silver1,
-                                    filled: true,
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(color: ColorUtils.silver1),
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(30.0)),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius:
-                                      BorderRadius.all(Radius.circular(30.0)),
-                                      borderSide: BorderSide(
-                                          color: ColorUtils.silver1, width: 1.5),
-                                    ),
-                                    labelStyle:
-                                    const TextStyle(color: Color(0xFFDEDEDE)),
-                                    hintText: "Search Tests",
-                                    hintStyle: TextStyle(
-                                        fontFamily: FontUtils.interRegular,
-                                        color: ColorUtils.silver2
-                                    ),
-                                    prefixIcon: Padding(
-                                      padding: EdgeInsets.symmetric(horizontal: 14.0),
-                                      child: SvgPicture.asset(
-                                        ImageUtils.searchIcon,
-                                        height: 1.i,
-                                        width: 1.i,
-                                      ),
-                                    ),
-                                  ),
-                                ),
                                 SizedBox(height: 3.h,),
                                 TextWidget(
-                                  textValue: "Test ABC",
+                                  textValue: model.testsModel?[0].lab_name ?? "Lab",
                                   fontFamily: FontUtils.interBold,
                                   fontSize: 2.t,
                                   textColor: ColorUtils.red,
@@ -239,9 +186,11 @@ class _AllLabFilterState extends State<AllLabFilter> {
                                             setState(() {
                                               if (val == true) {
                                                 labSelected = true;
+                                                price += model.testsModel![index].test_amount ?? 0.0;
                                                 selectedTests.add({"id": model.testsModel![index].test_id ?? 0});
                                                 _isChecked![index] = val!;
                                               } else {
+                                                price -= model.testsModel![index].test_amount ?? 0.0;
                                                 selectedTests.removeWhere(
                                                         (element) => element["id"] == model.testsModel![index].test_id);
                                                 _isChecked![index] = val!;
@@ -289,7 +238,7 @@ class _AllLabFilterState extends State<AllLabFilter> {
 
                           print(selectedTests);
                           Navigator.push(context,
-                              PageTransition(type: PageTransitionType.fade, child: LabTestBookSlot(selectedTests: selectedTests,labId: widget.labId,)));
+                              PageTransition(type: PageTransitionType.fade, child: LabTestBookSlot(selectedTests: selectedTests,labId: widget.labId,price: price,)));
                             //  PageTransition(type: PageTransitionType.fade, child: SelectedTestsList()));
                         },
                         child: Text(

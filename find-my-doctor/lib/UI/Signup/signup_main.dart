@@ -4,11 +4,10 @@ import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
+import 'package:find_my_doctor/Widgets/custom_password_text_field.dart';
 import 'package:find_my_doctor/Widgets/custom_text_field.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
-import 'package:find_my_doctor/Widgets/space_below_doctors.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
-import 'package:find_my_doctor/Widgets/top_margin_registration.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -56,7 +55,7 @@ class _SignupState extends State<Signup> {
                         ),
                         SizedBox(
                           child:  Padding(
-                            padding: EdgeInsets.only(left: 10),
+                            padding: EdgeInsets.only(left: 10, top: 15),
                             child: Row(
                               children: [
                                 ExpandTapWidget(
@@ -80,7 +79,7 @@ class _SignupState extends State<Signup> {
                             ),
                           ),
                         ),
-                        TopMarginRegistration(),
+                        // TopMarginRegistration(),
                       ],
                     ),
                   ),
@@ -90,37 +89,36 @@ class _SignupState extends State<Signup> {
                         widget: Column(
                           children: [
                             Image.asset(ImageUtils.femaleDoctor,
-                              width: 60.i,
-                              height: 60.i,
+                              width: 55.i,
+                              height: 55.i,
                             ),
-                            SpaceBelowDoctors(),
                             TextWidget(
                               textValue: "Enter your Details",
                               fontFamily: FontUtils.poppinsBold,
                               fontSize: 2.4.t,
                               textColor: ColorUtils.red,
                             ),
-                            SizedBox(height: 8.h,),
+                            SizedBox(height: 3.h,),
                             CustomTextField(
                               hintText: "Enter Full Name",
                               controller: model.signupNameController,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(height: 1.5.h,),
                             CustomTextField(
                               hintText: "Enter Email",
                               controller: model.signupEmailController,
                             ),
-                            SizedBox(height: 2.h,),
-                            CustomTextField(
+                            SizedBox(height: 1.5.h,),
+                            CustomPasswordTextField(
                               hintText: "Enter Password",
                               controller: model.signupPasswordController,
                             ),
-                            SizedBox(height: 2.h,),
-                            CustomTextField(
+                            SizedBox(height: 1.5.h,),
+                            CustomPasswordTextField(
                               hintText: "Confrim Password",
                               controller: model.signupConfirmPasswordController,
                             ),
-                            SizedBox(height: 2.h,),
+                            SizedBox(height: 1.5.h,),
                             IntlPhoneField(
                               decoration: InputDecoration(
                                 counter: Text(""),
@@ -180,7 +178,7 @@ class _SignupState extends State<Signup> {
                                 ), //Text
                               ], //<Widget>[]
                             ),
-                            SizedBox(height: 3.h,),
+                            SizedBox(height: 1.5.h,),
                             Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 0.w),
                                 child: Container(
@@ -214,7 +212,8 @@ class _SignupState extends State<Signup> {
                                               model.signupEmailController.text,
                                               model.signupPhoneController.text,
                                               model.signupPasswordController.text,
-                                              model.signupConfirmPasswordController.text
+                                              model.signupConfirmPasswordController.text,
+                                              checkboxState!
                                           );
                                         },
                                         child: model.loadingWidget == false ? Text(

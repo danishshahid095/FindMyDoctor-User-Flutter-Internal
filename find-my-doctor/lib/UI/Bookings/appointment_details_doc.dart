@@ -125,7 +125,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                       ),
                                       TextWidget(
                                         textValue:
-                                            "Tue, 29 Nov 2022 • 02:30 pm",
+                                            model.docmodel.data!.date_time.toString(),
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black,
@@ -194,7 +194,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "is_beneficiary",
+                                    textValue: "Is Beneficiary",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
                                     textColor: ColorUtils.black,
@@ -391,8 +391,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   ),
                                   TextWidget(
                                     textValue:
-                                        model.docmodel.data!.address.toString(),
-                                    // "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
+                                        model.docmodel.data!.userAddress.toString(),
                                     fontFamily: FontUtils.interRegular,
                                     fontSize: 1.8.t,
                                     textColor: ColorUtils.black,
@@ -485,7 +484,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Appintment Details",
+                                    textValue: "Appointment Details",
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 2.2.t,
                                     textColor: ColorUtils.red,
@@ -494,7 +493,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Appointment_Type",
+                                    textValue: "Appointment Type",
                                     fontFamily: FontUtils.interMedium,
                                     fontSize: 1.9.t,
                                     textColor: ColorUtils.black,
@@ -650,24 +649,6 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Doc> {
                                   ),
                                   SizedBox(
                                     height: 2.h,
-                                  ),
-                                  ButtonWithBorder(
-                                    textValue: "Edit Booking",
-                                    onButtonPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child: HelpLineChat(
-                                                orderId:
-                                                    widget.oderId.toString(),
-                                              )));
-                                    },
-                                    borderColor: ColorUtils.red,
-                                    buttonTextColor: ColorUtils.red,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
                                   ),
                                 ],
                               ),

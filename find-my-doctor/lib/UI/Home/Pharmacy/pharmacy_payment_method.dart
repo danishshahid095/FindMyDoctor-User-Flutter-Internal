@@ -6,7 +6,6 @@ import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
 import 'package:find_my_doctor/Widgets/back_with_signleText.dart';
-import 'package:find_my_doctor/Widgets/forward_button_black.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_home.dart';
@@ -14,6 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
+
+import '../../../Widgets/grey_background_button.dart';
 
 class PharmacyPaymentMethod extends StatelessWidget {
   const PharmacyPaymentMethod({Key? key}) : super(key: key);
@@ -133,41 +134,6 @@ class PharmacyPaymentMethod extends StatelessWidget {
                                           color: ColorUtils.silver,
                                         ),
                                         SizedBox(height: 2.h,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Image.asset(ImageUtils.bankTransfer,
-                                              width: 30.i,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(right: 9.w),
-                                              child: ForwardButtonBlack(),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        Divider(
-                                          color: ColorUtils.silver,
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        TextWidget(
-                                          textValue: "+ Add new card Members",
-                                          fontFamily: FontUtils.interSemiBold,
-                                          fontSize: 1.8.t,
-                                          textColor: ColorUtils.red,
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        Divider(
-                                          color: ColorUtils.silver,
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        TextWidget(
-                                          textValue: "+ Add Pay Pro Account",
-                                          fontFamily: FontUtils.interSemiBold,
-                                          fontSize: 1.8.t,
-                                          textColor: ColorUtils.red,
-                                        ),
-                                        SizedBox(height: 2.h,),
                                       ],
                                     ),
                                   ),
@@ -198,9 +164,9 @@ class PharmacyPaymentMethod extends StatelessWidget {
                                   if(model.pharmacyPaymentMethodSelected == true)
                                     Row(
                                       children: [
-                                        SvgPicture.asset(ImageUtils.masterCard),
+                                        SvgPicture.asset(ImageUtils.cash),
                                         TextWidget(
-                                          textValue: "Card",
+                                          textValue: "Cash",
                                           fontFamily: FontUtils.poppinsSemiBold,
                                           fontSize: 1.6.t,
                                           textColor: ColorUtils.black1,
@@ -212,77 +178,44 @@ class PharmacyPaymentMethod extends StatelessWidget {
                               ),
                             ),
                           ),
-
                           SizedBox(height: 2.h,),
-                          TextWidget(
-                            textValue: "Note (Optional)",
-                            fontFamily: FontUtils.interSemiBold,
-                            fontSize: 1.6.t,
-                            textColor: ColorUtils.blackShade,
-                          ),
-                          SizedBox(height: 2.h,),
-                          Container(
-                            padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                            decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(
-                                    color: ColorUtils.blackShade.withOpacity(0.5),
-                                    width: 1
-                                ),
-                                borderRadius: BorderRadius.circular(10)
-                            ),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width/1,
-                              child: Text(
-                                "Enter Message",
-                                style: TextStyle(
-                                  fontFamily: FontUtils.interRegular,
-                                  fontSize: 1.6.t,
-                                  color: ColorUtils.silver,
-                                ),
-                              ),
-                            ),
-                          ),
-
-                          //Address
                         ],
                       ),
                     ),
                   ),
-                  PageHorizontalMargin(
-                    widget: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 400),
-                        width: MediaQuery.of(context).size.width / 1,
-                        height: 6.35.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: model.pharmacyPaymentMethodSelected == false ? ColorUtils.white1 : ColorUtils.red,
-                        ),
-                        child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          onPressed: (){
-                            Navigator.push(context,
-                                PageTransition(type: PageTransitionType.fade, child:  PaymentSuccess(
-                                  fromPharmacy: true,
-                                  fromInsurance: false,
-                                )));
-                          },
-                          child: Text(
-                            "Select Payment Method",
-                            style: TextStyle(
-                                fontFamily: FontUtils.interSemiBold,
-                                fontSize: 1.8.t,
-                                color: ColorUtils.white),
-                          ),
-                        ),
-                      ),
-                    ),
+                  GreyBackGroundButton(
+                    text: "Confirm",
+                    buttonTextColor: ColorUtils.white,
+                    buttonColor:
+                    model.insurancePaymentMethodSelected == true
+                        ? ColorUtils.red
+                        : ColorUtils.white1,
+                    onButtonPressed: () {
+                      model.addingBookingPharmacy(
+                          context,
+                          model.token!,
+                          model.beneficiaryIndex==-1 ? model.userID ?? 0 : model.beneficry?[model.beneficiaryIndex ?? 0].id ?? 0,
+                          model.userID!,
+                          '${DateTime.now()}',
+                          1, // model.promoCodeController.text.toString() ?? "",
+                          1,
+                          model.beneficiaryIndex==-1 ? "no" : "yes",
+                          model.beneficiaryIndex==-1 ? model.address ?? "" : model.beneficry?[model.beneficiaryIndex ?? 0].address ?? "",
+                          model.selectedProducts);
+                      print('Pharmacy api');
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: PaymentSuccess(
+                                date: '${DateTime.now()}',
+                                bookid: "1",
+                                fromInsurance: true,
+                                fromPharmacy: false,
+                                fromLabTest: false,
+                                fromPhysicalVisit: false,
+                              )));
+                    },
                   ),
                   SizedBox(height: 2.h,)
                 ],
@@ -400,7 +333,7 @@ class _PharmacyPaymentState extends State<PharmacyPayment> {
                       children: [
                         Container(
                           child: Image.asset(model.paymentType[index],
-                            width: 30.i,
+                            width: 15.i,
                           ),
                         ),
                       ],

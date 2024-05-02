@@ -21,8 +21,9 @@ import 'package:intl/intl.dart';
 class LabTestBookSlot extends StatefulWidget {
   final List<Map<String, int>> selectedTests;
   int labId;
+  double? price;
 
-  LabTestBookSlot({required this.selectedTests, required this.labId, Key? key})
+  LabTestBookSlot({required this.selectedTests, required this.labId, this.price, Key? key})
       : super(key: key);
 
   @override
@@ -308,15 +309,20 @@ class _LabTestBookSlotState extends State<LabTestBookSlot> {
 
                                 print(
                                     "Selected Date and Time: $combinedDateTime");
-
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child: LabTestConfirmDetails(
-                                            selectedTests: widget.selectedTests,
-                                            labId: widget.labId,
-                                            dateTime: combinedDateTime)));
+                                if (doneTapped == true) {
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: LabTestConfirmDetails(
+                                              selectedTests: widget
+                                                  .selectedTests,
+                                              labId: widget.labId,
+                                              dateTime: combinedDateTime,
+                                              price: widget.price,)));
+                                } else {
+                                  model.showErrorMessage(context, "Select your date and time");
+                                }
                               },
                             ),
                             SizedBox(

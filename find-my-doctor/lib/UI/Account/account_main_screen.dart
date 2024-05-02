@@ -172,15 +172,7 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 1.6.t,
                                   ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "No beneficiaries added",
-                                    textColor: ColorUtils.red,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.6.t,
-                                  ),
+
                                 ],
                               ),
                               InkWell(
@@ -232,86 +224,86 @@ class _AccountMainScreenState extends State<AccountMainScreen> {
                           SizedBox(
                             height: 1.h,
                           ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 3.h,
-                          ),
-                          TextWidget(
-                            textValue: "System Settings",
-                            fontFamily: FontUtils.poppinsBold,
-                            fontSize: 2.t,
-                            textColor: ColorUtils.red,
-                          ),
-                          SizedBox(
-                            height: 2.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Language",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interSemiBold,
-                                    fontSize: 1.6.t,
-                                  ),
-                                  SizedBox(
-                                    height: 0.75.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "English",
-                                    textColor: ColorUtils.blackShade,
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                  onTap: () {
-                                    _SelectLanguagePopup(context);
-                                  },
-                                  child: ForwardButtonBlack()),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Divider(
-                            color: ColorUtils.silver,
-                          ),
-                          SizedBox(
-                            height: 1.h,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              TextWidget(
-                                textValue: "Notifications",
-                                textColor: ColorUtils.blackShade,
-                                fontFamily: FontUtils.interSemiBold,
-                                fontSize: 1.6.t,
-                              ),
-                              SizedBox(
-                                width: 50,
-                                height: 20,
-                                child: Switch(
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  value: switchValue,
-                                  activeColor: ColorUtils.red,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      switchValue = value;
-                                    });
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
+                          // Divider(
+                          //   color: ColorUtils.silver,
+                          // ),
+                          // SizedBox(
+                          //   height: 3.h,
+                          // ),
+                          // TextWidget(
+                          //   textValue: "System Settings",
+                          //   fontFamily: FontUtils.poppinsBold,
+                          //   fontSize: 2.t,
+                          //   textColor: ColorUtils.red,
+                          // ),
+                          // SizedBox(
+                          //   height: 2.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     Column(
+                          //       crossAxisAlignment: CrossAxisAlignment.start,
+                          //       children: [
+                          //         TextWidget(
+                          //           textValue: "Language",
+                          //           textColor: ColorUtils.blackShade,
+                          //           fontFamily: FontUtils.interSemiBold,
+                          //           fontSize: 1.6.t,
+                          //         ),
+                          //         SizedBox(
+                          //           height: 0.75.h,
+                          //         ),
+                          //         TextWidget(
+                          //           textValue: "English",
+                          //           textColor: ColorUtils.blackShade,
+                          //           fontFamily: FontUtils.interRegular,
+                          //           fontSize: 1.8.t,
+                          //         ),
+                          //       ],
+                          //     ),
+                          //     InkWell(
+                          //         onTap: () {
+                          //           _SelectLanguagePopup(context);
+                          //         },
+                          //         child: ForwardButtonBlack()),
+                          //   ],
+                          // ),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Divider(
+                          //   color: ColorUtils.silver,
+                          // ),
+                          // SizedBox(
+                          //   height: 1.h,
+                          // ),
+                          // Row(
+                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          //   children: [
+                          //     TextWidget(
+                          //       textValue: "Notifications",
+                          //       textColor: ColorUtils.blackShade,
+                          //       fontFamily: FontUtils.interSemiBold,
+                          //       fontSize: 1.6.t,
+                          //     ),
+                          //     SizedBox(
+                          //       width: 50,
+                          //       height: 20,
+                          //       child: Switch(
+                          //         materialTapTargetSize:
+                          //             MaterialTapTargetSize.shrinkWrap,
+                          //         value: switchValue,
+                          //         activeColor: ColorUtils.red,
+                          //         onChanged: (value) {
+                          //           setState(() {
+                          //             switchValue = value;
+                          //           });
+                          //         },
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
                           SizedBox(
                             height: 1.h,
                           ),

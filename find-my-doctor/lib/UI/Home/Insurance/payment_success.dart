@@ -1,11 +1,9 @@
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Home/Pharmacy/pharmacy_track_order.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
-import 'package:find_my_doctor/Widgets/button_with_border.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/red_button.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
@@ -19,6 +17,7 @@ import '../../../Widgets/bottom_navigation_bar.dart';
 class PaymentSuccess extends StatefulWidget {
   String? date;
   String? bookid;
+  String? charges;
   //String? time;
   bool? fromPharmacy = false;
   bool? fromInsurance = false;
@@ -33,7 +32,8 @@ class PaymentSuccess extends StatefulWidget {
       this.fromPharmacy,
       this.fromInsurance,
       this.fromLabTest,
-      this.fromPhysicalVisit})
+      this.fromPhysicalVisit,
+      this.charges})
       : super(key: key);
 
   @override
@@ -81,14 +81,14 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                         fontSize: 4.t,
                         textColor: ColorUtils.red,
                       ),
-                      TextWidget(
-                        textValue: "Your policy request has been recieved.",
-                        fontFamily: FontUtils.interRegular,
-                        fontSize: 1.6.t,
-                        textColor: ColorUtils.blackShade,
-                      ),
+                      // TextWidget(
+                      //   textValue: "Your policy request has been recieved.",
+                      //   fontFamily: FontUtils.interRegular,
+                      //   fontSize: 1.6.t,
+                      //   textColor: ColorUtils.blackShade,
+                      // ),
                       SizedBox(
-                        height: 4.h,
+                        height: 1.h,
                       ),
                     ],
                   ),
@@ -197,9 +197,9 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                         height: 1.h,
                                       ),
                                       TextWidget(
-                                        textValue: widget.fromInsurance == true
-                                            ? "Provider 1 | Insurance"
-                                            : "Self",
+                                        textValue: model.beneficiaryIndex == -1
+                                            ? "Self"
+                                            : model.beneficry?[model.beneficiaryIndex ?? 0].fullname,
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,
                                         textColor: ColorUtils.black1,
@@ -252,40 +252,40 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                               SizedBox(
                                 height: 1.h,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextWidget(
-                                        textValue: "Plan",
-                                        fontFamily: FontUtils.poppinsSemiBold,
-                                        fontSize: 1.6.t,
-                                        textColor: ColorUtils.black1,
-                                      ),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                      TextWidget(
-                                        textValue: "Basic Plan",
-                                        fontFamily: FontUtils.interRegular,
-                                        fontSize: 1.8.t,
-                                        textColor: ColorUtils.black1,
-                                      ),
-                                    ],
-                                  ),
-                                  SvgPicture.asset(ImageUtils.forwardIcon),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 1.h,
-                              ),
-                              Divider(
-                                color: ColorUtils.silver,
-                              ),
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceBetween,
+                              //   children: [
+                              //     Column(
+                              //       crossAxisAlignment:
+                              //           CrossAxisAlignment.start,
+                              //       children: [
+                              //         TextWidget(
+                              //           textValue: "Plan",
+                              //           fontFamily: FontUtils.poppinsSemiBold,
+                              //           fontSize: 1.6.t,
+                              //           textColor: ColorUtils.black1,
+                              //         ),
+                              //         SizedBox(
+                              //           height: 1.h,
+                              //         ),
+                              //         TextWidget(
+                              //           textValue: "Basic Plan",
+                              //           fontFamily: FontUtils.interRegular,
+                              //           fontSize: 1.8.t,
+                              //           textColor: ColorUtils.black1,
+                              //         ),
+                              //       ],
+                              //     ),
+                              //     SvgPicture.asset(ImageUtils.forwardIcon),
+                              //   ],
+                              // ),
+                              // SizedBox(
+                              //   height: 1.h,
+                              // ),
+                              // Divider(
+                              //   color: ColorUtils.silver,
+                              // ),
 
                               // Address
                               SizedBox(
@@ -304,7 +304,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                     height: 0.5.h,
                                   ),
                                   Text(
-                                    "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
+                                    model.beneficiaryIndex == -1 ? model.address ?? "" : model.beneficry?[model.beneficiaryIndex ?? 0].address.toString() ?? "",
                                     style: TextStyle(
                                       height: 0.2.h,
                                       fontFamily: FontUtils.interRegular,
@@ -356,7 +356,7 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                                 width: 1.5.w,
                                               ),
                                               TextWidget(
-                                                textValue: "Card",
+                                                textValue: "Cash on Delivery",
                                                 fontFamily:
                                                     FontUtils.poppinsSemiBold,
                                                 fontSize: 1.6.t,
@@ -385,18 +385,19 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                                           ),
                                       ],
                                     ),
+                                    if (widget.charges != null)
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         TextWidget(
-                                          textValue: "Total Test Charges",
+                                          textValue: "Total Charges",
                                           fontFamily: FontUtils.poppinsSemiBold,
                                           fontSize: 1.6.t,
                                           textColor: ColorUtils.black1,
                                         ),
                                         TextWidget(
-                                          textValue: "Rs. 1.180",
+                                          textValue: widget.charges ?? "0",
                                           fontFamily: FontUtils.interSemiBold,
                                           fontSize: 1.8.t,
                                           textColor: ColorUtils.lightGreen,
@@ -410,20 +411,20 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                               SizedBox(
                                 height: 3.h,
                               ),
-                              if (widget.fromPharmacy == true)
-                                RedButton(
-                                  textValue: "Track Order",
-                                  onButtonPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            type: PageTransitionType.fade,
-                                            child: PharmacyTrackOrder()));
-                                  },
-                                ),
+                              // if (widget.fromPharmacy == true)
+                                // RedButton(
+                                //   textValue: "Track Order",
+                                //   onButtonPressed: () {
+                                //     Navigator.push(
+                                //         context,
+                                //         PageTransition(
+                                //             type: PageTransitionType.fade,
+                                //             child: PharmacyTrackOrder()));
+                                //   },
+                                // ),
                               if (widget.fromInsurance == true ||
                                   widget.fromLabTest == true ||
-                                  widget.fromPhysicalVisit == true)
+                                  widget.fromPhysicalVisit == true || widget.fromPharmacy == true)
                                 RedButton(
                                   textValue: "Back to Home",
                                   onButtonPressed: () {
@@ -437,12 +438,12 @@ class _PaymentSuccessState extends State<PaymentSuccess> {
                               SizedBox(
                                 height: 2.h,
                               ),
-                              ButtonWithBorder(
-                                textValue: "Save To Gallery",
-                                buttonTextColor: ColorUtils.red,
-                                borderColor: ColorUtils.red,
-                                onButtonPressed: () {},
-                              ),
+                              // ButtonWithBorder(
+                              //   textValue: "Save To Gallery",
+                              //   buttonTextColor: ColorUtils.red,
+                              //   borderColor: ColorUtils.red,
+                              //   onButtonPressed: () {},
+                              // ),
                               SizedBox(
                                 height: 1.h,
                               ),

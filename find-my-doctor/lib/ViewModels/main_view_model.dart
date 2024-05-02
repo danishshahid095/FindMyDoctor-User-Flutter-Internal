@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:find_my_doctor/UI/login.dart';
-import 'package:find_my_doctor/UI/sign_in_options.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/prefrences_view_model.dart';
@@ -8,6 +7,7 @@ import 'package:find_my_doctor/model/Doctor/booking_doc_model.dart';
 import 'package:find_my_doctor/model/Doctor/doctorTypeModel.dart';
 import 'package:find_my_doctor/model/Doctor/onlineDoctorModel.dart';
 import 'package:find_my_doctor/model/Doctor/specialistCategoryModel.dart';
+import 'package:find_my_doctor/model/Insurance/insurancePackageModel.dart';
 import 'package:find_my_doctor/model/Lab/activeLabBookingModel.dart';
 import 'package:find_my_doctor/model/Lab/labsModel.dart';
 import 'package:find_my_doctor/model/Lab/testsModel.dart';
@@ -16,6 +16,7 @@ import 'package:find_my_doctor/model/Pharmacy/pharmacyCityModel.dart';
 import 'package:find_my_doctor/model/Pharmacy/pharmacyProductModel.dart';
 import 'package:find_my_doctor/services/get/get_doctor_specilist_category.dart';
 import 'package:find_my_doctor/services/get/get_doctor_type.dart';
+import 'package:find_my_doctor/services/get/get_insurance_plans.dart';
 import 'package:find_my_doctor/services/get/get_lab_active_booking.dart';
 import 'package:find_my_doctor/services/get/get_lab_orderDetail.dart';
 import 'package:find_my_doctor/services/get/get_labs.dart';
@@ -24,6 +25,8 @@ import 'package:find_my_doctor/services/get/get_pharmacy_bestsellers.dart';
 import 'package:find_my_doctor/services/get/get_pharmacy_cities.dart';
 import 'package:find_my_doctor/services/get/get_pharmacy_productsbycategory.dart';
 import 'package:find_my_doctor/services/get/get_tests.dart';
+import 'package:find_my_doctor/services/post/post_add_booking_insurance.dart';
+import 'package:find_my_doctor/services/post/post_add_booking_pharmacy.dart';
 import 'package:find_my_doctor/services/post/post_add_fcmToken.dart';
 import 'package:find_my_doctor/services/post/post_add_lab_booking.dart';
 import 'package:flutter/cupertino.dart';
@@ -34,7 +37,6 @@ import 'package:find_my_doctor/modules/navigation_service.dart'
     as my_nav_service;
 
 import '../App/locator.dart';
-import '../UI/Home/Insurance/payment_success.dart';
 import '../Utils/font_utils.dart';
 import '../Widgets/bottom_navigation_bar.dart';
 import '../model/Beneficiaries/get_beneficiaries_model.dart';
@@ -42,6 +44,7 @@ import '../model/Doctor/booking_details_model.dart';
 import '../model/Doctor/doc_slots_model.dart';
 import '../model/Doctor/doctor_history_model.dart';
 import '../model/Doctor/doctor_myactive_model.dart';
+import '../model/Insurance/insuranceProviderModel.dart';
 import '../model/Lab/get_labs_details_model.dart';
 import '../model/Lab/historyLabBookingModel.dart';
 import '../model/Lab/labBookingDetailModel.dart';
@@ -57,6 +60,7 @@ import '../services/get/get_doc_details.dart';
 import '../services/get/get_doctor_myactive.dart';
 import '../services/get/get_doctor_myhistory.dart';
 import '../services/get/get_frequently.dart';
+import '../services/get/get_insurance_provider.dart';
 import '../services/get/get_lab_history_booking.dart';
 import '../services/get/get_labs_details.dart';
 import '../services/get/get_pharmacy_brands.dart';
@@ -70,9 +74,6 @@ import '../services/patch/user_update.dart';
 import '../services/post/post_add_beneficiary.dart';
 import '../services/post/post_add_booking_doctor.dart';
 import '../services/post/post_add_booking_doctor_online.dart';
-import '../services/post/post_add_email.dart';
-import '../services/post/post_add_fullname.dart';
-import '../services/post/post_add_phone_number.dart';
 import '../services/post/post_addusermeta.dart';
 import '../services/post/post_doctor_available_slots.dart';
 import '../services/post/post_login.dart';
@@ -92,12 +93,15 @@ class MainViewModel extends BaseViewModel {
   String? age;
   String? height;
   String? weight;
+  int? beneficiaryIndex;
   String? bookig_slot_time;
   bool fromDoctorBook = false;
   bool fromLabTestBook = false;
   bool fromPharmacy = false;
   bool fromBuyInsurance = false;
   List<String> bookingSlotTimes = [];
+
+  TextEditingController promoCodeController = TextEditingController();
 
   List FAQs = [
     {
@@ -309,7 +313,7 @@ class MainViewModel extends BaseViewModel {
           context,
           PageTransition(
               type: PageTransitionType.fade,
-              child: token == null ? SignInOptions() : MyBottomNavBar())),
+              child: token == null ? Login() : MyBottomNavBar())),
     );
   }
 
@@ -317,7 +321,7 @@ class MainViewModel extends BaseViewModel {
   void onLogout() async {
     await prefService.removeUserToken();
     // prefService.removeUserAddress();
-    navigationService.navigateToUntil(to: SignInOptions());
+    navigationService.navigateToUntil(to: Login());
   }
 
   //######################################################################## Sign Up Screen ###############################################################################//
@@ -326,14 +330,19 @@ class MainViewModel extends BaseViewModel {
   TextEditingController signupNameController = TextEditingController();
   TextEditingController signupEmailController = TextEditingController();
   TextEditingController signupPasswordController = TextEditingController();
-  TextEditingController signupConfirmPasswordController =
-      TextEditingController();
+  TextEditingController signupConfirmPasswordController = TextEditingController();
   TextEditingController signupPhoneController = TextEditingController();
 
   var userSignup = UserSignUp();
 
+  bool isValidEmail(String email) {
+    // Define a regular expression for validating an Email
+    final emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegex.hasMatch(email);
+  }
+
   Future doUserSignup(BuildContext context, String name, String email,
-      String phone, String password, String confirmPassword) async {
+      String phone, String password, String confirmPassword, bool checkboxState) async {
     if (signupNameController.text.isEmpty) {
       showErrorMessage(context, "Please Enter Name");
       //gotPhoneOtp = false;
@@ -341,6 +350,9 @@ class MainViewModel extends BaseViewModel {
     } else if (signupEmailController.text.isEmpty) {
       showErrorMessage(context, "Please Enter Email");
       //gotPhoneOtp = false;
+      notifyListeners();
+    } else if (!isValidEmail(signupEmailController.text)) {
+      showErrorMessage(context, "Please Enter a Valid Email");
       notifyListeners();
     } else if (signupPasswordController.text.isEmpty) {
       showErrorMessage(context, "Please Enter Password");
@@ -359,6 +371,8 @@ class MainViewModel extends BaseViewModel {
       showErrorMessage(context, "Passwords don't match");
       //gotPhoneOtp = false;
       notifyListeners();
+    } else if (checkboxState != true) {
+      showErrorMessage(context, "Please Agree to terms & Conditions");
     } else {
       loadingWidget = true;
       notifyListeners();
@@ -369,8 +383,18 @@ class MainViewModel extends BaseViewModel {
           signupPhoneController.text.toString());
       loadingWidget = false;
       notifyListeners();
-      Navigator.push(context,
-          PageTransition(type: PageTransitionType.fade, child: Login()));
+      if (signupResponse != null && (signupResponse["success"] as int?) == 1) {
+        signupNameController.text = "";
+        signupEmailController.text = "";
+        signupPasswordController.text = "";
+        signupConfirmPasswordController.text = "";
+        signupPhoneController.text = "";
+
+        Navigator.push(context,
+            PageTransition(type: PageTransitionType.fade, child: Login()));
+      } else {
+        showErrorMessage(context, signupResponse?['message'] ?? "An error occurred");
+      }
     }
   }
 
@@ -508,6 +532,15 @@ class MainViewModel extends BaseViewModel {
       );
       loadingWidget = false;
       notifyListeners();
+      newBeneficiaryNameController.text = "";
+      newBeneficiaryGenderController.text = "";
+      newBeneficiaryDOBController.text = "";
+      newBeneficiaryNumberController.text = "";
+      newBeneficiaryCityController.text = "";
+      newBeneficiaryAddressController.text = "";
+      newBeneficiaryPolicyNumberController.text = "";
+      newBeneficiaryNickController.text = "";
+      newBeneficiaryRelationController.text = "";
       Navigator.pop(context);
     }
   }
@@ -598,47 +631,6 @@ class MainViewModel extends BaseViewModel {
     }
   ];
 
-  //list of lab
-  List Labs = [
-    {
-      "serviceImage": ImageUtils.HashmanisLab,
-      //"serviceName" : "Book a Doctor",
-    },
-    {
-      "serviceImage": ImageUtils.hormnelab,
-      // "serviceName" : "Shop from Pharmacy",
-    },
-    {
-      "serviceImage": ImageUtils.onehealthlab,
-      // "serviceName" : "Book a Test",
-    },
-    {
-      "serviceImage": ImageUtils.karachilab,
-      // "serviceName" : "Buy Insurance",
-    },
-    {
-      "serviceImage": ImageUtils.minhajlab,
-      // "serviceName" : "Buy Insurance",
-    },
-    {
-      "serviceImage": ImageUtils.nationallab,
-      // "serviceName" : "Buy Insurance",
-    }
-  ];
-
-  List blogs = [
-    {
-      "blogImage": ImageUtils.stomachPain,
-      "blogName": "What is Diarrhea?",
-      "details": "15th Feb 2022 | 7 min read"
-    },
-    {
-      "blogImage": ImageUtils.obesity,
-      "blogName": "What is Obesity?",
-      "details": "7th Jan 2022 | 12 min read"
-    }
-  ];
-
   List selectConsultationType = [
     {
       "image": ImageUtils.smilingDoctor,
@@ -664,77 +656,6 @@ class MainViewModel extends BaseViewModel {
 
   // Pharmacy
 
-  List pharmacyCategory = [
-    {
-      "image": ImageUtils.tablets,
-      "text": "Category 1",
-    },
-    {
-      "image": ImageUtils.tablets,
-      "text": "Category 2",
-    },
-    {
-      "image": ImageUtils.tablets,
-      "text": "Category 3",
-    },
-  ];
-
-  List pharmacyBestSeller = [
-    {
-      "image": ImageUtils.panadol,
-      "name": "Panadol ",
-      "quantity": "100gm x 96 tabs",
-      "price": "PKR. 750",
-      "originalprice": "PKR. 750",
-    },
-    {
-      "image": ImageUtils.calpol,
-      "name": "Calpol Syrup ",
-      "quantity": "100ml x 1 bottle",
-      "price": "PKR. 120",
-      "originalprice": "PKR. 150",
-    },
-  ];
-
-  List pharmacyFrequentlyBought = [
-    {
-      "image": ImageUtils.calpol,
-      "name": "Calpol Syrup ",
-      "quantity": "100ml x 1 bottle",
-      "price": "PKR. 120",
-      "originalprice": "PKR. 150",
-    },
-    {
-      "image": ImageUtils.panadol,
-      "name": "Panadol ",
-      "quantity": "100gm x 96 tabs",
-      "price": "PKR. 750",
-      "originalprice": "PKR. 750",
-    },
-  ];
-  List pharmacyFrequentlyBought1 = [
-    // {
-    //   "image": ImageUtils.calpol,
-    //   "name": "Calpol Syrup ",
-    //   "quantity": "100ml x 1 bottle",
-    //   "price": "PKR. 120",
-    //   "originalprice": "PKR. 150",
-    // },
-    {
-      "image": ImageUtils.panadol,
-      "name": "Panadol ",
-      "quantity": "100gm x 96 tabs",
-      "price": "PKR. 750",
-      "originalprice": "PKR. 750",
-    },
-  ];
-
-  List brands = [
-    ImageUtils.ferezsons,
-    ImageUtils.getz_pharma,
-    ImageUtils.gsk,
-  ];
-
   List allBrands = [
     ImageUtils.ferezsons,
     ImageUtils.getz_pharma,
@@ -756,67 +677,16 @@ class MainViewModel extends BaseViewModel {
       "title": "Insurance Market Place",
       "description": "Exploratory description regarding the service.",
     },
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Roshan Digital Account",
-      "description": "Exploratory description regarding the service.",
-    },
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Sehat Card",
-      "description": "Exploratory description regarding the service.",
-    },
-  ];
-
-  List insuranceSelectProvide = [
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Provider 1",
-      "description": "Insurance",
-    },
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Provider 2",
-      "description": "Insurance",
-    },
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Provider 3",
-      "description": "Insurance",
-    },
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Provider 4",
-      "description": "Insurance",
-    },
-    {
-      "image": ImageUtils.insuranceContainer,
-      "title": "Provider 5",
-      "description": "Insurance",
-    },
-  ];
-
-  List insuranceSelectPlan = [
-    {
-      "individualType": "Individual Plan",
-      "person": "1 Person",
-      "pkr": "PKR. 50,000/Annual",
-    },
-    {
-      "individualType": "Basic Plan",
-      "person": "Self + Spouse",
-      "pkr": "PKR. 100,000/Annual",
-    },
-    {
-      "individualType": "Standard Plan",
-      "person": "Self + Spouse + 2 Children",
-      "pkr": "PKR. 200,000/Annual",
-    },
-    {
-      "individualType": "Premium Plan",
-      "person": "Self + Spouse + 2 Children + Parents",
-      "pkr": "PKR. 300,000/Annual",
-    }
+    // {
+    //   "image": ImageUtils.insuranceContainer,
+    //   "title": "Roshan Digital Account",
+    //   "description": "Exploratory description regarding the service.",
+    // },
+    // {
+    //   "image": ImageUtils.insuranceContainer,
+    //   "title": "Sehat Card",
+    //   "description": "Exploratory description regarding the service.",
+    // },
   ];
 
   List insuranceMembers = [
@@ -830,8 +700,6 @@ class MainViewModel extends BaseViewModel {
     },
   ];
 
-  List providerType = ["All", "Insurance", "Takaful"];
-
   bool? memberSelected = false;
   bool? insurancePaymentMethodSelected = false;
   bool? pharmacyPaymentMethodSelected = false;
@@ -839,8 +707,8 @@ class MainViewModel extends BaseViewModel {
 
   List paymentType = [
     ImageUtils.cash,
-    ImageUtils.masterPayment,
-    ImageUtils.applePay,
+    // ImageUtils.masterPayment,
+    // ImageUtils.applePay,
   ];
 
   // Lab Test
@@ -861,34 +729,6 @@ class MainViewModel extends BaseViewModel {
 
   bool labPaySelected = false;
 
-  // Physical Visit
-  List physicalVisitPaymentType = [
-    ImageUtils.cash,
-    ImageUtils.masterPayment,
-    ImageUtils.applePay,
-  ];
-
-  List doctorDetails = [
-    {
-      "image": ImageUtils.doctor,
-      "name": "Dr. Azeem Esaq",
-      "description": "M.B.B.S | 10Years Experience",
-      "fees": "Rs. 1,500"
-    },
-    {
-      "image": ImageUtils.doctor,
-      "name": "Dr. M.Mawis Anees",
-      "description": "M.B.B.S | 9Years Experience",
-      "fees": "Rs. 1,700"
-    },
-    {
-      "image": ImageUtils.doctor,
-      "name": "Dr. Nusrat Banu",
-      "description": "M.B.B.S | 9Years Experience",
-      "fees": "Rs. 1,100"
-    },
-  ];
-
   List sortDoctors = [
     "Experience: High to Low",
     "Experience: Low to High",
@@ -907,46 +747,6 @@ class MainViewModel extends BaseViewModel {
 
 //######################################################################## Bookings ###############################################################################//
 /////////////////////////////////////////////////////////////////////////    Starts    ///////////////////////////////////////////////////////////////////////////////////
-
-  List activeBookings = [
-    {
-      "date": "Friday - 16 July 2022",
-      "orderType": "General Physician",
-      "patient": "Patient: Farah Hussain",
-      "amount": "Rs. 1,500"
-    },
-    {
-      "date": "Friday - 16 July 2022",
-      "orderType": "Pharmacy Order",
-      "patient": "Patient: Tooba Akhtar ",
-      "amount": "Rs. 2,530"
-    },
-    /*{
-      "date" : "Monday - 10 July 2022",
-      "orderType" : "General Physician",
-      "patient" : "Patient: Hussain Akhtar",
-      "amount" : "Rs. 1,500"
-    },
-    {
-      "date" : "Monday - 10 July 2022",
-      "orderType" : "Lab Test",
-      "patient" : "Patient: Hussain Akhtar",
-      "amount" : "Rs. 5,720"
-    },*/
-  ];
-
-  List bookingHistory = [
-    {
-      "orderType": "General Physician",
-      "patient": "Patient: Farah Hussain",
-      "amount": "Rs. 1,500"
-    },
-    {
-      "orderType": "General Physician",
-      "patient": "Patient: Hussain Akhtar",
-      "amount": "Rs. 1,500"
-    },
-  ];
 
 //######################################################################## Bookings ###############################################################################//
 /////////////////////////////////////////////////////////////////////////    End    ///////////////////////////////////////////////////////////////////////////////////
@@ -1424,7 +1224,7 @@ class MainViewModel extends BaseViewModel {
     String is_beneficiary,
     int type,
     String date_time,
-    int promo,
+    String promo,
     int payment_method,
     String consultation_type,
     String booked_doctor,
@@ -1445,6 +1245,8 @@ class MainViewModel extends BaseViewModel {
     if (response != null && response is BookingDocModel) {
       print(
           "this is  physical  book doc respone insertId: ${response.data!.insertId.toString()}");
+      promoCodeController.text = "";
+      return response;
       // Navigator.push(
       //     context,
       //     PageTransition(
@@ -1459,6 +1261,7 @@ class MainViewModel extends BaseViewModel {
       loadingWidget = false;
     } else {
       print('some thing worng');
+      promoCodeController.text = "";
     }
     loadingWidget = false;
     notifyListeners();
@@ -1477,9 +1280,9 @@ class MainViewModel extends BaseViewModel {
     String is_beneficiary,
     int type,
     String date_time,
-    int promo,
+    String promo,
     int payment_method,
-    String consultation_type,
+    int consultation_type,
     int booked_doctor,
   ) async {
     var response = await addBookingDocOnline.addBookingDocOnline(
@@ -1498,21 +1301,12 @@ class MainViewModel extends BaseViewModel {
     if (response != null && response is BookingDocModel) {
       print(
           "this is  onlie book doc respone insertId: ${response.data!.insertId.toString()}");
-      // Navigator.push(
-      //     context,
-      //     PageTransition(
-      //         type: PageTransitionType.fade,
-      //         child: PaymentSuccess(
-      //           fromInsurance: false,
-      //           fromPharmacy: false,
-      //           fromLabTest: true,
-      //           fromPhysicalVisit: true,
-      //         )));
-
+      promoCodeController.text = "";
       loadingWidget = false;
       //notifyListeners();
     } else {
       print('some thing worng');
+      promoCodeController.text = "";
     }
     loadingWidget = false;
     notifyListeners();
@@ -1530,7 +1324,7 @@ class MainViewModel extends BaseViewModel {
       int recepient,
       int lab_id,
       String date_time,
-      int promo,
+      String promo,
       String beneficiary,
       List tests) async {
     loadingWidget = true;
@@ -1538,6 +1332,7 @@ class MainViewModel extends BaseViewModel {
     var response = await addLabBooking.addLabBooking(token, test_for, recepient,
         lab_id, date_time, promo, beneficiary, tests);
     if (response != null && response == 1) {
+      promoCodeController.text = "";
       // Navigator.push(
       //     context,
       //     PageTransition(
@@ -1983,6 +1778,28 @@ class MainViewModel extends BaseViewModel {
     ));
   }
 
+  void showSuccessMessage(BuildContext context, String error) async {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      content: Text(
+        error,
+        textAlign: TextAlign.center,
+        style: TextStyle(
+          color: Colors.white,
+          fontFamily: FontUtils.poppinsBold,
+          fontSize: 1.8.t,
+        ),
+      ),
+      backgroundColor: Colors.green,
+      padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+            topRight: Radius.circular(20), topLeft: Radius.circular(20)),
+      ),
+      elevation: 10,
+      duration: Duration(seconds: 2),
+    ));
+  }
+
   //####### Pharmacy my active api start  ###########
 
   GetPharmacyMyActive getpharmacyactive = GetPharmacyMyActive();
@@ -2010,6 +1827,9 @@ class MainViewModel extends BaseViewModel {
   //####### Pharmacy my History api start  ###########
 
   GetPharmacyMyHistory getpharmacymyhistory = GetPharmacyMyHistory();
+  List<Map<String?, dynamic>> selectedProducts = [];
+  List<ProductDetails> cartItems = [];
+
   List<PharmacyHistoryModel>? pharmacymyhistory =
       PharmacyMyHistoryCompleteModel().data;
   //bool doctoractiveLoader = false;
@@ -2035,7 +1855,7 @@ class MainViewModel extends BaseViewModel {
 
   var productList = productDetails();
   var prodmodel = ProductDetails();
-  Future prodDetials(BuildContext context, token, String Id) async {
+  void prodDetials(BuildContext context, token, String Id) async {
     loadingWidget = true;
     var productResponse = await productList.ProductDetail(token!, Id);
     loadingWidget = false;
@@ -2050,4 +1870,155 @@ class MainViewModel extends BaseViewModel {
     }
   }
   // ############   preoduct details api  end ################
+
+
+  //######################################################################## Insurance Provider Get ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
+
+  GetInsuranceProvider getInsuranceProvider = GetInsuranceProvider();
+  List<InsuranceProviderModel>? insuranceProviderModel =
+      InsuranceProvidersCompleteModel().data;
+  bool insuranceProviderLoader = false;
+
+  Future gettingInsuranceProvider(BuildContext context, String token) async {
+    insuranceProviderLoader = true;
+
+    var insuranceProviderResponse =
+    await getInsuranceProvider.getInsuranceProvider(token);
+    if (insuranceProviderResponse != null &&
+        insuranceProviderResponse is List<InsuranceProviderModel>) {
+      insuranceProviderModel = insuranceProviderResponse;
+      insuranceProviderLoader = false;
+      notifyListeners();
+    } else {
+      insuranceProviderLoader = false;
+      notifyListeners();
+    }
+    insuranceProviderLoader = false;
+  }
+
+//######################################################################## Insurance Provider Get  ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+
+  //######################################################################## Insurance Plan Get ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Starts    ///////////////////////////////////////////////////////////////////////////////////
+
+  GetInsurancePlans getInsurancePackage = GetInsurancePlans();
+  List<InsurancePackageModel>? insurancePackageModel =
+      InsurancePackagesCompleteModel().data;
+  bool insurancePackageLoader = false;
+
+  Future gettingInsurancePackage(BuildContext context, String token, int providerID) async {
+    insurancePackageLoader = true;
+
+    var insurancePackageResponse =
+    await getInsurancePackage.getInsurancePackage(token, providerID);
+    if (insurancePackageResponse != null &&
+        insurancePackageResponse is List<InsurancePackageModel>) {
+      insurancePackageModel = insurancePackageResponse;
+      insurancePackageLoader = false;
+      notifyListeners();
+    } else {
+      insurancePackageLoader = false;
+      notifyListeners();
+    }
+    insurancePackageLoader = false;
+  }
+
+//######################################################################## Insurance Plan Get  ###############################################################################//
+/////////////////////////////////////////////////////////////////////////     Ends    ///////////////////////////////////////////////////////////////////////////////////
+
+
+//  Add Booking insurance api start
+  var addBookingInsurance = AddBookingInsurance();
+
+  Future addingBookingInsurance(
+      BuildContext context,
+      String token,
+      int insurance_for,
+      int recepient,
+      String address,
+      String date_time,
+      int amount,
+      int payment_method,
+      int plan,
+      String beneficiary,
+      ) async {
+    var response = await addBookingInsurance.addBookingInsurance(
+        token,
+        insurance_for,
+        recepient,
+        address,
+        date_time,
+        amount,
+        payment_method,
+        plan,
+        beneficiary);
+    loadingWidget = true;
+    notifyListeners();
+    if (response != null) {
+      print(
+          "Insurance Booked");
+      loadingWidget = false;
+    } else {
+      print('some thing worng');
+    }
+    loadingWidget = false;
+    notifyListeners();
+  }
+
+/// end add booking insurance apii//////////
+
+
+//  Add Booking insurance api start
+  var addBookingPharmacy = AddBookingPharmacy();
+  var responsePharmacy;
+  Future addingBookingPharmacy(
+      BuildContext context,
+      String token,
+      int med_for,
+      int recepient,
+      String date_time,
+      int promo,
+      int payment_method,
+      String beneficiary,
+      String address,
+      List<Map<String?, dynamic>> med
+      ) async {
+    var response = await addBookingPharmacy.addBookingPharmacy(
+        token,
+        med_for,
+        recepient,
+        date_time,
+        promo,
+        payment_method,
+        beneficiary,
+        address,
+        med);
+    loadingWidget = true;
+    notifyListeners();
+    if (response['success'] == 1) {
+      print(
+          "Insurance Pharmacy");
+      selectedProducts = [];
+      cartItems = [];
+      loadingWidget = false;
+      promoCodeController.text = "";
+      responsePharmacy = 1;
+      notifyListeners();
+      return true;
+    } else {
+      print('some thing worng');
+      responsePharmacy = 0;
+      notifyListeners();
+      return false;
+    }
+    loadingWidget = false;
+    notifyListeners();
+  }
+
+/// end add booking insurance apii//////////
+
+
 }

@@ -106,7 +106,7 @@ class _Appointment_DetailsState extends State<Appointment_Details> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextWidget(
-                            textValue: "Appintment Details",
+                            textValue: "Appointment Details",
                             fontFamily: FontUtils.interSemiBold,
                             fontSize: 2.2.t,
                             textColor: ColorUtils.red,
@@ -177,7 +177,7 @@ class _Appointment_DetailsState extends State<Appointment_Details> {
                           Divider(height: 0.5.h,color: ColorUtils.silver,),
                           SizedBox(height: 2.h,),
                           TextWidget(
-                            textValue: "Appintment Details",
+                            textValue: "Appointment Details",
                             fontFamily: FontUtils.interSemiBold,
                             fontSize: 2.2.t,
                             textColor: ColorUtils.red,
@@ -215,21 +215,6 @@ class _Appointment_DetailsState extends State<Appointment_Details> {
                           SizedBox(height: 1.h,),
                           Divider(height: 0.5.h,color: ColorUtils.silver,),
                           SizedBox(height: 2.h,),
-                          RedButton(
-                            textValue: "Chat With Doctor",
-                            onButtonPressed: (){
-                               // Navigator.push(context,
-                               //     PageTransition(type: PageTransitionType.fade, child: HelpLineChat()));
-                            },
-                          ),
-                          SizedBox(height: 2.h,),
-                          ButtonWithBorder(
-                            textValue: "Edit Booking",
-                            onButtonPressed: (){
-                            },
-                            borderColor: ColorUtils.red,
-                            buttonTextColor: ColorUtils.red,
-                          ),
                         ],
                       ),
                     ),

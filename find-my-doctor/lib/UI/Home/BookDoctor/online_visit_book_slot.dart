@@ -16,15 +16,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
-import '../../../modules/navigation_service.dart' as my_nav_service;
 import 'online_visit_confirm_details.dart';
 
 class OnlineVisitBookSlot extends StatefulWidget {
   int? id;
   String? start_time;
   String? end_time;
+  String? charges;
+  int? doctorId;
   //late DateTime selectedDate;
-  OnlineVisitBookSlot({Key? key, this.start_time, this.end_time, this.id})
+  OnlineVisitBookSlot({Key? key, this.start_time, this.end_time, this.id, this.charges, this.doctorId})
       : super(key: key);
 
   @override
@@ -35,12 +36,13 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
   bool pmTapped = true;
   bool amTapped = false;
   bool doneTapped = false;
+  bool timedoneTapped = false;
+
   var slotdata;
   var date;
   var apitime;
   DateTime selectedDate = DateTime.now();
 
-  String? selectedtime;
   TimeOfDay selectedTime = TimeOfDay.now();
   var startTime;
   var endTime;
@@ -189,21 +191,6 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                             SizedBox(
                               height: 5.h,
                             ),
-                            // Text(
-                            //   selectedTime != null
-                            //       ? 'Selected Time: ${selectedTime.format(context)}'
-                            //       : 'No time selected',
-                            //   style: TextStyle(fontSize: 18),
-                            // ),
-                            // Text(model.docslotModel![0].booked_slots_time
-                            //  .toString()),
-                            //Text(apitime),
-                            //  Text(slots.toString()),
-                            //  generateTimeSlots(startTime, endTime),
-                            // Text(startTime),
-                            // Text(endTime),
-                            // Text(widget.start_time.toString()),
-                            // Text(widget.end_time.toString()),
                             SizedBox(
                                 width: 60.i,
                                 height: 60.i,
@@ -298,7 +285,7 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _showTimePicker(context),
-                                    hint: doneTapped == false
+                                    hint: timedoneTapped == false
                                         ? "00"
                                         : selectedTime.hourOfPeriod.toString(),
                                     unit: "HH",
@@ -310,7 +297,7 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                                 Expanded(
                                   child: SquareDateTextField(
                                     onTap: () => _showTimePicker(context),
-                                    hint: doneTapped == false
+                                    hint: timedoneTapped == false
                                         ? "00"
                                         : selectedTime.minute.toString(),
                                     unit: "MM",
@@ -396,8 +383,7 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                                     .format(selectedDate);
 
                                 // Format the selectedTime
-                                String formattedTime =
-                                    selectedTime.format(context);
+                                String formattedTime = selectedTime.format(context);
                                 // .substring(0, 4);
 
                                 // Combine the formatted date and time
@@ -407,24 +393,22 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
 
                                 print(
                                     "Selected Date and Time: $combinedDateTime");
-                                // Navigator.push(
-                                //     context,
-                                //     PageTransition(
-                                //         type: PageTransitionType.fade,
-                                //         child: PhysicalVisitConfirmDetails(
-                                //           date: selectedDate.toString(),
-                                //           time: selectedTime.toString(),
-                                //           consultationId: widget.id,
-                                //         )));
-                                Navigator.push(
-                                    context,
-                                    PageTransition(
-                                        type: PageTransitionType.fade,
-                                        child: OnlineVisitConfirmDetails(
-                                          date: combinedDateTime.toString(),
-                                          time: selectedTime.toString(),
-                                          consultationId: widget.id,
-                                        )));
+                                if (doneTapped == true && timedoneTapped == true) {
+                                  print("CDC Dan" + widget.id.toString());
+                                  Navigator.push(
+                                      context,
+                                      PageTransition(
+                                          type: PageTransitionType.fade,
+                                          child: OnlineVisitConfirmDetails(
+                                            date: combinedDateTime.toString(),
+                                            time: selectedTime.toString(),
+                                            consultationId: widget.id,
+                                            charges: widget.charges,
+                                            doctorId: widget.doctorId,
+                                          )));
+                                } else {
+                                  model.showErrorMessage(context, "Select your date and time");
+                                }
                               },
                             ),
                             SizedBox(
@@ -477,7 +461,7 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                 Navigator.pop(context, selectedDate);
                 await model.doAvailableSlot(
                     context,
-                    251,
+                    widget.doctorId,
                     //'2023-08-15'
                     date.toString());
 
@@ -518,8 +502,8 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                   selectedDate.year,
                   selectedDate.month,
                   selectedDate.day,
-                  selectedTime.hour,
-                  selectedTime.minute,
+                  0,
+                  0,
                 ),
                 onDateTimeChanged: (DateTime newDateTime) {
                   setState(() {
@@ -533,7 +517,7 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
               onPressed: () {
                 print(selectedTime);
                 setState(() {
-                  doneTapped = true;
+                  timedoneTapped = true;
                   if (selectedTime.hour > 12) {
                     pmTapped = true;
                     amTapped = false;
@@ -582,8 +566,8 @@ class _OnlineVisitBookSlotState extends State<OnlineVisitBookSlot> {
                                     timeEntries[index].split(':');
                                 int hour = int.parse(timeParts[0]);
                                 int minute = int.parse(timeParts[1]);
-                                selectedTime =
-                                    TimeOfDay(hour: hour, minute: minute);
+                                timedoneTapped = true;
+                                selectedTime = TimeOfDay(hour: hour, minute: minute);
                                 //selectedTime = timeEntries[index];
                               });
                             },

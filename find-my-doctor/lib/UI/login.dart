@@ -14,13 +14,19 @@ import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 import '../Utils/widget_loader.dart';
+import '../Widgets/bottom_navigation_bar.dart';
+import '../Widgets/custom_password_text_field.dart';
 import 'Signup/signup_main.dart';
+import 'package:find_my_doctor/modules/navigation_service.dart'
+as my_nav_service;
 
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+
+    var navigationService = my_nav_service.NavigationService();
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
@@ -62,7 +68,7 @@ class Login extends StatelessWidget {
                     SizedBox(
                       height: 2.h,
                     ),
-                    CustomTextField(
+                    CustomPasswordTextField(
                       hintText: "Enter Password",
                       controller: model.loginPasswordController,
                     ),
@@ -92,14 +98,15 @@ class Login extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(30.5)),
                             onPressed: () {
-                              model.loadingWidget == true
-                                  ? () {}
-                                  : model.doUserLogin(
-                                      context,
-                                      model.loginEmailController.text
-                                          .toString(),
-                                      model.loginPasswordController.text
-                                          .toString());
+                              navigationService.navigateToUntil(to: MyBottomNavBar());
+                              // model.loadingWidget == true
+                              //     ? () {}
+                              //     : model.doUserLogin(
+                              //         context,
+                              //         model.loginEmailController.text
+                              //             .toString(),
+                              //         model.loginPasswordController.text
+                              //             .toString());
                             },
                             child: model.loadingWidget == false
                                 ? Text(
@@ -142,13 +149,25 @@ class Login extends StatelessWidget {
                                 type: PageTransitionType.fade,
                                 child: Signup()));
                       },
-                      child: Text(
-                        "Sign Up",
-                        style: TextStyle(
-                            fontFamily: FontUtils.interSemiBold,
-                            fontSize: 1.8.t,
-                            color: Colors.black),
-                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Don’t have an Account? ",
+                            style: TextStyle(
+                                fontFamily: FontUtils.interSemiBold,
+                                fontSize: 1.8.t,
+                                color: Colors.black),
+                          ),
+                          Text(
+                            "Sign Up",
+                            style: TextStyle(
+                                fontFamily: FontUtils.interSemiBold,
+                                fontSize: 1.8.t,
+                                color: Colors.red),
+                          ),
+                        ],
+                      )
                     ),
                   ],
                 ),

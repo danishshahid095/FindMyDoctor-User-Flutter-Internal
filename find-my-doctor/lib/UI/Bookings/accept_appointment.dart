@@ -110,7 +110,7 @@ class _Accept_AppointmentState extends State<Accept_Appointment> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               TextWidget(
-                                textValue: "Appintment Details",
+                                textValue: "Appointment Details",
                                 fontFamily: FontUtils.interSemiBold,
                                 fontSize: 2.2.t,
                                 textColor: ColorUtils.red,
@@ -365,7 +365,7 @@ class _Accept_AppointmentState extends State<Accept_Appointment> {
                               Divider(height: 0.5.h,color: ColorUtils.silver,),
                               SizedBox(height: 2.h,),
                               TextWidget(
-                                textValue: "Appintment Details",
+                                textValue: "Appointment Details",
                                 fontFamily: FontUtils.interSemiBold,
                                 fontSize: 2.2.t,
                                 textColor: ColorUtils.red,

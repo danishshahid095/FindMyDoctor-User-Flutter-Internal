@@ -9,7 +9,6 @@ import 'package:find_my_doctor/Widgets/back_with_signleText.dart';
 import 'package:find_my_doctor/Widgets/margin_below_appbar.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../Utils/constants.dart';
@@ -59,40 +58,7 @@ class _AllPharmacyCategoriesState extends State<AllPharmacyCategories> {
                         widget: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            TextField(
-                              style: TextStyle(color: ColorUtils.silver2),
-                              decoration: InputDecoration(
-                                fillColor: ColorUtils.silver1,
-                                filled: true,
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: ColorUtils.silver1),
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(30.0)),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius:
-                                  BorderRadius.all(Radius.circular(30.0)),
-                                  borderSide: BorderSide(
-                                      color: ColorUtils.silver1, width: 1.5),
-                                ),
-                                labelStyle:
-                                const TextStyle(color: Color(0xFFDEDEDE)),
-                                hintText: "Search Category",
-                                hintStyle: TextStyle(
-                                    fontFamily: FontUtils.interRegular,
-                                    color: ColorUtils.silver2
-                                ),
-                                prefixIcon: Padding(
-                                  padding: EdgeInsets.symmetric(horizontal: 14.0),
-                                  child: SvgPicture.asset(
-                                    ImageUtils.searchIcon,
-                                    height: 1.i,
-                                    width: 1.i,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(height: 3.h,),
+                            SizedBox(height: 2.h,),
                             GridView.builder(
                               itemCount: model.allCategories.length,
                               padding: EdgeInsets.zero,

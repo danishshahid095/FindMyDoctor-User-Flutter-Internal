@@ -21,7 +21,7 @@ import 'package:stacked/stacked.dart';
 
 class MedicineDetails extends StatefulWidget {
   String? img;
-  String prodcutId;
+  String? prodcutId;
   MedicineDetails({Key? key, required this.prodcutId, this.img})
       : super(key: key);
 
@@ -37,7 +37,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
   //   getData();
   // }
 
-  int count = 1;
+  int count = 0;
 
   List<String> items = [];
   void increment() {
@@ -71,8 +71,8 @@ class _MedicineDetailsState extends State<MedicineDetails> {
     await prefs.setString('cartItems', cartItemsJson);
 
     // You can also save individual values like this:
-    await prefs.setString('id', widget.prodcutId);
-    await prefs.setInt('count', 1);
+    await prefs.setString('id', widget.prodcutId ?? "0");
+    await prefs.setInt('count', 0);
     print(cartItems);
   }
 
@@ -112,7 +112,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
       disposeViewModel: false,
       onModelReady: (model) async {
         model.prodDetials(
-            context, model.prefService.userToken, widget.prodcutId);
+            context, model.prefService.userToken, widget.prodcutId ?? "0");
       },
       builder: (context, model, child) {
         return GestureDetector(
@@ -202,6 +202,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                       //         .toString()
                                       //     //ImageUtils.panadol
                                       //     ),
+                                      model.prodmodel.data != null?
                                       CachedNetworkImage(
                                         placeholder: (context, url) {
                                           return Image.asset(
@@ -220,7 +221,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                             : '',
                                         errorWidget: (context, url, error) =>
                                             Image.asset(ImageUtils.tablets),
-                                      ),
+                                      ) : Text(""),
                                       SizedBox(
                                         height: 2.h,
                                       ),
@@ -241,6 +242,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
+                                                model.prodmodel.data != null ?
                                                 TextWidget(
                                                   textValue: model
                                                       .prodmodel.data!.name
@@ -250,7 +252,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                                       FontUtils.poppinsBold,
                                                   fontSize: 3.t,
                                                   textColor: ColorUtils.red,
-                                                ),
+                                                ) : Text(""),
                                                 Container(
                                                   height: 30,
                                                   width: 100,
@@ -301,6 +303,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                                         textColor:
                                                             ColorUtils.black,
                                                       ),
+                                                      if (count < (model.prodmodel.data?.quantity ?? 0))
                                                       InkWell(
                                                         onTap: increment,
                                                         child: Container(
@@ -320,6 +323,25 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                                           ),
                                                         ),
                                                       ),
+                                                      if (count == (model.prodmodel.data?.quantity ?? 0))
+                                                        InkWell(
+                                                          child: Container(
+                                                            decoration:
+                                                            BoxDecoration(
+                                                              shape:
+                                                              BoxShape.circle,
+                                                              color:
+                                                              ColorUtils.red,
+                                                            ),
+                                                            child: Center(
+                                                              child: Icon(
+                                                                Icons.add,
+                                                                color: ColorUtils
+                                                                    .white,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
                                                     ],
                                                   ),
                                                 ),
@@ -331,21 +353,20 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                 SizedBox(
                                   height: 1.h,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(left: 10),
-                                  child: Row(
-                                    children: [
-                                      TextWidget(
-                                        textValue:
-                                            model.pharmacyFrequentlyBought1[0]
-                                                ["quantity"],
-                                        fontFamily: FontUtils.interMedium,
-                                        fontSize: 1.6.t,
-                                        textColor: ColorUtils.silver2,
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                                // Padding(
+                                //   padding: const EdgeInsets.only(left: 10),
+                                //   child: Row(
+                                //     children: [
+                                //       TextWidget(
+                                //         textValue:
+                                //         '${model.prodmodel.data?.quantity ?? 0}',
+                                //         fontFamily: FontUtils.interMedium,
+                                //         fontSize: 1.6.t,
+                                //         textColor: ColorUtils.silver2,
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
                                 SizedBox(
                                   height: 1.h,
                                 ),
@@ -353,28 +374,27 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
+                                      model.prodmodel.data != null ?
                                       TextWidget(
-                                        textValue: "Rs." +
-                                            model.prodmodel.data!.price
-                                                .toString(),
-                                        // model.pharmacyFrequentlyBought1[0]
-                                        //     ["price"],
+                                        textValue: "Rs." + (model.prodmodel.data!.discountedPrice == 0.0 ? model.prodmodel.data!.price.toString() : (model.prodmodel.data!.price!.toDouble()-((model.prodmodel.data!.price!.toDouble()/100.0)*model.prodmodel.data!.discountedPrice!.toDouble())).toString()),
                                         fontFamily: FontUtils.interMedium,
                                         fontSize: 2.2.t,
                                         textColor: ColorUtils.red,
-                                      ),
+                                      ) : Text(""),
                                     ],
                                   ),
                                 ),
                                 SizedBox(
                                   height: 1.h,
                                 ),
+                                if (model.prodmodel.data!.price! > 0 && model.prodmodel.data!.discountedPrice != 0.0)
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10),
                                   child: Row(
                                     children: [
+                                      model.prodmodel.data != null ?
                                       Text(
-                                        "\PKR.${model.prodmodel.data!.discountedPrice.toString()}",
+                                        "\PKR.${model.prodmodel.data!.price.toString()}",
                                         //"\PKR.900",
                                         style: TextStyle(
                                           fontFamily: FontUtils.interMedium,
@@ -383,7 +403,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                           decoration:
                                               TextDecoration.lineThrough,
                                         ),
-                                      ),
+                                      ) : Text(""),
                                     ],
                                   ),
                                 ),
@@ -420,6 +440,8 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                       SizedBox(
                                         height: 2.h,
                                       ),
+                                      model
+                                          .prodmodel.data != null ?
                                       TextWidget(
                                         textValue: model
                                             .prodmodel.data!.description
@@ -428,7 +450,8 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.8.t,
                                         textColor: ColorUtils.black1,
-                                      ),
+                                        textAlign: TextAlign.start,
+                                      ) : Text(""),
                                     ],
                                   ),
                                 ),
@@ -437,10 +460,21 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                                 ),
                                 InkWell(
                                   onTap: () {
-                                    saveData();
-                                    // id = widget.prodcutId;
-                                    // model.prefService.saveProdID(id.toString());
-                                    //print("this is id ${cartItems}");
+                                    //saveData();
+                                    print("Prod QTY" +  model.prodmodel!.data!.quantity!.toString());
+                                    if (model.prodmodel!.data!.quantity! > 0) {
+                                      model.selectedProducts.add({
+                                        "id": model.prodmodel.data!.id,
+                                        "qty": count
+                                      });
+                                      model.cartItems.add(model.prodmodel);
+                                      model.notifyListeners();
+                                      model.showSuccessMessage(
+                                          context, "Product Added to Cart");
+                                    } else {
+                                      model.showErrorMessage(
+                                          context, "Product Is Out Of Stock");
+                                    }
                                   },
                                   child: Container(
                                     child: Image.asset(ImageUtils.addtocart),

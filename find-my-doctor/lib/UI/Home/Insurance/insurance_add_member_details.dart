@@ -16,18 +16,38 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
-class InsuranceAddMemberDetails extends StatelessWidget {
-  const InsuranceAddMemberDetails({Key? key}) : super(key: key);
+import '../../../Utils/whole_page_loader.dart';
+import '../../../Widgets/forward_button_black.dart';
+import '../BookDoctor/book_a_doctor.dart';
+import 'insurance_payment_method.dart';
+
+class InsuranceAddMemberDetails extends StatefulWidget {
+  int packageID;
+  int packageAmount;
+
+  InsuranceAddMemberDetails({required this.packageID,required this.packageAmount,Key? key}) : super(key: key);
+
+  @override
+  State<InsuranceAddMemberDetails> createState() => _InsuranceAddMemberDetailsState();
+}
+
+
+class _InsuranceAddMemberDetailsState extends State<InsuranceAddMemberDetails> {
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
+      onViewModelReady: (model) async {
+        await model.gettingBencfiy(
+            context, model.prefService.userToken!.toString());
       },
       builder: (context, model, child) {
-        return GestureDetector(
+
+        return model.beneficryLoader == true
+            ? WholePageLoader()
+            : GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
             top: false,
@@ -43,7 +63,7 @@ class InsuranceAddMemberDetails extends StatelessWidget {
                         height: context.getPadding().top,
                       ),
                       BackSingleText(
-                        backText: "Insurance Market Place (4/5)",
+                        backText: "Insurance Member Details",
                       ),
                       SizedBox(height: 1.h,),
                     ],
@@ -61,95 +81,95 @@ class InsuranceAddMemberDetails extends StatelessWidget {
                             textColor: ColorUtils.red,
                           ),
                           SizedBox(height: 2.h,),
-                          TextWidget(
-                            textValue: "Basic Plan",
-                            fontFamily: FontUtils.poppinsBold,
-                            fontSize: 1.8.t,
-                            textColor: ColorUtils.red,
-                          ),
-                          SizedBox(height: 2.h,),
-                          TextWidget(
-                            textValue: "PKR. 100,000/Annual",
-                            fontFamily: FontUtils.interSemiBold,
-                            fontSize: 2.t,
-                            textColor: ColorUtils.lightGreen,
-                          ),
-                          SizedBox(height: 2.h,),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context,
-                                  PageTransition(type: PageTransitionType.fade, child:  CoverageDetails()));
+                          InkWell(
+                            onTap: () {
+                              model.beneficiaryIndex = -1;
+                              Navigator.push(
+                                  context,
+                                  PageTransition(
+                                      type:
+                                      PageTransitionType
+                                          .fade,
+                                      child:
+                                      PaymentMethod(packageID: widget.packageID,packageAmount: widget.packageAmount,)));
                             },
-                            child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 4.w, vertical: 2.h),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.rectangle,
-                                border: Border.all(color: ColorUtils.black.withOpacity(0.5), width: 1),
-                                borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextWidget(
-                                    textValue: "Coverage Details",
-                                    fontFamily: FontUtils.poppinsSemiBold,
-                                    fontSize: 1.6.t,
-                                    textColor: ColorUtils.black1,
-                                  ),
-                                  SvgPicture.asset(
-                                    ImageUtils.forwardIcon,
-                                  ),
-                                ],
-                              ),
+                            child: Column(
+                              children: [
+                                Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                      MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        TextWidget(
+                                          textValue: "Self",
+                                          textColor:
+                                          ColorUtils.red,
+                                          fontFamily: FontUtils
+                                              .interBold,
+                                          fontSize: 1.8.t,
+                                        ),
+                                        ForwardButtonBlack(),
+                                        //SizedBox(width: 2.w,),
+                                      ],
+                                    ),
+                                    // Divider(
+                                    //   color: ColorUtils.silver,
+                                    // ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                          SizedBox(height: 2.h,),
-                          GestureDetector(
-                            onTap: (){
-                              Navigator.push(context,
-                                  PageTransition(type: PageTransitionType.fade, child:  SelectMembers()));
-                            },
-                            child: TextWidget(
-                              textValue: "+ Add Members",
-                              fontFamily: FontUtils.interSemiBold,
-                              fontSize: 1.8.t,
-                              textColor: ColorUtils.red,
-                            ),
-                          ),
-                          SizedBox(height: 2.h,),
+                          ListView.separated(
+                              shrinkWrap: true,
+                              physics:
+                              NeverScrollableScrollPhysics(),
+                              itemBuilder:
+                                  (context, index) {
+                                return Column(
+                                  children: [
+                                    InkWell(
+                                      child: AppointmentFor(
+                                        appointmentFor: model
+                                            .beneficry![index]
+                                            .relation
+                                            .toString(),
+                                        //"Self",
+                                        name: model
+                                            .beneficry![index]
+                                            .fullname
+                                            .toString(),
+                                      ),
+                                      onTap: (){
+                                        model.beneficiaryIndex = index;
+                                        Navigator.push(
+                                            context,
+                                            PageTransition(
+                                                type:
+                                                PageTransitionType
+                                                    .fade,
+                                                child:
+                                                PaymentMethod(packageID: widget.packageID,packageAmount: widget.packageAmount,)));
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                              separatorBuilder:
+                                  (context, index) {
+                                return Divider(
+                                  color: ColorUtils.silver,
+                                );
+                              },
+                              itemCount:
+                              model.beneficry?.length ??
+                                  0),
                           Divider(
                             color: ColorUtils.silver,
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  PageHorizontalMargin(
-                    widget: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 400),
-                        width: MediaQuery.of(context).size.width / 1,
-                        height: 6.35.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: ColorUtils.white1,
-                        ),
-                        child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          onPressed: (){},
-                          child: Text(
-                            "Continue",
-                            style: TextStyle(
-                                fontFamily: FontUtils.interSemiBold,
-                                fontSize: 1.8.t,
-                                color: ColorUtils.white),
-                          ),
-                        ),
                       ),
                     ),
                   ),

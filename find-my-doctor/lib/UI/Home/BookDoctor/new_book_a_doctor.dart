@@ -12,14 +12,12 @@ import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 import '../../../Utils/whole_page_loader.dart';
-import '../../../Widgets/button_with_border.dart';
 import '../../../Widgets/forward_button_black.dart';
 import '../../../Widgets/my_bottom_model_sheet.dart';
 import '../../../Widgets/page_horizontal_margin.dart';
 import '../../../Widgets/red_button.dart';
 import '../Pharmacy/search_medicine.dart';
 import '../Pharmacy/select_city_pharmacy.dart';
-import 'select_city.dart';
 import 'select_consultation_type.dart';
 
 class BookADoctorNew extends StatefulWidget {
@@ -93,154 +91,34 @@ class _BookADoctorNewState extends State<BookADoctorNew> {
                                         SizedBox(
                                           height: 5.h,
                                         ),
-                                        // InkWell(
-                                        //   onTap: () {
-                                        //     MyBottomModelSheet.showModelSheet(
-                                        //       context,
-                                        //       MediaQuery.of(context)
-                                        //               .size
-                                        //               .height /
-                                        //           1.6,
-                                        //       "Confirm Address",
-                                        //       Column(
-                                        //         children: [
-                                        //           Padding(
-                                        //             padding:
-                                        //                 EdgeInsets.symmetric(
-                                        //                     horizontal: 3.w),
-                                        //             child: TextWidget(
-                                        //               textValue:
-                                        //                   //newaddress,
-                                        //                   //  model
-                                        //                   //     .beneficry![
-                                        //                   //         index]
-                                        //                   // .address
-                                        //                   // .toString(),
-                                        //                   "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
-                                        //               fontFamily: FontUtils
-                                        //                   .interRegular,
-                                        //               fontSize: 1.8.t,
-                                        //               textColor:
-                                        //                   ColorUtils.blackShade,
-                                        //             ),
-                                        //           ),
-                                        //           SizedBox(
-                                        //             height: 2.h,
-                                        //           ),
-                                        //           RedButton(
-                                        //             textValue: "Confirm",
-                                        //             onButtonPressed: () {
-                                        //               if (model
-                                        //                       .fromDoctorBook ==
-                                        //                   true) {
-                                        //                 Navigator.pop(context);
-                                        //                 Navigator.push(
-                                        //                     context,
-                                        //                     PageTransition(
-                                        //                         type:
-                                        //                             PageTransitionType
-                                        //                                 .fade,
-                                        //                         child:
-                                        //                             SelectConsultationType()));
-                                        //               } else if (model
-                                        //                       .fromPharmacy ==
-                                        //                   true) {
-                                        //                 Navigator.pop(context);
-                                        //                 Navigator.push(
-                                        //                     context,
-                                        //                     PageTransition(
-                                        //                         type:
-                                        //                             PageTransitionType
-                                        //                                 .fade,
-                                        //                         child:
-                                        //                             SearchMedicine()));
-                                        //               } else {
-                                        //                 Navigator.pop(context);
-                                        //                 Navigator.push(
-                                        //                     context,
-                                        //                     // PageTransition(type: PageTransitionType.fade, child: SelectPrescription()));
-                                        //                     PageTransition(
-                                        //                         type:
-                                        //                             PageTransitionType
-                                        //                                 .fade,
-                                        //                         child:
-                                        //                             SelectCityPharmacy()));
-                                        //               }
-                                        //             },
-                                        //           ),
-                                        //           SizedBox(
-                                        //             height: 2.h,
-                                        //           ),
-                                        //           ButtonWithBorder(
-                                        //             textValue: "Edit",
-                                        //             onButtonPressed: () {
-                                        //               Navigator.pop(context);
-                                        //               Navigator.push(
-                                        //                   context,
-                                        //                   PageTransition(
-                                        //                       type:
-                                        //                           PageTransitionType
-                                        //                               .fade,
-                                        //                       child:
-                                        //                           SelectCity()));
-                                        //             },
-                                        //             borderColor: ColorUtils.red,
-                                        //             buttonTextColor:
-                                        //                 ColorUtils.red,
-                                        //           ),
-                                        //         ],
-                                        //       ),
-                                        //     );
-                                        //   },
-                                        //   child: Column(
-                                        //     children: [
-                                        //       Row(
-                                        //         mainAxisAlignment:
-                                        //             MainAxisAlignment
-                                        //                 .spaceBetween,
-                                        //         children: [
-                                        //           TextWidget(
-                                        //             textValue: "Self",
-                                        //             textColor: ColorUtils.red,
-                                        //             fontFamily:
-                                        //                 FontUtils.interBold,
-                                        //             fontSize: 1.8.t,
-                                        //           ),
-                                        //           ForwardButtonBlack(),
-                                        //           //SizedBox(width: 2.w,),
-                                        //         ],
-                                        //       ),
-                                        //     ],
-                                        //   ),
-                                        // ),
-
                                         InkWell(
                                           onTap: () {
-                                            MyBottomModelSheet.showModelSheet(
+                                            model.beneficiaryIndex = -1;
+                                            model.notifyListeners();
+                                            MyBottomModelSheet
+                                                .showModelSheet(
                                               context,
                                               MediaQuery.of(context)
-                                                      .size
-                                                      .height /
-                                                  1.6,
+                                                  .size
+                                                  .height /
+                                                  1.8,
                                               "Confirm Address",
                                               Column(
                                                 children: [
                                                   Padding(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 3.w),
+                                                    padding: EdgeInsets
+                                                        .symmetric(
+                                                        horizontal:
+                                                        3.w),
                                                     child: TextWidget(
-                                                      textValue:
-                                                          // newaddress,
-                                                          // model
-                                                          //     .beneficry![index].address
-                                                          //     .toString(),
-                                                          "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
+                                                      textValue: model.address,
+                                                      // "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
                                                       fontFamily: FontUtils
                                                           .interRegular,
                                                       fontSize: 1.8.t,
                                                       textColor:
-                                                          ColorUtils.blackShade,
+                                                      ColorUtils
+                                                          .blackShade,
                                                     ),
                                                   ),
                                                   SizedBox(
@@ -250,243 +128,230 @@ class _BookADoctorNewState extends State<BookADoctorNew> {
                                                     textValue: "Confirm",
                                                     onButtonPressed: () {
                                                       if (model
-                                                              .fromDoctorBook ==
+                                                          .fromDoctorBook ==
                                                           true) {
-                                                        Navigator.pop(context);
+                                                        Navigator.pop(
+                                                            context);
                                                         Navigator.push(
                                                             context,
                                                             PageTransition(
-                                                                type:
-                                                                    PageTransitionType
-                                                                        .fade,
+                                                                type: PageTransitionType
+                                                                    .fade,
                                                                 child:
-                                                                    SelectConsultationType()));
+                                                                SelectConsultationType()));
                                                       } else if (model
-                                                              .fromPharmacy ==
+                                                          .fromPharmacy ==
                                                           true) {
-                                                        Navigator.pop(context);
+                                                        Navigator.pop(
+                                                            context);
                                                         Navigator.push(
                                                             context,
                                                             PageTransition(
-                                                                type:
-                                                                    PageTransitionType
-                                                                        .fade,
+                                                                type: PageTransitionType
+                                                                    .fade,
                                                                 child:
-                                                                    SearchMedicine()));
+                                                                SearchMedicine()));
                                                       } else {
-                                                        Navigator.pop(context);
+                                                        Navigator.pop(
+                                                            context);
                                                         Navigator.push(
                                                             context,
                                                             // PageTransition(type: PageTransitionType.fade, child: SelectPrescription()));
                                                             PageTransition(
-                                                                type:
-                                                                    PageTransitionType
-                                                                        .fade,
+                                                                type: PageTransitionType
+                                                                    .fade,
                                                                 child:
-                                                                    SelectCityPharmacy()));
+                                                                SelectCityPharmacy()));
                                                       }
                                                     },
                                                   ),
-                                                  SizedBox(
-                                                    height: 2.h,
-                                                  ),
-                                                  ButtonWithBorder(
-                                                    textValue: "Edit",
-                                                    onButtonPressed: () {
-                                                      Navigator.pop(context);
-                                                      Navigator.push(
-                                                          context,
-                                                          PageTransition(
-                                                              type:
-                                                                  PageTransitionType
-                                                                      .fade,
-                                                              child:
-                                                                  SelectCity()));
-                                                    },
-                                                    borderColor: ColorUtils.red,
-                                                    buttonTextColor:
-                                                        ColorUtils.red,
-                                                  ),
+                                                  // SizedBox(
+                                                  //   height: 2.h,
+                                                  // ),
+                                                  // ButtonWithBorder(
+                                                  //   textValue: "Edit",
+                                                  //   onButtonPressed: () {
+                                                  //     Navigator.pop(
+                                                  //         context);
+                                                  //     Navigator.push(
+                                                  //         context,
+                                                  //         PageTransition(
+                                                  //             type: PageTransitionType
+                                                  //                 .fade,
+                                                  //             child:
+                                                  //                 SelectCity()));
+                                                  //   },
+                                                  //   borderColor:
+                                                  //       ColorUtils.red,
+                                                  //   buttonTextColor:
+                                                  //       ColorUtils.red,
+                                                  // ),
                                                 ],
                                               ),
                                             );
                                           },
                                           child: Column(
                                             children: [
-                                              InkWell(
-                                                onTap: () {
-                                                  MyBottomModelSheet
-                                                      .showModelSheet(
-                                                    context,
-                                                    MediaQuery.of(context)
-                                                            .size
-                                                            .height /
-                                                        1.6,
-                                                    "Confirm Address",
-                                                    Column(
-                                                      children: [
-                                                        Padding(
-                                                          padding: EdgeInsets
-                                                              .symmetric(
-                                                                  horizontal:
-                                                                      3.w),
-                                                          child: TextWidget(
-                                                            textValue:
-                                                                //newaddress,
-                                                                //  model
-                                                                //     .beneficry![
-                                                                //         index]
-                                                                // .address
-                                                                // .toString(),
-                                                                "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
-                                                            fontFamily: FontUtils
-                                                                .interRegular,
-                                                            fontSize: 1.8.t,
-                                                            textColor:
-                                                                ColorUtils
-                                                                    .blackShade,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 2.h,
-                                                        ),
-                                                        RedButton(
-                                                          textValue: "Confirm",
-                                                          onButtonPressed: () {
-                                                            if (model
-                                                                    .fromDoctorBook ==
-                                                                true) {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Navigator.push(
-                                                                  context,
-                                                                  PageTransition(
-                                                                      type: PageTransitionType
-                                                                          .fade,
-                                                                      child:
-                                                                          SelectConsultationType()));
-                                                            } else if (model
-                                                                    .fromPharmacy ==
-                                                                true) {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Navigator.push(
-                                                                  context,
-                                                                  PageTransition(
-                                                                      type: PageTransitionType
-                                                                          .fade,
-                                                                      child:
-                                                                          SearchMedicine()));
-                                                            } else {
-                                                              Navigator.pop(
-                                                                  context);
-                                                              Navigator.push(
-                                                                  context,
-                                                                  // PageTransition(type: PageTransitionType.fade, child: SelectPrescription()));
-                                                                  PageTransition(
-                                                                      type: PageTransitionType
-                                                                          .fade,
-                                                                      child:
-                                                                          SelectCityPharmacy()));
-                                                            }
-                                                          },
-                                                        ),
-                                                        SizedBox(
-                                                          height: 2.h,
-                                                        ),
-                                                        ButtonWithBorder(
-                                                          textValue: "Edit",
-                                                          onButtonPressed: () {
-                                                            Navigator.pop(
-                                                                context);
-                                                            Navigator.push(
-                                                                context,
-                                                                PageTransition(
-                                                                    type: PageTransitionType
-                                                                        .fade,
-                                                                    child:
-                                                                        SelectCity()));
-                                                          },
-                                                          borderColor:
-                                                              ColorUtils.red,
-                                                          buttonTextColor:
-                                                              ColorUtils.red,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
-                                                child: Column(
-                                                  children: [
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        TextWidget(
-                                                          textValue: "Self",
-                                                          textColor:
-                                                              ColorUtils.red,
-                                                          fontFamily: FontUtils
-                                                              .interBold,
-                                                          fontSize: 1.8.t,
-                                                        ),
-                                                        ForwardButtonBlack(),
-                                                        //SizedBox(width: 2.w,),
-                                                      ],
-                                                    ),
-                                                    // Divider(
-                                                    //   color: ColorUtils.silver,
-                                                    // ),
-                                                  ],
-                                                ),
+                                              Row(
+                                                mainAxisAlignment:
+                                                MainAxisAlignment
+                                                    .spaceBetween,
+                                                children: [
+                                                  TextWidget(
+                                                    textValue: "Self",
+                                                    textColor:
+                                                    ColorUtils.red,
+                                                    fontFamily: FontUtils
+                                                        .interBold,
+                                                    fontSize: 1.8.t,
+                                                  ),
+                                                  ForwardButtonBlack(),
+                                                  //SizedBox(width: 2.w,),
+                                                ],
                                               ),
-                                              // Divider(
-                                              //   color: ColorUtils.silver,
-                                              // ),
-                                              ListView.separated(
-                                                  shrinkWrap: true,
-                                                  physics:
-                                                      NeverScrollableScrollPhysics(),
-                                                  itemBuilder:
-                                                      (context, index) {
-                                                    newaddress = model
-                                                        .beneficry![index]
-                                                        .address
-                                                        .toString();
-                                                    return Column(
-                                                      children: [
-                                                        // Divider(
-                                                        //   color: ColorUtils.silver,
-                                                        // ),
-
-                                                        AppointmentFor(
-                                                          appointmentFor: model
-                                                              .beneficry![index]
-                                                              .relation
-                                                              .toString(),
-                                                          //"Self",
-                                                          name: model
-                                                              .beneficry![index]
-                                                              .fullname
-                                                              .toString(),
-                                                          // "Tooba Akhtar",
-                                                        ),
-                                                      ],
-                                                    );
-                                                  },
-                                                  separatorBuilder:
-                                                      (context, index) {
-                                                    return Divider(
-                                                      color: ColorUtils.silver,
-                                                    );
-                                                  },
-                                                  itemCount:
-                                                      model.beneficry?.length ??
-                                                          0),
                                             ],
                                           ),
                                         ),
+                                        ListView.separated(
+                                            shrinkWrap: true,
+                                            physics:
+                                            NeverScrollableScrollPhysics(),
+                                            itemBuilder:
+                                                (context, index) {
+                                              newaddress = model
+                                                  .beneficry![index]
+                                                  .address
+                                                  .toString();
+                                              return Column(
+                                                children: [
+                                                  // Divider(
+                                                  //   color: ColorUtils.silver,
+                                                  // ),
+
+                                                  InkWell(
+                                                    child: AppointmentFor(
+                                                      appointmentFor: model
+                                                          .beneficry![index]
+                                                          .relation
+                                                          .toString(),
+                                                      //"Self",
+                                                      name: model
+                                                          .beneficry![index]
+                                                          .fullname
+                                                          .toString(),
+                                                      // "Tooba Akhtar",
+                                                    ),
+                                                    onTap: (){
+                                                      model.beneficiaryIndex = index;
+                                                      model.notifyListeners();
+                                                      MyBottomModelSheet
+                                                          .showModelSheet(
+                                                        context,
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .height /
+                                                            1.8,
+                                                        "Confirm Address",
+                                                        Column(
+                                                          children: [
+                                                            Padding(
+                                                              padding: EdgeInsets
+                                                                  .symmetric(
+                                                                  horizontal:
+                                                                  3.w),
+                                                              child: TextWidget(
+                                                                textValue: model.beneficry?[index].address,
+                                                                // "F18, 5th Floor, XYZ Towers, St II, Block A, Khayban-e-Imtiaz, Karachi, 75321",
+                                                                fontFamily: FontUtils
+                                                                    .interRegular,
+                                                                fontSize: 1.8.t,
+                                                                textColor:
+                                                                ColorUtils
+                                                                    .blackShade,
+                                                              ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: 2.h,
+                                                            ),
+                                                            RedButton(
+                                                              textValue: "Confirm",
+                                                              onButtonPressed: () {
+                                                                if (model
+                                                                    .fromDoctorBook ==
+                                                                    true) {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      PageTransition(
+                                                                          type: PageTransitionType
+                                                                              .fade,
+                                                                          child:
+                                                                          SelectConsultationType()));
+                                                                } else if (model
+                                                                    .fromPharmacy ==
+                                                                    true) {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      PageTransition(
+                                                                          type: PageTransitionType
+                                                                              .fade,
+                                                                          child:
+                                                                          SearchMedicine()));
+                                                                } else {
+                                                                  Navigator.pop(
+                                                                      context);
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      // PageTransition(type: PageTransitionType.fade, child: SelectPrescription()));
+                                                                      PageTransition(
+                                                                          type: PageTransitionType
+                                                                              .fade,
+                                                                          child:
+                                                                          SelectCityPharmacy()));
+                                                                }
+                                                              },
+                                                            ),
+                                                            // SizedBox(
+                                                            //   height: 2.h,
+                                                            // ),
+                                                            // ButtonWithBorder(
+                                                            //   textValue: "Edit",
+                                                            //   onButtonPressed: () {
+                                                            //     Navigator.pop(
+                                                            //         context);
+                                                            //     Navigator.push(
+                                                            //         context,
+                                                            //         PageTransition(
+                                                            //             type: PageTransitionType
+                                                            //                 .fade,
+                                                            //             child:
+                                                            //                 SelectCity()));
+                                                            //   },
+                                                            //   borderColor:
+                                                            //       ColorUtils.red,
+                                                            //   buttonTextColor:
+                                                            //       ColorUtils.red,
+                                                            // ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                            separatorBuilder:
+                                                (context, index) {
+                                              return Divider(
+                                                color: ColorUtils.silver,
+                                              );
+                                            },
+                                            itemCount:
+                                            model.beneficry?.length ??
+                                                0),
                                         Divider(
                                           color: ColorUtils.silver,
                                         ),

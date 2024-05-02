@@ -202,44 +202,6 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                     fontSize:
                                                                         1.6.t,
                                                                   ),
-                                                                  // Row(
-                                                                  //   children: [
-                                                                  //     TextWidget(
-                                                                  //       textValue:
-                                                                  //           "booking id: ",
-                                                                  //       textColor:
-                                                                  //           ColorUtils.blackShade,
-                                                                  //       fontFamily:
-                                                                  //           FontUtils.interRegular,
-                                                                  //       fontSize:
-                                                                  //           1.6.t,
-                                                                  //     ),
-                                                                  //     TextWidget(
-                                                                  //       textValue: model
-                                                                  //           .doctormyactive![index]
-                                                                  //           .id
-                                                                  //           .toString(),
-                                                                  //       textColor:
-                                                                  //           ColorUtils.blackShade,
-                                                                  //       fontFamily:
-                                                                  //           FontUtils.interRegular,
-                                                                  //       fontSize:
-                                                                  //           1.6.t,
-                                                                  //     ),
-                                                                  //   ],
-                                                                  // ),
-                                                                  // TextWidget(
-                                                                  //   textValue:
-                                                                  //       "Lab Order",
-                                                                  //   textColor:
-                                                                  //       ColorUtils
-                                                                  //           .red,
-                                                                  //   fontFamily:
-                                                                  //       FontUtils
-                                                                  //           .interSemiBold,
-                                                                  //   fontSize:
-                                                                  //       1.8.t,
-                                                                  // ),
                                                                   SizedBox(
                                                                     height:
                                                                         0.75.h,
@@ -400,10 +362,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                   child:
                                                                       Appointment_Details_Lab(
                                                                     oderId: model
-                                                                        .activeLabBookingModel?[
-                                                                            index]
-                                                                        .id
-                                                                        .toString(),
+                                                                        .activeLabBookingModel?[index].id.toString(),
                                                                   )));
                                                         },
                                                         child: Row(
@@ -451,8 +410,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       ),
                                                                       TextWidget(
                                                                         textValue: model
-                                                                            .activeLabBookingModel?[index]
-                                                                            .name,
+                                                                            .activeLabBookingModel?[index].name ?? "",
                                                                         textColor:
                                                                             ColorUtils.blackShade,
                                                                         fontFamily:
@@ -480,11 +438,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                                       1.8.t,
                                                                 ),
                                                                 TextWidget(
-                                                                  textValue: model
-                                                                      .activeLabBookingModel?[
-                                                                          index]
-                                                                      .amount
-                                                                      .toString(),
+                                                                  textValue: model.activeLabBookingModel?[index].amount.toString() ?? "",
                                                                   textColor:
                                                                       ColorUtils
                                                                           .lightGreen,
@@ -507,10 +461,7 @@ class _BookingsMainScreenState extends State<BookingsMainScreen> {
                                                     (context, index) {
                                                   return Divider();
                                                 },
-                                                itemCount: model
-                                                        .activeLabBookingModel
-                                                        ?.length ??
-                                                    0),
+                                                itemCount: model.activeLabBookingModel?.length ?? 0),
                                             SizedBox(
                                               height: 3.h,
                                             ),

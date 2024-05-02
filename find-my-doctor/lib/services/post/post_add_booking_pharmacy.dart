@@ -3,36 +3,32 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
-import '../../model/Doctor/booking_doc_model.dart';
-
-class AddBookingDoctor {
+class AddBookingPharmacy {
   var _dioService = DioService.getInstance();
 
-  Future addBookingDoc(
+  Future addBookingPharmacy(
       String token,
-      int foruser,
-      String recepient,
-      String is_beneficiary,
-      int type,
+      int med_for,
+      int recepient,
       String date_time,
-      String promo,
+      int promo,
       int payment_method,
-      String consultation_type,
-      String booked_doctor) async {
+      String beneficiary,
+      String address,
+      List<Map<String?, dynamic>> med) async {
     var bookingdocJson = {
-      "foruser": foruser,
+      "med_for": med_for,
       "recepient": recepient,
-      "is_beneficiary": is_beneficiary,
-      "type": type,
       "date_time": date_time,
       "promo": promo,
       "payment_method": payment_method,
-      "consultation_type": consultation_type,
-      "booked_doctor": booked_doctor,
+      "beneficiary": beneficiary,
+      "address" : address,
+      "med": med
     };
     try {
       final response = await _dioService.post(
-        'booking-doctor/create',
+        'booking-pharmacy/create',
         options: Options(headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           HttpHeaders.contentTypeHeader: "application/json",
@@ -41,19 +37,18 @@ class AddBookingDoctor {
       );
       if (response.statusCode == 200) {
         // user found
-        if (response.data["success"] == 1) {
-          BookingDocModel bookDocResponse = BookingDocModel.fromJson(response.data);
-          
-          return bookDocResponse;
-          
+        print("ResponseCheck1: " + response.data['success'].toString());
+        if (response.data['success'] == 1) {
+          return  response.data;
         } else {
-          return response.data['data'];
+          return response.data;
         }
       } else {
         return response.statusMessage;
       }
     } catch (e) {
       dynamic exception = e;
+      print("Pharmacy Error: " +  exception.message);
       return exception.message;
     }
   }

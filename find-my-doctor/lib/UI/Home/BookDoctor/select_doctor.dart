@@ -166,6 +166,7 @@ class _SelectDoctorState extends State<SelectDoctor> {
                                           // } else {
                                           //   print("Invalid index: $index");
                                           // }
+                                          print("check Specialist Category" + (model.onlineDoctorModel?[index].specialistCategory ?? 0).toString());
                                           Navigator.push(
                                               context,
                                               PageTransition(
@@ -183,7 +184,9 @@ class _SelectDoctorState extends State<SelectDoctor> {
                                                               .end_time
                                                               .toString() ??
                                                           "0",
-                                                      id: model.userID)));
+                                                      id: model.onlineDoctorModel?[index].specialistCategory ?? 0,
+                                                  charges: model.onlineDoctorModel?[index].fee.toString() ?? "",
+                                                  doctorId: model.onlineDoctorModel?[index].id,)));
                                         },
                                         child: Row(
                                           children: [
@@ -395,7 +398,7 @@ class _SortDoctorsState extends State<SortDoctors> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {},
+      onViewModelReady: (model) {},
       builder: (context, model, child) {
         return SizedBox(
           height: 35.h,

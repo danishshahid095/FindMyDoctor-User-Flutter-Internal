@@ -14,11 +14,9 @@ import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stacked/stacked.dart';
 import 'package:http/http.dart' as http;
-import '../Helpline/chat.dart';
 import 'package:path/path.dart' as path;
 
 import 'pdf_screen.dart';
@@ -126,7 +124,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                       ),
                                       TextWidget(
                                         textValue:
-                                            "Tue, 29 Nov 2022 • 02:30 pm",
+                                        model.labmodel.data!.dateTime.toString(),
                                         fontFamily: FontUtils.interRegular,
                                         fontSize: 1.6.t,
                                         textColor: ColorUtils.black,
@@ -159,7 +157,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   TextWidget(
-                                    textValue: "Appintment Details",
+                                    textValue: "Appointment Details",
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 2.2.t,
                                     textColor: ColorUtils.red,
@@ -259,21 +257,6 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                   ),
                                   SizedBox(
                                     height: 2.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "Status",
-                                    fontFamily: FontUtils.interMedium,
-                                    fontSize: 1.9.t,
-                                    textColor: ColorUtils.black,
-                                  ),
-                                  SizedBox(
-                                    height: 1.h,
-                                  ),
-                                  TextWidget(
-                                    textValue: "Tue, 29 Nov 2022 At 02:30 pm",
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                    textColor: ColorUtils.lightGreen,
                                   ),
                                   SizedBox(
                                     height: 1.h,
@@ -482,7 +465,7 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                     height: 2.h,
                                   ),
                                   TextWidget(
-                                    textValue: "Appintment Details",
+                                    textValue: "Appointment Details",
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 2.2.t,
                                     textColor: ColorUtils.red,
@@ -542,41 +525,41 @@ class _Appointment_Details_LabState extends State<Appointment_Details_Lab> {
                                   SizedBox(
                                     height: 2.h,
                                   ),
-                                  RedButton(
-                                    textValue: "Chat With Doctor",
-                                    onButtonPressed: () {
-                                      //  _launchCaller();
-                                      Navigator.push(
-                                          context,
-                                          PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child: HelpLineChat(
-                                                orderId:
-                                                    widget.oderId.toString(),
-                                              )));
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: 2.h,
-                                  ),
-                                  ButtonWithBorder(
-                                    textValue: "Edit Booking",
-                                    onButtonPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child: HelpLineChat(
-                                                orderId:
-                                                    widget.oderId.toString(),
-                                              )));
-                                    },
-                                    borderColor: ColorUtils.red,
-                                    buttonTextColor: ColorUtils.red,
-                                  ),
-                                  SizedBox(
-                                    height: 4.h,
-                                  ),
+                                  // RedButton(
+                                  //   textValue: "Chat With Doctor",
+                                  //   onButtonPressed: () {
+                                  //     //  _launchCaller();
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         PageTransition(
+                                  //             type: PageTransitionType.fade,
+                                  //             child: HelpLineChat(
+                                  //               orderId:
+                                  //                   widget.oderId.toString(),
+                                  //             )));
+                                  //   },
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 2.h,
+                                  // ),
+                                  // ButtonWithBorder(
+                                  //   textValue: "Edit Booking",
+                                  //   onButtonPressed: () {
+                                  //     Navigator.push(
+                                  //         context,
+                                  //         PageTransition(
+                                  //             type: PageTransitionType.fade,
+                                  //             child: HelpLineChat(
+                                  //               orderId:
+                                  //                   widget.oderId.toString(),
+                                  //             )));
+                                  //   },
+                                  //   borderColor: ColorUtils.red,
+                                  //   buttonTextColor: ColorUtils.red,
+                                  // ),
+                                  // SizedBox(
+                                  //   height: 4.h,
+                                  // ),
                                 ],
                               ),
                             ),

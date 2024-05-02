@@ -24,6 +24,7 @@ class Data {
   int? user;
   int? recepient;
   String? address;
+  String? userAddress;
   String? foruser;
   int? type;
   String? date_time;
@@ -50,6 +51,7 @@ class Data {
       this.user,
       this.recepient,
       this.address,
+        this.userAddress,
       this.foruser,
       this.type,
       this.date_time,
@@ -76,6 +78,7 @@ class Data {
     user = json['user'];
     recepient = json['recepient'];
     address = json['address'];
+    userAddress = json['user_address'];
     foruser = json['foruser'];
     type = json['type'];
     date_time = json['date_time'];
@@ -109,6 +112,7 @@ class Data {
     data['user'] = this.user;
     data['recepient'] = this.recepient;
     data['address'] = this.address;
+    data['user_address'] = this.userAddress;
     data['foruser'] = this.foruser;
     data['type'] = this.type;
     data['date_time'] = this.date_time;

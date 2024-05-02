@@ -1,5 +1,4 @@
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Home/Insurance/insurance_enter_details.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
@@ -10,6 +9,8 @@ import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
+
+import 'insurance_select_provider.dart';
 
 class InsuranceMainScreen extends StatelessWidget {
   const InsuranceMainScreen({Key? key}) : super(key: key);
@@ -49,7 +50,7 @@ class InsuranceMainScreen extends StatelessWidget {
                             return InkWell(
                               onTap: (){
                                 Navigator.push(context,
-                                    PageTransition(type: PageTransitionType.fade, child: InsuranceEnterDetails()));
+                                    PageTransition(type: PageTransitionType.fade, child: InsuranceSelectProvider()));
                               },
                               child: Row(
                                 children: [

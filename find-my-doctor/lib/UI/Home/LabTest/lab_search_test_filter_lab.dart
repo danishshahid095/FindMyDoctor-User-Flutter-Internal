@@ -1,6 +1,5 @@
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Home/LabTest/lab_filter.dart';
 import 'package:find_my_doctor/UI/Home/LabTest/selected_tests_list.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';

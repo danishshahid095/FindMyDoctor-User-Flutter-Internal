@@ -64,16 +64,13 @@ class ImageUtils {
   static String negativeSign = "assets/images/negativ_sign.png";
   static String addSign = "assets/images/add_sign.png";
   static String subtract = "assets/images/subtract.png";
-  static String pharmacyOrderSummary =
-      "assets/images/pharmacy_order_summary.png";
+  static String pharmacyOrderSummary = "assets/images/pharmacy_order_summary.png";
   static String pharmacyTrackImage = "assets/images/track_image.png";
-  static String pharmacyTrackOrderBottomSheet =
-      "assets/images/track_order_bottom_sheet.png";
+  static String pharmacyTrackOrderBottomSheet = "assets/images/track_order_bottom_sheet.png";
   static String dowHospital = "assets/images/dow_hospital.png";
   static String aghaKhan = "assets/images/agha_khan_logo.png";
   static String esaLab = "assets/images/esa_lab.png";
-  static String labTestFemaleDoctor =
-      "assets/images/lab_test_female_doctor.png";
+  static String labTestFemaleDoctor = "assets/images/lab_test_female_doctor.png";
   static String addContainer = "assets/images/add_container.svg";
   static String dateSlash = "assets/images/date_slash.svg";
   static String visitClock = "assets/images/visit_clock.svg";

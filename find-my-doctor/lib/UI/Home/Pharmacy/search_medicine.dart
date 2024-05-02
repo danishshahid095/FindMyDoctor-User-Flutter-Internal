@@ -5,14 +5,11 @@ import 'package:find_my_doctor/UI/Home/Pharmacy/all_brand.dart';
 import 'package:find_my_doctor/UI/Home/Pharmacy/all_categories.dart';
 import 'package:find_my_doctor/UI/Home/Pharmacy/medicine_details.dart';
 import 'package:find_my_doctor/UI/Home/Pharmacy/pharmacy_confirm_details.dart';
-import 'package:find_my_doctor/UI/Home/Pharmacy/pharmacy_test_prescription.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
-import 'package:find_my_doctor/Widgets/forward_button_black.dart';
-import 'package:find_my_doctor/Widgets/my_bottom_model_sheet.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_home.dart';
@@ -133,225 +130,6 @@ class _SearchMedicineState extends State<SearchMedicine> {
                                   widget: Column(
                                     children: [
                                       Image.asset(ImageUtils.pharmacyAd),
-                                      SizedBox(
-                                        height: 2.h,
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              MyBottomModelSheet.showModelSheet(
-                                                context,
-                                                MediaQuery.of(context)
-                                                        .size
-                                                        .height /
-                                                    1.6,
-                                                "Select Prescribed Tests",
-                                                Column(
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            PageTransition(
-                                                                type:
-                                                                    PageTransitionType
-                                                                        .fade,
-                                                                child:
-                                                                    PharmacyTestPrescription()));
-                                                      },
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              TextWidget(
-                                                                textValue:
-                                                                    "General Physician",
-                                                                textColor:
-                                                                    ColorUtils
-                                                                        .red,
-                                                                fontFamily:
-                                                                    FontUtils
-                                                                        .poppinsBold,
-                                                                fontSize: 1.8.t,
-                                                              ),
-                                                              SizedBox(
-                                                                height: 1.5.h,
-                                                              ),
-                                                              TextWidget(
-                                                                textValue:
-                                                                    "12/06/2022",
-                                                                textColor:
-                                                                    ColorUtils
-                                                                        .blackShade,
-                                                                fontFamily:
-                                                                    FontUtils
-                                                                        .interRegular,
-                                                                fontSize: 1.6.t,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              TextWidget(
-                                                                textValue:
-                                                                    "Expires in 5 day(s)",
-                                                                fontSize: 1.6.t,
-                                                                fontFamily:
-                                                                    FontUtils
-                                                                        .interRegular,
-                                                                textColor:
-                                                                    ColorUtils
-                                                                        .red,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 2.w,
-                                                              ),
-                                                              ForwardButtonBlack(),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 2.h,
-                                                    ),
-                                                    Divider(
-                                                      color: ColorUtils.silver,
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        Navigator.push(
-                                                            context,
-                                                            PageTransition(
-                                                                type:
-                                                                    PageTransitionType
-                                                                        .fade,
-                                                                child:
-                                                                    PharmacyTestPrescription()));
-                                                      },
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              TextWidget(
-                                                                textValue:
-                                                                    "General Physician",
-                                                                textColor:
-                                                                    ColorUtils
-                                                                        .red,
-                                                                fontFamily:
-                                                                    FontUtils
-                                                                        .poppinsBold,
-                                                                fontSize: 1.8.t,
-                                                              ),
-                                                              SizedBox(
-                                                                height: 1.5.h,
-                                                              ),
-                                                              TextWidget(
-                                                                textValue:
-                                                                    "08/06/2022",
-                                                                textColor:
-                                                                    ColorUtils
-                                                                        .blackShade,
-                                                                fontFamily:
-                                                                    FontUtils
-                                                                        .interRegular,
-                                                                fontSize: 1.6.t,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              TextWidget(
-                                                                textValue:
-                                                                    "Expires in 1 day(s)",
-                                                                fontSize: 1.6.t,
-                                                                fontFamily:
-                                                                    FontUtils
-                                                                        .interRegular,
-                                                                textColor:
-                                                                    ColorUtils
-                                                                        .red,
-                                                              ),
-                                                              SizedBox(
-                                                                width: 2.w,
-                                                              ),
-                                                              ForwardButtonBlack(),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    SizedBox(
-                                                      height: 2.h,
-                                                    ),
-                                                    Divider(
-                                                      color: ColorUtils.silver,
-                                                    )
-                                                  ],
-                                                ),
-                                              );
-                                            },
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    border: Border.all(
-                                                        color: ColorUtils.red),
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.add,
-                                                    size: 3.i,
-                                                    color: ColorUtils.red,
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 2.w,
-                                                ),
-                                                TextWidget(
-                                                  textValue:
-                                                      "Select Prescription",
-                                                  textColor: ColorUtils.red,
-                                                  fontFamily:
-                                                      FontUtils.interMedium,
-                                                  fontSize: 1.8.t,
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          GestureDetector(
-                                            onTap: () {},
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: ColorUtils.silver1,
-                                              ),
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: SvgPicture.asset(
-                                                    ImageUtils.searchIcon),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
                                       SizedBox(
                                         height: 2.h,
                                       ),
@@ -673,15 +451,16 @@ class _SearchMedicineState extends State<SearchMedicine> {
                                                         ),
                                                         TextWidget(
                                                           textValue:
-                                                              'Rs. ${model.pharmacyBestSellerModel![index].price.toString()}',
+                                                              'Rs.' + (model.pharmacyBestSellerModel![index].discounted_price == 0.0 ? model.pharmacyBestSellerModel![index].price.toString() : (model.pharmacyBestSellerModel![index].price!.toDouble()-((model.pharmacyBestSellerModel![index].price!.toDouble()/100.0)*model.pharmacyBestSellerModel![index].discounted_price!.toDouble())).toString()),
                                                           fontFamily: FontUtils
                                                               .interBold,
                                                           fontSize: 2.2.t,
                                                           textColor:
                                                               ColorUtils.red,
                                                         ),
+                                                        if (model.pharmacyBestSellerModel![index].price! > 0 && model.pharmacyBestSellerModel![index].discounted_price! != 0.0)
                                                         Text(
-                                                          "\PKR.${model.pharmacyBestSellerModel![index].discounted_price.toString()}",
+                                                          "\Rs. ${model.pharmacyBestSellerModel![index].price.toString()}",
                                                           style: TextStyle(
                                                             fontFamily: FontUtils
                                                                 .interMedium,
@@ -876,22 +655,27 @@ class _SearchMedicineState extends State<SearchMedicine> {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
+
                                                     Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
                                                               .start,
                                                       children: [
-                                                        TextWidget(
-                                                          textValue: model
-                                                              .pharmacyFreqModel?[
-                                                                  index]
-                                                              .name,
-                                                          fontFamily: FontUtils
-                                                              .interSemiBold,
-                                                          fontSize: 1.8.t,
-                                                          textColor: ColorUtils
-                                                              .blackShade,
-                                                        ),
+                                                          Container(
+                                                            width: 30.w,
+                                                            child: Text(model.pharmacyFreqModel?[index].name ?? "",
+                                                            style: TextStyle(
+                                                              fontFamily: FontUtils
+                                                                  .interSemiBold,
+                                                              fontSize: 1.8.t,
+                                                              color: ColorUtils
+                                                                  .blackShade,
+                                                              overflow: TextOverflow.ellipsis,
+                                                            ),
+                                                              softWrap: true,
+                                                              maxLines: 1,
+                                                            ),
+                                                          ),
                                                         // TextWidget(
                                                         //   textValue: model
                                                         //       .pharmacyFreqModel?[
@@ -905,12 +689,7 @@ class _SearchMedicineState extends State<SearchMedicine> {
                                                         //       ColorUtils.silver2,
                                                         // ),
                                                         TextWidget(
-                                                          textValue: 'Rs. ' +
-                                                              model
-                                                                  .pharmacyFreqModel![
-                                                                      index]
-                                                                  .price
-                                                                  .toString(),
+                                                          textValue: 'Rs. ' + (model.pharmacyFreqModel![index].discounted_price == 0.0 ? model.pharmacyFreqModel![index].price.toString() : (model.pharmacyFreqModel![index].price!.toDouble()-((model.pharmacyFreqModel![index].price!.toDouble()/100.0)*model.pharmacyFreqModel![index].discounted_price!.toDouble())).toString()),
                                                           fontFamily: FontUtils
                                                               .interBold,
                                                           fontSize: 2.2.t,
@@ -920,8 +699,9 @@ class _SearchMedicineState extends State<SearchMedicine> {
                                                         SizedBox(
                                                           height: 1.h,
                                                         ),
+                                                        if (model.pharmacyFreqModel![index].price! > 0 && model.pharmacyFreqModel![index].discounted_price != 0.0)
                                                         Text(
-                                                          "\PKR.${model.pharmacyFreqModel![index].discounted_price.toString()}",
+                                                          "\Rs. ${model.pharmacyFreqModel![index].price.toString()}",
                                                           style: TextStyle(
                                                             fontFamily: FontUtils
                                                                 .interMedium,

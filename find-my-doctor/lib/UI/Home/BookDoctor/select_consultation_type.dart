@@ -13,7 +13,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 class SelectConsultationType extends StatelessWidget {
-  const SelectConsultationType({Key? key}) : super(key: key);
+  SelectConsultationType({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

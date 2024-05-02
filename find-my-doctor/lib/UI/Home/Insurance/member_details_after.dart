@@ -1,5 +1,4 @@
 import 'package:find_my_doctor/App/locator.dart';
-import 'package:find_my_doctor/UI/Home/Insurance/insurance_payment_method.dart';
 import 'package:find_my_doctor/Utils/color_utils.dart';
 import 'package:find_my_doctor/Utils/extensions.dart';
 import 'package:find_my_doctor/Utils/font_utils.dart';
@@ -12,7 +11,6 @@ import 'package:find_my_doctor/Widgets/text_widget.dart';
 import 'package:find_my_doctor/Widgets/top_margin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
 class MemberDetailsAfter extends StatelessWidget {
@@ -157,8 +155,8 @@ class MemberDetailsAfter extends StatelessWidget {
                     widget: RedButton(
                       textValue: "Continue",
                       onButtonPressed: (){
-                        Navigator.push(context,
-                            PageTransition(type: PageTransitionType.fade, child:  PaymentMethod()));
+                        // Navigator.push(context,
+                        //     PageTransition(type: PageTransitionType.fade, child:  PaymentMethod()));
                       },
                     ),
                   ),

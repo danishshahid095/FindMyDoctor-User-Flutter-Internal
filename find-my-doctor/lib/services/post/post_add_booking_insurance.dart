@@ -3,36 +3,32 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:find_my_doctor/modules/dio_service.dart';
 
-import '../../model/Doctor/booking_doc_model.dart';
-
-class AddBookingDoctor {
+class AddBookingInsurance {
   var _dioService = DioService.getInstance();
 
-  Future addBookingDoc(
+  Future addBookingInsurance(
       String token,
-      int foruser,
-      String recepient,
-      String is_beneficiary,
-      int type,
+      int insurance_for,
+      int recepient,
+      String address,
       String date_time,
-      String promo,
+      int amount,
       int payment_method,
-      String consultation_type,
-      String booked_doctor) async {
+      int plan,
+      String beneficiary,) async {
     var bookingdocJson = {
-      "foruser": foruser,
+      "insurance_for": insurance_for,
       "recepient": recepient,
-      "is_beneficiary": is_beneficiary,
-      "type": type,
+      "address": address,
       "date_time": date_time,
-      "promo": promo,
+      "amount": amount,
       "payment_method": payment_method,
-      "consultation_type": consultation_type,
-      "booked_doctor": booked_doctor,
+      "plan": plan,
+      "beneficiary": beneficiary,
     };
     try {
       final response = await _dioService.post(
-        'booking-doctor/create',
+        'booking-insurance/create',
         options: Options(headers: {
           HttpHeaders.authorizationHeader: 'Bearer $token',
           HttpHeaders.contentTypeHeader: "application/json",
@@ -42,10 +38,7 @@ class AddBookingDoctor {
       if (response.statusCode == 200) {
         // user found
         if (response.data["success"] == 1) {
-          BookingDocModel bookDocResponse = BookingDocModel.fromJson(response.data);
-          
-          return bookDocResponse;
-          
+          return;
         } else {
           return response.data['data'];
         }

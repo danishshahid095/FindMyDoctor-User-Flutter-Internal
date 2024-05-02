@@ -13,15 +13,24 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
-class InsuranceSelectPlan extends StatelessWidget {
-  const InsuranceSelectPlan({Key? key}) : super(key: key);
+class InsuranceSelectPlan extends StatefulWidget {
+  int providerId;
+
+  InsuranceSelectPlan({required this.providerId,Key? key}) : super(key: key);
+
+  @override
+  State<InsuranceSelectPlan> createState() => _InsuranceSelectPlanState();
+}
+
+class _InsuranceSelectPlanState extends State<InsuranceSelectPlan> {
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
+      onViewModelReady: (model) async {
+        await model.gettingInsurancePackage(context, model.token!, widget.providerId);
       },
       builder: (context, model, child) {
         return GestureDetector(
@@ -39,7 +48,7 @@ class InsuranceSelectPlan extends StatelessWidget {
                         height: context.getPadding().top,
                       ),
                       BackSingleText(
-                        backText: "Insurance Market Place (3/5)",
+                        backText: "Insurance Plans",
                       ),
                       SizedBox(height: 1.h,),
                     ],
@@ -62,7 +71,7 @@ class InsuranceSelectPlan extends StatelessWidget {
                                   return InkWell(
                                     onTap: (){
                                       Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child:  InsuranceAddMemberDetails()));
+                                          PageTransition(type: PageTransitionType.fade, child:  InsuranceAddMemberDetails(packageID: model.insurancePackageModel?[index].id ?? 0, packageAmount: model.insurancePackageModel?[index].annual_cost ?? 0,)));
                                     },
                                     child: Row(
                                       children: [
@@ -70,7 +79,7 @@ class InsuranceSelectPlan extends StatelessWidget {
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(model.insuranceSelectPlan[index]["individualType"],
+                                              Text(model.insurancePackageModel?[index].name ?? "",
                                                 style: TextStyle(
                                                   fontFamily: FontUtils.poppinsBold,
                                                   fontSize: 1.8.t,
@@ -80,7 +89,7 @@ class InsuranceSelectPlan extends StatelessWidget {
                                               SizedBox(
                                                 height: 0.5.h,
                                               ),
-                                              Text(model.insuranceSelectPlan[index]["person"],
+                                              Text('${model.insurancePackageModel?[index].getFormattedFeaturesAsString() ?? ""}',
                                                 style: TextStyle(
                                                   fontFamily: FontUtils.interRegular,
                                                   fontSize: 1.6.t,
@@ -90,7 +99,7 @@ class InsuranceSelectPlan extends StatelessWidget {
                                               SizedBox(
                                                 height: 0.5.h,
                                               ),
-                                              Text(model.insuranceSelectPlan[index]["pkr"],
+                                              Text('${model.insurancePackageModel?[index].annual_cost ?? 0}/Annually',
                                                 style: TextStyle(
                                                   fontFamily: FontUtils.interSemiBold,
                                                   fontSize: 2.t,
@@ -115,7 +124,7 @@ class InsuranceSelectPlan extends StatelessWidget {
                                     ],
                                   );
                                 },
-                                itemCount: model.insuranceSelectPlan.length
+                                itemCount: model.insurancePackageModel?.length ?? 0
                             ),
                           ),
                         ],

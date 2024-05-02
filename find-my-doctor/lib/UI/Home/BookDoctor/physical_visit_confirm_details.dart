@@ -6,7 +6,7 @@ import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
 import 'package:find_my_doctor/Widgets/back_with_signleText.dart';
-import 'package:find_my_doctor/Widgets/forward_button_black.dart';
+import 'package:find_my_doctor/Widgets/custom_text_field.dart';
 import 'package:find_my_doctor/Widgets/grey_background_button.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
@@ -38,7 +38,7 @@ class _PhysicalVisitConfirmDetailsState
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {},
+      onViewModelReady: (model) {},
       builder: (context, model, child) {
         return GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -105,7 +105,7 @@ class _PhysicalVisitConfirmDetailsState
                                     ),
                                   ],
                                 ),
-                                ForwardButtonBlack(),
+                                // ForwardButtonBlack(),
                               ],
                             ),
                             SizedBox(height: 1.h),
@@ -132,15 +132,15 @@ class _PhysicalVisitConfirmDetailsState
                                     SizedBox(
                                       height: 1.h,
                                     ),
-                                    TextWidget(
-                                      textValue: "Self",
-                                      textColor: ColorUtils.blackShade,
-                                      fontFamily: FontUtils.interRegular,
-                                      fontSize: 1.8.t,
-                                    ),
+                                      TextWidget(
+                                        textValue: model.beneficiaryIndex == -1 ? "Self" : model.beneficry?[model.beneficiaryIndex ?? 0].fullname,
+                                        textColor: ColorUtils.blackShade,
+                                        fontFamily: FontUtils.interRegular,
+                                        fontSize: 1.8.t,
+                                      ),
                                   ],
                                 ),
-                                ForwardButtonBlack(),
+                                // ForwardButtonBlack(),
                               ],
                             ),
                             SizedBox(height: 1.h),
@@ -168,15 +168,14 @@ class _PhysicalVisitConfirmDetailsState
                                       height: 1.h,
                                     ),
                                     TextWidget(
-                                      textValue:
-                                          "F18, 5th Floor, XYZ Towers, St II, Block A, Kha...",
+                                      textValue: model.beneficiaryIndex == -1 ? model.address : model.beneficry?[model.beneficiaryIndex ?? 0].address.toString(),
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
                                     ),
                                   ],
                                 ),
-                                ForwardButtonBlack(),
+                                // ForwardButtonBlack(),
                               ],
                             ),
                             SizedBox(height: 1.h),
@@ -185,53 +184,53 @@ class _PhysicalVisitConfirmDetailsState
                             ),
 
                             //Reminder
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextWidget(
-                                        textValue: "Reminder",
-                                        textColor: ColorUtils.blackShade,
-                                        fontFamily: FontUtils.interSemiBold,
-                                        fontSize: 1.6.t,
-                                      ),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                      Text(
-                                        "10 mins befor time",
-                                        style: TextStyle(
-                                            fontFamily: FontUtils.interRegular,
-                                            fontSize: 1.8.t,
-                                            color: ColorUtils.blackShade),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Switch(
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  activeColor: ColorUtils.red,
-                                  value: switchValue,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      switchValue = value;
-                                    });
-                                  },
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 1.h),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
+                            // SizedBox(
+                            //   height: 2.h,
+                            // ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     Expanded(
+                            //       child: Column(
+                            //         crossAxisAlignment:
+                            //             CrossAxisAlignment.start,
+                            //         children: [
+                            //           TextWidget(
+                            //             textValue: "Reminder",
+                            //             textColor: ColorUtils.blackShade,
+                            //             fontFamily: FontUtils.interSemiBold,
+                            //             fontSize: 1.6.t,
+                            //           ),
+                            //           SizedBox(
+                            //             height: 1.h,
+                            //           ),
+                            //           Text(
+                            //             "10 mins befor time",
+                            //             style: TextStyle(
+                            //                 fontFamily: FontUtils.interRegular,
+                            //                 fontSize: 1.8.t,
+                            //                 color: ColorUtils.blackShade),
+                            //           ),
+                            //         ],
+                            //       ),
+                            //     ),
+                            //     Switch(
+                            //       materialTapTargetSize:
+                            //           MaterialTapTargetSize.shrinkWrap,
+                            //       activeColor: ColorUtils.red,
+                            //       value: switchValue,
+                            //       onChanged: (value) {
+                            //         setState(() {
+                            //           switchValue = value;
+                            //         });
+                            //       },
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 1.h),
+                            // Divider(
+                            //   color: ColorUtils.silver,
+                            // ),
 
                             //Promo Code / Policy Number
                             SizedBox(
@@ -246,32 +245,10 @@ class _PhysicalVisitConfirmDetailsState
                             SizedBox(
                               height: 2.h,
                             ),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 4.w, vertical: 2.h),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                      color: ColorUtils.red, width: 1),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextWidget(
-                                    textValue: "EFU12345-07",
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                    textColor: ColorUtils.blackShade,
-                                  ),
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: ColorUtils.red,
-                                  )
-                                ],
-                              ),
+                            CustomTextField(
+                              hintText: "Enter Your promo Code",
+                              controller: model.promoCodeController,
                             ),
-
                             //Payment Details
                             SizedBox(
                               height: 2.h,
@@ -281,29 +258,6 @@ class _PhysicalVisitConfirmDetailsState
                               fontFamily: FontUtils.poppinsSemiBold,
                               fontSize: 2.t,
                               textColor: ColorUtils.red,
-                            ),
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                TextWidget(
-                                  textValue: "Total Tests Charges",
-                                  fontFamily: FontUtils.interSemiBold,
-                                  fontSize: 1.6.t,
-                                  textColor: ColorUtils.blackShade,
-                                ),
-                                SizedBox(
-                                  height: 1.h,
-                                ),
-                                TextWidget(
-                                  textValue: "Rs. 1,500",
-                                  fontFamily: FontUtils.interSemiBold,
-                                  fontSize: 2.t,
-                                  textColor: ColorUtils.lightGreen,
-                                ),
-                              ],
                             ),
                             SizedBox(
                               height: 1.h,
@@ -342,7 +296,7 @@ class _PhysicalVisitConfirmDetailsState
                                       widget: Container(
                                         height:
                                             MediaQuery.of(context).size.height /
-                                                1.5,
+                                                3,
                                         child: Column(
                                           children: [
                                             SizedBox(
@@ -365,74 +319,9 @@ class _PhysicalVisitConfirmDetailsState
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 2.h,
+                                              height: 1.h,
                                             ),
                                             PhysicalVisitPayment(),
-                                            Divider(
-                                              color: ColorUtils.silver,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Image.asset(
-                                                  ImageUtils.bankTransfer,
-                                                  width: 30.i,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 9.w),
-                                                  child: ForwardButtonBlack(),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Divider(
-                                              color: ColorUtils.silver,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: TextWidget(
-                                                textValue:
-                                                    "+ Add new card Members",
-                                                fontFamily:
-                                                    FontUtils.interSemiBold,
-                                                fontSize: 1.8.t,
-                                                textColor: ColorUtils.red,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Divider(
-                                              color: ColorUtils.silver,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: TextWidget(
-                                                textValue:
-                                                    "+ Add Pay Pro Account",
-                                                fontFamily:
-                                                    FontUtils.interSemiBold,
-                                                fontSize: 1.8.t,
-                                                textColor: ColorUtils.red,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -502,15 +391,15 @@ class _PhysicalVisitConfirmDetailsState
                                       ? ColorUtils.red
                                       : ColorUtils.white1,
                               onButtonPressed: () {
-                                model.addingBookingDoc(
+                                  model.addingBookingDoc(
                                     context,
                                     model.token!,
-                                    model.userID!,
+                                    model.beneficiaryIndex==-1 ? model.userID! : model.beneficry![model.beneficiaryIndex ?? 0].id ?? 0,
                                     model.userID!.toString(),
-                                    "no",
+                                    model.beneficiaryIndex==-1 ? "no" : "yes",
                                     1,
                                     widget.date.toString(),
-                                    1,
+                                    model.promoCodeController.text.toString() != "" ? model.promoCodeController.text.toString() : "1",
                                     1,
                                     widget.consultationId.toString(),
                                     'null');
@@ -541,7 +430,7 @@ class _PhysicalVisitConfirmDetailsState
                                               widget.consultationId!.toString(),
                                           fromInsurance: false,
                                           fromPharmacy: false,
-                                          fromLabTest: true,
+                                          fromLabTest: false,
                                           fromPhysicalVisit: true,
                                         )));
                                 print("date :" + widget.date.toString());
@@ -582,7 +471,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {},
+      onViewModelReady: (model) {},
       builder: (context, model, child) {
         return SizedBox(
           height: 25.h,
@@ -601,7 +490,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
                         SizedBox(
                           width: index == 0 ? 12.i : 30.i,
                           child: Image.asset(
-                            model.physicalVisitPaymentType[index],
+                            model.paymentType[index],
                           ),
                         ),
                       ],
@@ -622,7 +511,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
                 ],
               );
             },
-            itemCount: model.physicalVisitPaymentType.length,
+            itemCount: model.paymentType.length,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
                 color: ColorUtils.silver,

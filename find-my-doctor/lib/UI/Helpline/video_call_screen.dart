@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
+// import 'package:zego_uikit_prebuilt_call/zego_uikit_prebuilt_call.dart';
 
 import '../../App/locator.dart';
 import '../../Utils/constants.dart';
@@ -23,15 +23,15 @@ class _VideoCallScreenState extends State<VideoCallScreen> {
       disposeViewModel: false,
       onModelReady: (model) {},
       builder: (context, model, child) {
-        return ZegoUIKitPrebuiltCall(
-          appID: Constants.appId,
-          appSign: Constants.appSign,
-          userID: model.userID.toString(),
-          userName: model.userID.toString(),
-          callID: widget.callID,
-          config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
-            ..onOnlySelfInRoom = (context) => Navigator.of(context).pop(),
-        );
+        return Scaffold();
+        // return ZegoUIKitPrebuiltCall(
+        //   appID: Constants.appId,
+        //   appSign: Constants.appSign,
+        //   userID: model.userID.toString(),
+        //   userName: model.userID.toString(),
+        //   callID: widget.callID,
+        //   config: ZegoUIKitPrebuiltCallConfig.oneOnOneVideoCall()
+        // );
       },
     );
   }

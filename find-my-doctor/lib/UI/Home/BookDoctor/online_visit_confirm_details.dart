@@ -6,7 +6,7 @@ import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
 import 'package:find_my_doctor/Widgets/back_with_signleText.dart';
-import 'package:find_my_doctor/Widgets/forward_button_black.dart';
+import 'package:find_my_doctor/Widgets/custom_text_field.dart';
 import 'package:find_my_doctor/Widgets/grey_background_button.dart';
 import 'package:find_my_doctor/Widgets/page_horizontal_margin.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
@@ -20,8 +20,11 @@ class OnlineVisitConfirmDetails extends StatefulWidget {
   String? date;
   String? time;
   int? consultationId;
+  String? charges;
+  int? doctorId;
+
   OnlineVisitConfirmDetails(
-      {Key? key, this.date, this.consultationId, this.time})
+      {Key? key, this.date, this.consultationId, this.time, this.charges, this.doctorId})
       : super(key: key);
 
   @override
@@ -104,7 +107,7 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                     ),
                                   ],
                                 ),
-                                ForwardButtonBlack(),
+                                // ForwardButtonBlack(),
                               ],
                             ),
                             SizedBox(height: 1.h),
@@ -132,14 +135,14 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                       height: 1.h,
                                     ),
                                     TextWidget(
-                                      textValue: "Self",
+                                      textValue: model.beneficiaryIndex == -1 ? "Self" : model.beneficry?[model.beneficiaryIndex ?? 0].fullname,
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
                                     ),
                                   ],
                                 ),
-                                ForwardButtonBlack(),
+                                // ForwardButtonBlack(),
                               ],
                             ),
                             SizedBox(height: 1.h),
@@ -168,63 +171,14 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                     ),
                                     TextWidget(
                                       textValue:
-                                          "F18, 5th Floor, XYZ Towers, St II, Block A, Kha...",
+                                      model.beneficiaryIndex == -1 ? model.address : model.beneficry?[model.beneficiaryIndex ?? 0].address.toString(),
                                       textColor: ColorUtils.blackShade,
                                       fontFamily: FontUtils.interRegular,
                                       fontSize: 1.8.t,
                                     ),
                                   ],
                                 ),
-                                ForwardButtonBlack(),
-                              ],
-                            ),
-                            SizedBox(height: 1.h),
-                            Divider(
-                              color: ColorUtils.silver,
-                            ),
-
-                            //Reminder
-                            SizedBox(
-                              height: 2.h,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextWidget(
-                                        textValue: "Reminder",
-                                        textColor: ColorUtils.blackShade,
-                                        fontFamily: FontUtils.interSemiBold,
-                                        fontSize: 1.6.t,
-                                      ),
-                                      SizedBox(
-                                        height: 1.h,
-                                      ),
-                                      Text(
-                                        "10 mins befor time",
-                                        style: TextStyle(
-                                            fontFamily: FontUtils.interRegular,
-                                            fontSize: 1.8.t,
-                                            color: ColorUtils.blackShade),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Switch(
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  activeColor: ColorUtils.red,
-                                  value: switchValue,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      switchValue = value;
-                                    });
-                                  },
-                                ),
+                                // ForwardButtonBlack(),
                               ],
                             ),
                             SizedBox(height: 1.h),
@@ -245,30 +199,9 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                             SizedBox(
                               height: 2.h,
                             ),
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 4.w, vertical: 2.h),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                      color: ColorUtils.red, width: 1),
-                                  borderRadius: BorderRadius.circular(10)),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextWidget(
-                                    textValue: "EFU12345-07",
-                                    fontFamily: FontUtils.interRegular,
-                                    fontSize: 1.8.t,
-                                    textColor: ColorUtils.blackShade,
-                                  ),
-                                  Icon(
-                                    Icons.check_circle,
-                                    color: ColorUtils.red,
-                                  )
-                                ],
-                              ),
+                            CustomTextField(
+                              hintText: "Enter Your promo Code",
+                              controller: model.promoCodeController,
                             ),
 
                             //Payment Details
@@ -288,7 +221,7 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 TextWidget(
-                                  textValue: "Total Tests Charges",
+                                  textValue: "Total Charges",
                                   fontFamily: FontUtils.interSemiBold,
                                   fontSize: 1.6.t,
                                   textColor: ColorUtils.blackShade,
@@ -297,7 +230,7 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                   height: 1.h,
                                 ),
                                 TextWidget(
-                                  textValue: "Rs. 1,500",
+                                  textValue: widget.charges ?? "",
                                   fontFamily: FontUtils.interSemiBold,
                                   fontSize: 2.t,
                                   textColor: ColorUtils.lightGreen,
@@ -341,7 +274,7 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                       widget: Container(
                                         height:
                                             MediaQuery.of(context).size.height /
-                                                1.5,
+                                                3,
                                         child: Column(
                                           children: [
                                             SizedBox(
@@ -364,74 +297,9 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                               ),
                                             ),
                                             SizedBox(
-                                              height: 2.h,
+                                              height: 1.h,
                                             ),
                                             PhysicalVisitPayment(),
-                                            Divider(
-                                              color: ColorUtils.silver,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                Image.asset(
-                                                  ImageUtils.bankTransfer,
-                                                  width: 30.i,
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.only(
-                                                      right: 9.w),
-                                                  child: ForwardButtonBlack(),
-                                                ),
-                                              ],
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Divider(
-                                              color: ColorUtils.silver,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: TextWidget(
-                                                textValue:
-                                                    "+ Add new card Members",
-                                                fontFamily:
-                                                    FontUtils.interSemiBold,
-                                                fontSize: 1.8.t,
-                                                textColor: ColorUtils.red,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Divider(
-                                              color: ColorUtils.silver,
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: TextWidget(
-                                                textValue:
-                                                    "+ Add Pay Pro Account",
-                                                fontFamily:
-                                                    FontUtils.interSemiBold,
-                                                fontSize: 1.8.t,
-                                                textColor: ColorUtils.red,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 2.h,
-                                            ),
                                           ],
                                         ),
                                       ),
@@ -501,18 +369,19 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                       ? ColorUtils.red
                                       : ColorUtils.white1,
                               onButtonPressed: () {
+                                print("DoctorID Dan: " + widget.doctorId.toString());
                                 model.addingBookingDocOnline(
                                     context,
                                     model.token!,
-                                    model.userID!,
+                                    model.beneficiaryIndex==-1 ? model.userID ?? 0 : model.beneficry?[model.beneficiaryIndex ?? 0].id ?? 0,
                                     model.userID!.toString(),
-                                    "no",
+                                    model.beneficiaryIndex==-1 ? "no" : "yes",
                                     6,
                                     widget.date.toString(),
+                                    model.promoCodeController.text.toString() != "" ? model.promoCodeController.text.toString() : "1",
                                     1,
-                                    1,
-                                    widget.consultationId.toString(),
-                                    76);
+                                    widget.consultationId ?? 0,
+                                    widget.doctorId ?? 0);
                                 print('online dco api ');
                                 Navigator.push(
                                     context,
@@ -524,8 +393,9 @@ class _OnlineVisitConfirmDetailsState extends State<OnlineVisitConfirmDetails> {
                                               widget.consultationId!.toString(),
                                           fromInsurance: false,
                                           fromPharmacy: false,
-                                          fromLabTest: true,
+                                          fromLabTest: false,
                                           fromPhysicalVisit: true,
+                                          charges: widget.charges,
                                         )));
                               },
                             ),
@@ -581,7 +451,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
                         SizedBox(
                           width: index == 0 ? 12.i : 30.i,
                           child: Image.asset(
-                            model.physicalVisitPaymentType[index],
+                            model.paymentType[index],
                           ),
                         ),
                       ],
@@ -602,7 +472,7 @@ class _PhysicalVisitPaymentState extends State<PhysicalVisitPayment> {
                 ],
               );
             },
-            itemCount: model.physicalVisitPaymentType.length,
+            itemCount: model.paymentType.length,
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
                 color: ColorUtils.silver,

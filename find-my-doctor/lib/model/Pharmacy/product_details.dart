@@ -42,7 +42,7 @@ class Data {
   String? warning;
   String? dosage;
   int? activity;
-  Null? rating;
+  double? rating;
   int? isFeatured;
   List<String>? reviews;
 
@@ -96,13 +96,13 @@ class Data {
     activity = json['activity'];
     rating = json['rating'];
     isFeatured = json['is_featured'];
-    if (json['reviews'] != null) {
+    /*if (json['reviews'] != null) {
       reviews = List<String>.from(json['reviews']);
       // reviews = <Null>[];
       // json['reviews'].forEach((v) {
       //   reviews!.add(new Null.fromJson(v));
       //});
-    }
+    }*/
   }
 
   Map<String, dynamic> toJson() {

@@ -15,8 +15,19 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
-class PaymentMethod extends StatelessWidget {
-  const PaymentMethod({Key? key}) : super(key: key);
+import '../../../Widgets/grey_background_button.dart';
+
+class PaymentMethod extends StatefulWidget {
+  int packageID;
+  int packageAmount;
+
+  PaymentMethod({required this.packageID,required this.packageAmount,Key? key}) : super(key: key);
+
+  @override
+  State<PaymentMethod> createState() => _PaymentMethodState();
+}
+
+class _PaymentMethodState extends State<PaymentMethod> {
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +53,7 @@ class PaymentMethod extends StatelessWidget {
                         height: context.getPadding().top,
                       ),
                       BackSingleText(
-                        backText: "Insurance Market Place (5/5)",
+                        backText: "Payment Method",
                       ),
                       SizedBox(height: 1.h,),
                     ],
@@ -75,7 +86,7 @@ class PaymentMethod extends StatelessWidget {
                           ),
                           SizedBox(height: 1.h,),
                           TextWidget(
-                            textValue: "Rs. 100,000",
+                            textValue: "${widget.packageAmount}",
                             fontFamily: FontUtils.interSemiBold,
                             fontSize: 2.t,
                             textColor: ColorUtils.lightGreen,
@@ -126,42 +137,6 @@ class PaymentMethod extends StatelessWidget {
                                         Divider(
                                           color: ColorUtils.silver,
                                         ),
-                                        SizedBox(height: 2.h,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Image.asset(ImageUtils.bankTransfer,
-                                              width: 30.i,
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(right: 9.w),
-                                              child: ForwardButtonBlack(),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        Divider(
-                                          color: ColorUtils.silver,
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        TextWidget(
-                                          textValue: "+ Add new card Members",
-                                          fontFamily: FontUtils.interSemiBold,
-                                          fontSize: 1.8.t,
-                                          textColor: ColorUtils.red,
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        Divider(
-                                          color: ColorUtils.silver,
-                                        ),
-                                        SizedBox(height: 2.h,),
-                                        TextWidget(
-                                          textValue: "+ Add Pay Pro Account",
-                                          fontFamily: FontUtils.interSemiBold,
-                                          fontSize: 1.8.t,
-                                          textColor: ColorUtils.red,
-                                        ),
-                                        SizedBox(height: 2.h,),
                                       ],
                                     ),
                                   ),
@@ -192,9 +167,9 @@ class PaymentMethod extends StatelessWidget {
                                   if(model.insurancePaymentMethodSelected == true)
                                     Row(
                                       children: [
-                                        SvgPicture.asset(ImageUtils.masterCard),
+                                        SvgPicture.asset(ImageUtils.cash),
                                         TextWidget(
-                                          textValue: "Card",
+                                          textValue: "Cash",
                                           fontFamily: FontUtils.poppinsSemiBold,
                                           fontSize: 1.6.t,
                                           textColor: ColorUtils.black1,
@@ -213,40 +188,40 @@ class PaymentMethod extends StatelessWidget {
                       ),
                     ),
                   ),
-                  PageHorizontalMargin(
-                    widget: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(8)),
-                      ),
-                      child: AnimatedContainer(
-                        duration: const Duration(milliseconds: 400),
-                        width: MediaQuery.of(context).size.width / 1,
-                        height: 6.35.h,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(8),
-                          color: model.insurancePaymentMethodSelected == false ? ColorUtils.white1 : ColorUtils.red,
-                        ),
-                        child: MaterialButton(
-                          padding: EdgeInsets.zero,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                          onPressed: (){
-                            Navigator.push(context,
-                                PageTransition(type: PageTransitionType.fade, child:  PaymentSuccess(
-                                  fromPharmacy: false,
-                                  fromInsurance: true,
-                                )));
-                          },
-                          child: Text(
-                            "Submit",
-                            style: TextStyle(
-                                fontFamily: FontUtils.interSemiBold,
-                                fontSize: 1.8.t,
-                                color: ColorUtils.white),
-                          ),
-                        ),
-                      ),
-                    ),
+                  GreyBackGroundButton(
+                    text: "Confirm",
+                    buttonTextColor: ColorUtils.white,
+                    buttonColor:
+                    model.insurancePaymentMethodSelected == true
+                        ? ColorUtils.red
+                        : ColorUtils.white1,
+                    onButtonPressed: () {
+                      model.addingBookingInsurance(
+                          context,
+                          model.token!,
+                          model.beneficiaryIndex==-1 ? model.userID! : model.beneficry?[model.beneficiaryIndex ?? 0].id ?? 0,
+                          model.userID!,
+                          model.beneficiaryIndex==-1 ? model.address ?? "" : model.beneficry?[model.beneficiaryIndex ?? 0].address ?? "",
+                          '${DateTime.now()}',
+                          widget.packageAmount,
+                          1,
+                          widget.packageID,
+                        model.beneficiaryIndex==-1 ? "no" : "yes",);
+                      print('Insurance api ');
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.fade,
+                              child: PaymentSuccess(
+                                date: '${DateTime.now()}',
+                                bookid: widget.packageID!.toString(),
+                                charges: widget.packageAmount.toString(),
+                                fromInsurance: true,
+                                fromPharmacy: false,
+                                fromLabTest: false,
+                                fromPhysicalVisit: false,
+                              )));
+                    },
                   ),
                   SizedBox(height: 1.h,)
                 ],

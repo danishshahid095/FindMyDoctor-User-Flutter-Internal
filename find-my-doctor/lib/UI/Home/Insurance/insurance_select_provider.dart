@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:expand_tap_area/expand_tap_area.dart';
 import 'package:find_my_doctor/App/locator.dart';
 import 'package:find_my_doctor/UI/Home/Insurance/insurance_select_plan.dart';
@@ -15,18 +16,30 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
-class InsuranceSelectProvider extends StatelessWidget {
+import '../../../Utils/constants.dart';
+import '../../../Utils/whole_page_loader.dart';
+
+class InsuranceSelectProvider extends StatefulWidget {
   const InsuranceSelectProvider({Key? key}) : super(key: key);
+
+  @override
+  State<InsuranceSelectProvider> createState() => _InsuranceSelectProviderState();
+}
+
+class _InsuranceSelectProviderState extends State<InsuranceSelectProvider> {
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
+      onViewModelReady: (model) async {
+        await model.gettingInsuranceProvider(context, model.token!);
       },
       builder: (context, model, child) {
-        return GestureDetector(
+        return model.insuranceProviderLoader
+            ? WholePageLoader()
+            : GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
           child: SafeArea(
             top: false,
@@ -69,56 +82,12 @@ class InsuranceSelectProvider extends StatelessWidget {
                                   ),
                                   SizedBox(width: 4.w,),
                                   TextWidget(
-                                    textValue: "Insurance Market Place (2/5)",
+                                    textValue: "Insurance Provider",
                                     fontFamily: FontUtils.interSemiBold,
                                     fontSize: 2.t,
                                     textColor: ColorUtils.red,
                                   ),
                                 ],
-                              ),
-                              InkWell(
-                                onTap: (){
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.only(
-                                        topLeft: Radius.circular(24.0),
-                                        topRight: Radius.circular(24.0),
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.white, context: context, builder: (BuildContext context) {
-                                    return PageHorizontalMargin(
-                                      widget: Container(
-                                        height: MediaQuery.of(context).size.height/3,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(height: 2.h,),
-                                            SvgPicture.asset(ImageUtils.greyHandle),
-                                            SizedBox(height: 1.h,),
-                                            Align(
-                                              alignment: Alignment.centerLeft,
-                                              child: TextWidget(
-                                                textValue: "Filter Provider Type",
-                                                fontFamily: FontUtils.poppinsBold,
-                                                fontSize: 2.4.t,
-                                                textColor: ColorUtils.red,
-                                              ),
-                                            ),
-                                            SizedBox(height: 2.h,),
-                                            ProviderType(),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  );
-                                },
-                                child: TextWidget(
-                                  textValue: "Filter Type",
-                                  fontFamily: FontUtils.interSemiBold,
-                                  fontSize: 2.t,
-                                  textColor: ColorUtils.red,
-                                ),
                               ),
                             ],
                           ),
@@ -139,60 +108,33 @@ class InsuranceSelectProvider extends StatelessWidget {
                             fontSize: 2.t,
                             textColor: ColorUtils.red,
                           ),
-                          SizedBox(height: 2.h,),
-                          TextField(
-                            style: TextStyle(color: ColorUtils.silver2),
-                            decoration: InputDecoration(
-                              fillColor: ColorUtils.silver1,
-                              filled: true,
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: ColorUtils.silver1),
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(30.0)),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius:
-                                BorderRadius.all(Radius.circular(30.0)),
-                                borderSide: BorderSide(
-                                    color: ColorUtils.silver1, width: 1.5),
-                              ),
-                              labelStyle:
-                              const TextStyle(color: Color(0xFFDEDEDE)),
-                              hintText: "Search Provider",
-                              hintStyle: TextStyle(
-                                  fontFamily: FontUtils.interRegular,
-                                  color: ColorUtils.silver2
-                              ),
-                              prefixIcon: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 14.0),
-                                child: SvgPicture.asset(
-                                  ImageUtils.searchIcon,
-                                  height: 1.i,
-                                  width: 1.i,
-                                ),
-                              ),
-                            ),
-                          ),
+                          // SizedBox(height: 1.h,),
                           Expanded(
                             child: ListView.separated(
                                 itemBuilder: (context, index) {
                                   return InkWell(
                                     onTap: (){
                                       Navigator.push(context,
-                                          PageTransition(type: PageTransitionType.fade, child: InsuranceSelectPlan()));
+                                          PageTransition(type: PageTransitionType.fade, child: InsuranceSelectPlan(providerId: model.insuranceProviderModel?[index].id ?? 0,)));
                                     },
                                     child: Row(
                                       children: [
-                                        Image.asset(model.insuranceSelectProvide[index]["image"],
+                                        CachedNetworkImage(
+                                          placeholder: (context, url) {
+                                            return Image.asset(ImageUtils.tablets);
+                                          },
                                           width: 20.i,
                                           height: 20.i,
+                                          fit: BoxFit.cover,
+                                          imageUrl: model.insuranceProviderModel?[index].logo != null ? Constants.imageUrl + model.insuranceProviderModel![index].logo! : '',
+                                          errorWidget: (context, url, error) => Image.asset(ImageUtils.tablets),
                                         ),
                                         SizedBox(width: 3.w,),
                                         Expanded(
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Text(model.insuranceSelectProvide[index]["title"],
+                                              Text(model.insuranceProviderModel?[index].fullname ?? "",
                                                 style: TextStyle(
                                                   fontFamily: FontUtils.poppinsBold,
                                                   fontSize: 1.8.t,
@@ -202,7 +144,7 @@ class InsuranceSelectProvider extends StatelessWidget {
                                               SizedBox(
                                                 height: 0.5.h,
                                               ),
-                                              Text(model.insuranceSelectProvide[index]["description"],
+                                              Text("Insurance",
                                                 style: TextStyle(
                                                   fontFamily: FontUtils.interRegular,
                                                   fontSize: 1.6.t,
@@ -227,7 +169,7 @@ class InsuranceSelectProvider extends StatelessWidget {
                                     ],
                                   );
                                 },
-                                itemCount: model.insuranceSelectProvide.length
+                                itemCount: model.insuranceProviderModel?.length ?? 0
                             ),
                           ),
                         ],
@@ -237,70 +179,6 @@ class InsuranceSelectProvider extends StatelessWidget {
                 ],
               ),
             ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class ProviderType extends StatefulWidget {
-  const ProviderType({Key? key}) : super(key: key);
-
-  @override
-  State<ProviderType> createState() => _ProviderTypeState();
-}
-
-class _ProviderTypeState extends State<ProviderType> {
-
-  int? value;
-
-  @override
-  Widget build(BuildContext context) {
-    return ViewModelBuilder<MainViewModel>.reactive(
-      viewModelBuilder: () => locator<MainViewModel>(),
-      disposeViewModel: false,
-      onModelReady: (model) {
-      },
-      builder: (context, model, child) {
-        return Expanded(
-          child: ListView.separated(
-            itemBuilder: (context, index) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Expanded(
-                    flex: 4,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        TextWidget(
-                          textValue: model.providerType[index],
-                          fontFamily: FontUtils.interRegular,
-                          fontSize: 1.8.t,
-                          textColor: ColorUtils.blackShade,
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: RadioListTile(
-                      activeColor: ColorUtils.red,
-                      value: index,
-                      groupValue: value,
-                      onChanged: (ind) => setState(() => value = ind as int?),
-                    ),
-                  ),
-                ],
-              );
-            },
-            itemCount: model.providerType.length,
-            separatorBuilder: (BuildContext context, int index) {
-              return Divider(
-                color: ColorUtils.silver,
-              );
-            },
           ),
         );
       },

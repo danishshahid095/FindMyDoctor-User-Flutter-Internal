@@ -6,7 +6,7 @@ import 'package:find_my_doctor/modules/dio_service.dart';
 class AddLabBooking {
   var _dioService = DioService.getInstance();
 
-  Future addLabBooking(String token, int test_for, int recepient, int lab_id, String date_time, int promo, String beneficiary, List tests) async {
+  Future addLabBooking(String token, int test_for, int recepient, int lab_id, String date_time, String promo, String beneficiary, List tests) async {
     var benficiaryJson = {
       "test_for": test_for,
       "recepient": recepient,

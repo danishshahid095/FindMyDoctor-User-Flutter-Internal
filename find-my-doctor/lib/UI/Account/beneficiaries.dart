@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:stacked/stacked.dart';
 
+import '../Home/BookDoctor/book_a_doctor.dart';
+
 
 
 class Add_Beneficiaries extends StatefulWidget {
@@ -27,7 +29,9 @@ class _Add_BeneficiariesState extends State<Add_Beneficiaries> {
     return ViewModelBuilder<MainViewModel>.reactive(
       viewModelBuilder: () => locator<MainViewModel>(),
       disposeViewModel: false,
-      onModelReady: (model) {
+      onViewModelReady: (model) async {
+        await model.gettingBencfiy(
+            context, model.prefService.userToken!.toString());
       },
       builder: (context, model, child) {
         return GestureDetector(
@@ -80,8 +84,39 @@ class _Add_BeneficiariesState extends State<Add_Beneficiaries> {
                                   ),
                                 ],
                               ),
+                              ListView.separated(
+                                  shrinkWrap: true,
+                                  physics:
+                                  NeverScrollableScrollPhysics(),
+                                  itemBuilder:
+                                      (context, index) {
+                                    return Column(
+                                      children: [
 
-
+                                        AppointmentFor(
+                                          appointmentFor: model
+                                              .beneficry![index]
+                                              .relation
+                                              .toString(),
+                                          //"Self",
+                                          name: model
+                                              .beneficry![index]
+                                              .fullname
+                                              .toString(),
+                                          // "Tooba Akhtar",
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                  separatorBuilder:
+                                      (context, index) {
+                                    return Divider(
+                                      color: ColorUtils.silver,
+                                    );
+                                  },
+                                  itemCount:
+                                  model.beneficry?.length ??
+                                      0),
                             ],
                           )
                       ),

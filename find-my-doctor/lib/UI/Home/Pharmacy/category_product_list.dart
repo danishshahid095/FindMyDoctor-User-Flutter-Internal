@@ -9,7 +9,6 @@ import 'package:find_my_doctor/Utils/font_utils.dart';
 import 'package:find_my_doctor/Utils/image_utils.dart';
 import 'package:find_my_doctor/ViewModels/main_view_model.dart';
 import 'package:find_my_doctor/Widgets/text_widget.dart';
-import 'package:find_my_doctor/Widgets/top_margin_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:page_transition/page_transition.dart';
@@ -116,9 +115,8 @@ class _CategoryProductListState extends State<CategoryProductList> {
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
-                                TopMarginHome(),
                                 SizedBox(
-                                  height: 4.h,
+                                  height: 3.h,
                                 ),
                                 GridView.builder(
                                   padding: EdgeInsets.zero,
@@ -229,29 +227,11 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                                       textColor:
                                                           ColorUtils.blackShade,
                                                     ),
-                                                    TextWidget(
-                                                      textValue: model
-                                                          .pharmacyProductByCategoryModel?[
-                                                              index]
-                                                          .quantity
-                                                          .toString(),
-                                                      fontFamily:
-                                                          FontUtils.interMedium,
-                                                      fontSize: 1.6.t,
-                                                      textColor:
-                                                          ColorUtils.silver2,
-                                                    ),
                                                     SizedBox(
                                                       height: 1.h,
                                                     ),
                                                     TextWidget(
-                                                      textValue: 'PKR ' +
-                                                              model
-                                                                  .pharmacyProductByCategoryModel![
-                                                                      index]
-                                                                  .price
-                                                                  .toString() ??
-                                                          "0",
+                                                      textValue: 'Rs. ' + (model.pharmacyProductByCategoryModel![index].discounted_price == 0.0 ? model.pharmacyProductByCategoryModel![index].price.toString() : model.pharmacyProductByCategoryModel![index].discounted_price.toString()),
                                                       fontFamily:
                                                           FontUtils.interBold,
                                                       fontSize: 2.2.t,
@@ -279,11 +259,12 @@ class _CategoryProductListState extends State<CategoryProductList> {
                                             ),
                                             Row(
                                               children: [
+                                                if (model.pharmacyProductByCategoryModel![index].price! > 0.0 && model.pharmacyProductByCategoryModel![index].discounted_price != 0.0)
                                                 Text(
                                                   model
                                                       .pharmacyProductByCategoryModel![
                                                           index]
-                                                      .discounted_price
+                                                      .price
                                                       .toString(),
                                                   style: TextStyle(
                                                     fontFamily:
